@@ -2,6 +2,8 @@ const path = require("path");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Allow the hosted preview / tunnel origins to reach dev assets & HMR.
+  allowedDevOrigins: ["*.e2b.app", "*.arena.ai", "localhost", "127.0.0.1"],
   images: {
     disableStaticImages: true,
     formats: ["image/avif", "image/webp"],

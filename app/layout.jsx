@@ -52,6 +52,8 @@ import "../src/views/ma/style.css";
 import "../src/views/newSeo.css";
 import "../src/views/searchEvolution.css";
 import "../src/responsive.css";
+// Enhanced slide-in menu — loaded last so it wins over the legacy menu rules.
+import "../src/components/header/menu.css";
 import Providers from "../src/app-client/Providers";
 import {
   preloaderBootScript,
