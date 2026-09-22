@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Box, Container } from "@mui/material";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -12,6 +12,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const { title, subTitle, steps } = HomePageData.howItWorkSec;
 
+const CYCLE_MS = 5200;
+
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
   typeof window.matchMedia === "function" &&
@@ -20,85 +22,107 @@ const prefersReducedMotion = () =>
 /**
  * Process Flow — "Insync Approach".
  *
- * Uses the same SectionHeading as every other section, then walks the five
- * steps down an alternating, borderless timeline: images on one side, copy on
- * the other, joined by a single emerald spine that fills as the reader
- * scrolls and lights each step's node as they pass it.
+ * One view, five panels: the five steps sit side by side as an expanding
+ * stage. The open panel shows its image and copy, the others stay as slim
+ * labelled columns, so the whole flow is readable without scrolling. The
+ * stage advances on its own (pausing on hover / focus), and answers to
+ * hover, click, tap and arrow keys.
  */
 const HowWeWork = () => {
   const sectionRef = useRef(null);
-  const spineRef = useRef(null);
-  const [current, setCurrent] = useState(-1);
+  const boardRef = useRef(null);
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [ready, setReady] = useState(false);
 
+  const select = useCallback((index) => {
+    setActive((current) => (current === index ? current : index));
+  }, []);
+
+  const step = useCallback(
+    (delta) => {
+      setActive((current) => (current + delta + steps.length) % steps.length);
+    },
+    []
+  );
+
+  // entrance reveal
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return undefined;
 
-    const reduceMotion = prefersReducedMotion();
-
     const ctx = gsap.context(() => {
-      const stepNodes = gsap.utils.toArray(".pfStep");
-
-      if (reduceMotion) return;
-
-      // the spine fills as the flow is scrolled through
-      if (spineRef.current) {
-        gsap.fromTo(
-          spineRef.current,
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: ".pfFlow",
-              start: "top 74%",
-              end: "bottom 76%",
-              scrub: 0.4,
-            },
-          }
-        );
+      if (prefersReducedMotion()) {
+        setReady(true);
+        return;
       }
 
-      stepNodes.forEach((node, index) => {
-        gsap.fromTo(
-          node.querySelectorAll(".pfStep__reveal"),
-          { y: 38, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.95,
-            stagger: 0.12,
-            ease: "power3.out",
-            scrollTrigger: { trigger: node, start: "top 84%" },
-          }
-        );
+      gsap.fromTo(
+        ".pfPanel",
+        { y: 46, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".pfBoard", start: "top 88%" },
+          onComplete: () => setReady(true),
+        }
+      );
 
-        ScrollTrigger.create({
-          trigger: node,
-          start: "top 68%",
-          end: "bottom 42%",
-          onEnter: () => setCurrent(index),
-          onEnterBack: () => setCurrent(index),
-        });
-      });
-
-      // opening the page mid-flow should not leave the spine unlit
-      const passed = stepNodes.filter(
-        (node) => node.getBoundingClientRect().top < window.innerHeight * 0.68
-      ).length;
-      if (passed > 0) setCurrent(passed - 1);
+      gsap.fromTo(
+        ".pfPanel__img",
+        { scale: 1.16 },
+        {
+          scale: 1,
+          duration: 1.6,
+          stagger: 0.07,
+          ease: "power2.out",
+          scrollTrigger: { trigger: ".pfBoard", start: "top 88%" },
+        }
+      );
     }, section);
 
-    const refresh = () => ScrollTrigger.refresh();
-    if (document.readyState !== "complete") {
-      window.addEventListener("load", refresh);
-    }
-
-    return () => {
-      window.removeEventListener("load", refresh);
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
+
+  // auto advance — pauses on hover / focus, keyboard, reduced motion and
+  // while the tab is in the background
+  useEffect(() => {
+    if (!ready || paused || prefersReducedMotion()) return undefined;
+
+    let timer = window.setTimeout(() => step(1), CYCLE_MS);
+
+    const onVisibility = () => {
+      window.clearTimeout(timer);
+      if (!document.hidden && !paused) {
+        timer = window.setTimeout(() => step(1), CYCLE_MS);
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [active, ready, paused, step]);
+
+  const onKeyDown = (event) => {
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      event.preventDefault();
+      step(1);
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      event.preventDefault();
+      step(-1);
+    } else if (event.key === "Home") {
+      event.preventDefault();
+      select(0);
+    } else if (event.key === "End") {
+      event.preventDefault();
+      select(steps.length - 1);
+    }
+  };
 
   return (
     <Box
@@ -112,48 +136,64 @@ const HowWeWork = () => {
       <Container>
         <SectionHeading title={title} subtitle={subTitle} align="center" />
 
-        <Box component="ol" className="pfFlow">
-          <span className="pfFlow__spine" aria-hidden="true">
-            <span className="pfFlow__spineFill" ref={spineRef} />
-          </span>
+        <Box
+          className={`pfBoard ${paused ? "is-paused" : ""}`}
+          ref={boardRef}
+          onMouseDown={() => setPaused(true)}
+          onKeyDown={onKeyDown}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+        >
+          {steps.map((stepItem, index) => {
+            const isActive = index === active;
 
-          {steps.map((stepItem, index) => (
-            <Box
-              component="li"
-              key={stepItem.title}
-              className={`pfStep ${index <= current ? "is-done" : ""} ${
-                index === current ? "is-current" : ""
-              }`}
-            >
-              <Box className="pfStep__media pfStep__reveal">
-                <NextImage
-                  className="pfStep__img"
-                  src={stepItem.image}
-                  alt={stepItem.title}
-                  width={720}
-                  height={540}
-                  sizes="(max-width: 1023px) 90vw, 42vw"
-                />
+            return (
+              <Box
+                component="article"
+                key={stepItem.title}
+                className={`pfPanel ${isActive ? "is-active" : ""}`}
+              >
+                <Box className="pfPanel__media" aria-hidden="true">
+                  <NextImage
+                    className="pfPanel__img"
+                    src={stepItem.image}
+                    alt=""
+                    fill
+                    sizes="(max-width: 1023px) 92vw, 34vw"
+                  />
+                </Box>
+
+                <button
+                  type="button"
+                  className="pfPanel__trigger"
+                  onClick={() => select(index)}
+                  onMouseEnter={() => select(index)}
+                  aria-expanded={isActive}
+                  aria-controls={`pfPanelContent-${index}`}
+                >
+                  <span className="pfPanel__num">{stepItem.step}</span>
+                  <span className="pfPanel__name">{stepItem.title}</span>
+                  <span className="pfPanel__sr">
+                    {`Step ${stepItem.step}: ${stepItem.title}`}
+                  </span>
+                </button>
+
+                <div
+                  className="pfPanel__content"
+                  id={`pfPanelContent-${index}`}
+                  role="region"
+                  aria-label={`Step ${stepItem.step}: ${stepItem.title}`}
+                >
+                  <h3 className="pfPanel__title">{stepItem.title}</h3>
+                  <p className="pfPanel__text">{stepItem.content}</p>
+                </div>
+
+                <span className="pfPanel__progress" aria-hidden="true" />
               </Box>
-
-              <Box className="pfStep__body">
-                <span className="pfStep__index pfStep__reveal">
-                  {stepItem.step}
-                </span>
-                <span className="pfStep__label pfStep__reveal">
-                  Step {stepItem.step}
-                </span>
-                <h3 className="pfStep__title pfStep__reveal">
-                  {stepItem.title}
-                </h3>
-                <p className="pfStep__text pfStep__reveal">
-                  {stepItem.content}
-                </p>
-              </Box>
-
-              <span className="pfStep__dot" aria-hidden="true" />
-            </Box>
-          ))}
+            );
+          })}
         </Box>
       </Container>
     </Box>
