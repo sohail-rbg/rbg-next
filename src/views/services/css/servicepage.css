@@ -280,6 +280,11 @@
       180deg,
       color-mix(in oklab, var(--sv-ink) 40%, transparent) 0%,
       color-mix(in oklab, var(--sv-ink) 78%, transparent) 100%
+    ),
+    linear-gradient(
+      78deg,
+      transparent 42%,
+      color-mix(in oklab, var(--card-accent, var(--primary)) 26%, transparent) 100%
     );
 }
 
