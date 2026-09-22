@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Box, Container } from "@mui/material";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import SectionHeading from "../../components/SectionHeading";
 import NextImage from "../../components/NextImage";
 import { HomePageData } from "../../Data";
 
@@ -19,15 +20,15 @@ const prefersReducedMotion = () =>
 /**
  * Process Flow — "Insync Approach".
  *
- * A five step timeline on the brand's emerald / brass palette: the rail lights
- * up step by step as the section is scrolled, the numbered nodes pulse on the
- * active step, and each card reveals on a stagger. Below 1200px the same
- * timeline turns vertical (node rail on the left, wide media cards on the
- * right) so the flow reads on every screen.
+ * Uses the same SectionHeading as every other section, then walks the five
+ * steps down an alternating, borderless timeline: images on one side, copy on
+ * the other, joined by a single emerald spine that fills as the reader
+ * scrolls and lights each step's node as they pass it.
  */
 const HowWeWork = () => {
   const sectionRef = useRef(null);
-  const [current, setCurrent] = useState(0);
+  const spineRef = useRef(null);
+  const [current, setCurrent] = useState(-1);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -38,80 +39,54 @@ const HowWeWork = () => {
     const ctx = gsap.context(() => {
       const stepNodes = gsap.utils.toArray(".pfStep");
 
-      if (reduceMotion) {
-        gsap.set(".pfReveal, .pfStep__node", { opacity: 1, y: 0, scale: 1 });
-        setCurrent(steps.length - 1);
-        return;
+      if (reduceMotion) return;
+
+      // the spine fills as the flow is scrolled through
+      if (spineRef.current) {
+        gsap.fromTo(
+          spineRef.current,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".pfFlow",
+              start: "top 74%",
+              end: "bottom 76%",
+              scrub: 0.4,
+            },
+          }
+        );
       }
 
-      gsap.fromTo(
-        ".pfReveal",
-        { y: 26, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.9,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: section, start: "top 76%" },
-        }
-      );
-
-      gsap.fromTo(
-        ".pfStep__node",
-        { scale: 0.55, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.7,
-          ease: "back.out(1.9)",
-          stagger: 0.1,
-          scrollTrigger: { trigger: ".pfSteps", start: "top 84%" },
-        }
-      );
-
-      gsap.fromTo(
-        ".pfCard",
-        { y: 70, opacity: 0, rotateX: 6, transformPerspective: 900 },
-        {
-          y: 0,
-          opacity: 1,
-          rotateX: 0,
-          duration: 1.05,
-          ease: "power3.out",
-          stagger: 0.13,
-          scrollTrigger: { trigger: ".pfSteps", start: "top 82%" },
-        }
-      );
-
-      gsap.fromTo(
-        ".pfCard__img",
-        { scale: 1.14 },
-        {
-          scale: 1,
-          duration: 1.5,
-          ease: "power2.out",
-          stagger: 0.12,
-          scrollTrigger: { trigger: ".pfSteps", start: "top 82%" },
-        }
-      );
-
-      // Rail + card highlight follow the step the reader is on.
       stepNodes.forEach((node, index) => {
+        gsap.fromTo(
+          node.querySelectorAll(".pfStep__reveal"),
+          { y: 38, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.95,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: { trigger: node, start: "top 84%" },
+          }
+        );
+
         ScrollTrigger.create({
           trigger: node,
-          start: "top 72%",
-          end: "bottom 44%",
+          start: "top 68%",
+          end: "bottom 42%",
           onEnter: () => setCurrent(index),
           onEnterBack: () => setCurrent(index),
         });
       });
 
-      // Opening the page mid-section should not leave the rail unlit.
+      // opening the page mid-flow should not leave the spine unlit
       const passed = stepNodes.filter(
-        (node) => node.getBoundingClientRect().top < window.innerHeight * 0.72
+        (node) => node.getBoundingClientRect().top < window.innerHeight * 0.68
       ).length;
-      if (passed > 1) setCurrent(passed - 1);
+      if (passed > 0) setCurrent(passed - 1);
     }, section);
 
     const refresh = () => ScrollTrigger.refresh();
@@ -125,80 +100,58 @@ const HowWeWork = () => {
     };
   }, []);
 
-  const litThrough = (current + 1) / steps.length;
-
   return (
-    <Box component="section" className="pfSection" ref={sectionRef}>
-      <span className="pfSection__glow" aria-hidden="true" />
+    <Box
+      component="section"
+      className="sectionWrp pfSection"
+      bgcolor="background.bg_3"
+      ref={sectionRef}
+    >
+      <span className="pfSection__wash" aria-hidden="true" />
 
       <Container>
-        <header className="pfHead">
-          <Box className="pfHead__main">
-            <span className="pfEyebrow pfReveal">
-              <span className="pfEyebrow__dot" aria-hidden="true" />
-              {subTitle}
-            </span>
-            <h2 className="pfTitle pfReveal">{title}</h2>
-            <p className="pfNote pfReveal">
-              Five steps, one team — from the first conversation to launch day.
-            </p>
-          </Box>
+        <SectionHeading title={title} subtitle={subTitle} align="center" />
 
-          <Box className="pfMeter pfReveal" aria-hidden="true">
-            <span className="pfMeter__count">
-              <span className="pfMeter__now">{steps[current]?.step}</span>
-              <span className="pfMeter__slash">/</span>
-              <span className="pfMeter__all">
-                {String(steps.length).padStart(2, "0")}
-              </span>
-            </span>
-            <span className="pfMeter__label">{steps[current]?.title}</span>
-            <span className="pfMeter__bar">
-              <span
-                className="pfMeter__fill"
-                style={{ transform: `scaleX(${litThrough})` }}
-              />
-            </span>
-          </Box>
-        </header>
+        <Box component="ol" className="pfFlow">
+          <span className="pfFlow__spine" aria-hidden="true">
+            <span className="pfFlow__spineFill" ref={spineRef} />
+          </span>
 
-        <Box component="ol" className="pfSteps">
           {steps.map((stepItem, index) => (
             <Box
               component="li"
               key={stepItem.title}
-              className={`pfStep ${index <= current ? "is-lit" : ""} ${
+              className={`pfStep ${index <= current ? "is-done" : ""} ${
                 index === current ? "is-current" : ""
               }`}
             >
-              {index < steps.length - 1 && (
-                <span className="pfStep__link" aria-hidden="true" />
-              )}
+              <Box className="pfStep__media pfStep__reveal">
+                <NextImage
+                  className="pfStep__img"
+                  src={stepItem.image}
+                  alt={stepItem.title}
+                  width={720}
+                  height={540}
+                  sizes="(max-width: 1023px) 90vw, 42vw"
+                />
+              </Box>
 
-              <span className="pfStep__node" aria-hidden="true">
-                <span className="pfStep__num">{stepItem.step}</span>
-              </span>
+              <Box className="pfStep__body">
+                <span className="pfStep__index pfStep__reveal">
+                  {stepItem.step}
+                </span>
+                <span className="pfStep__label pfStep__reveal">
+                  Step {stepItem.step}
+                </span>
+                <h3 className="pfStep__title pfStep__reveal">
+                  {stepItem.title}
+                </h3>
+                <p className="pfStep__text pfStep__reveal">
+                  {stepItem.content}
+                </p>
+              </Box>
 
-              <article className="pfCard">
-                <Box className="pfCard__media">
-                  <NextImage
-                    className="pfCard__img"
-                    src={stepItem.image}
-                    alt={stepItem.title}
-                    width={640}
-                    height={440}
-                    sizes="(max-width: 767px) 88vw, (max-width: 1199px) 72vw, 22vw"
-                  />
-                  <span className="pfCard__tag">Step {stepItem.step}</span>
-                </Box>
-
-                <Box className="pfCard__body">
-                  <h3 className="pfCard__title">{stepItem.title}</h3>
-                  <p className="pfCard__text">{stepItem.content}</p>
-                </Box>
-
-                <span className="pfCard__rule" aria-hidden="true" />
-              </article>
+              <span className="pfStep__dot" aria-hidden="true" />
             </Box>
           ))}
         </Box>

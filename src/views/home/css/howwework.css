@@ -1,49 +1,39 @@
 /* ==========================================================================
    Process Flow — "Insync Approach"
-   Same five steps, same copy, rebuilt on the brand theme:
-   emerald (--primary) + sage (--secondary) with the brass accent introduced
-   by the preloader/menu, Recoleta headings and Space Grotesk body copy.
+   Same heading component as every other section, then an alternating,
+   borderless timeline: emerald spine, sage accents, no outlines anywhere.
+   Palette is limited to the theme tokens (--primary, --secondary) + the
+   section background — no gold, no borders.
    ========================================================================== */
 
 .pfSection {
-  --pf-deep-green: var(--primary, #2e5e53);
+  --pf-emerald: var(--primary, #2e5e53);
   --pf-sage: var(--secondary, #8b9c8c);
-  --pf-gold: #d6ae7c;
-  --pf-cream: #eee9df;
-  --pf-ink: #050505;
-  --pf-panel: #0b0f0d;
-  --pf-panel-soft: #101512;
-  --pf-line: rgba(255, 255, 255, 0.1);
-  --pf-line-strong: rgba(255, 255, 255, 0.18);
-  --pf-muted: rgba(255, 255, 255, 0.62);
-  --pf-node: 58px;
-  --pf-gap: clamp(14px, 1.5vw, 24px);
+  --pf-bg: #111;
+  --pf-ink: #0d0d0d;
+  --pf-muted: rgba(255, 255, 255, 0.6);
+  --pf-soft: rgba(255, 255, 255, 0.32);
 
   position: relative;
-  padding: clamp(58px, 7vh, 104px) 0 clamp(64px, 8vh, 118px);
-  background: var(--pf-ink);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  color: var(--pf-cream);
-  font-family: var(--primary-font);
   overflow: hidden;
   isolation: isolate;
 }
 
-/* ambient emerald wash behind the header */
-.pfSection__glow {
+/* ambient emerald wash behind the heading */
+.pfSection__wash {
   position: absolute;
   left: 50%;
-  top: calc(-1 * clamp(80px, 14vh, 190px));
-  width: min(1200px, 120vw);
-  height: clamp(320px, 46vh, 560px);
+  top: -18%;
+  width: min(1100px, 118vw);
+  height: clamp(300px, 42vh, 520px);
   transform: translateX(-50%);
   background: radial-gradient(
-    50% 55% at 50% 50%,
-    rgba(46, 94, 83, 0.34) 0%,
-    rgba(46, 94, 83, 0.12) 42%,
+    50% 52% at 50% 50%,
+    rgba(46, 94, 83, 0.3) 0%,
+    rgba(46, 94, 83, 0.1) 44%,
     rgba(46, 94, 83, 0) 72%
   );
-  filter: blur(18px);
+  filter: blur(20px);
   pointer-events: none;
   z-index: 0;
 }
@@ -53,24 +43,132 @@
   z-index: 1;
 }
 
-/* ---- header -------------------------------------------------------------- */
-.pfHead {
+/* ---- flow ---------------------------------------------------------------- */
+.pfFlow {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: clamp(24px, 4vw, 64px);
-  padding-bottom: clamp(26px, 3.6vh, 46px);
-  border-bottom: 1px solid var(--pf-line);
+  flex-direction: column;
+  gap: clamp(46px, 7vh, 96px);
 }
 
-.pfHead__main {
-  max-width: 62ch;
+/* the spine every step hangs off */
+.pfFlow__spine {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  transform: translateX(-0.5px);
+  background: rgba(255, 255, 255, 0.09);
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.pfEyebrow {
-  display: inline-flex;
+.pfFlow__spineFill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(139, 156, 140, 0.85) 0%,
+    rgba(46, 94, 83, 0.95) 100%
+  );
+  transform: scaleY(0);
+  transform-origin: top center;
+  will-change: transform;
+}
+
+.pfStep {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  gap: 0.85em;
+  gap: clamp(56px, 6vw, 132px);
+}
+
+/* alternate which side the image sits on */
+.pfStep:nth-child(even) .pfStep__media {
+  order: 2;
+}
+
+.pfStep:nth-child(even) .pfStep__body {
+  order: 1;
+}
+
+/* ---- media --------------------------------------------------------------- */
+.pfStep__media {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--pf-ink);
+  box-shadow: 0 30px 70px -46px rgba(0, 0, 0, 0.95);
+}
+
+.pfStep__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(46, 94, 83, 0.24) 0%,
+    rgba(17, 17, 17, 0.1) 45%,
+    rgba(17, 17, 17, 0.5) 100%
+  );
+  pointer-events: none;
+}
+
+.pfStep__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: saturate(0.78);
+  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s ease;
+}
+
+.pfStep:hover .pfStep__img {
+  transform: scale(1.045);
+  filter: saturate(1);
+}
+
+/* ---- copy ---------------------------------------------------------------- */
+.pfStep__body {
+  max-width: 46ch;
+}
+
+.pfStep__index {
+  display: block;
+  font-family: var(--heading-font);
+  font-weight: 300;
+  font-size: clamp(44px, 4.4vw, 78px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  background-image: linear-gradient(
+    118deg,
+    var(--pf-sage) 0%,
+    var(--pf-emerald) 92%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.62;
+  transition: opacity 0.6s ease;
+}
+
+.pfStep.is-done .pfStep__index,
+.pfStep:hover .pfStep__index {
+  opacity: 1;
+}
+
+.pfStep__label {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--primary-font);
   font-size: clamp(9px, 0.74vw, 11px);
   font-weight: 500;
   letter-spacing: 0.34em;
@@ -78,493 +176,135 @@
   color: var(--pf-sage);
 }
 
-.pfEyebrow__dot {
-  position: relative;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex: none;
-  background: var(--pf-gold);
-  box-shadow: 0 0 14px rgba(214, 174, 124, 0.85);
-}
-
-.pfEyebrow__dot::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 1px solid rgba(214, 174, 124, 0.5);
-  animation: pf-ping 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-}
-
-.pfTitle {
-  margin: 0.16em 0 0;
-  font-family: var(--heading-font);
-  font-weight: 300;
-  font-size: clamp(34px, 4.6vw, 66px);
-  line-height: 1.03;
-  letter-spacing: -0.01em;
-  color: var(--pf-cream);
-}
-
-.pfNote {
-  margin: clamp(12px, 1.6vh, 18px) 0 0;
-  max-width: 48ch;
-  font-size: clamp(14px, 1vw, 16px);
-  line-height: 1.6;
-  color: var(--pf-muted);
-}
-
-/* live step readout */
-.pfMeter {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-  flex: none;
-  width: clamp(180px, 20vw, 260px);
-  text-align: right;
-}
-
-.pfMeter__count {
-  display: flex;
-  align-items: baseline;
-  gap: 0.16em;
-  font-variant-numeric: tabular-nums;
-}
-
-.pfMeter__now {
-  font-family: var(--heading-font);
-  font-weight: 300;
-  font-size: clamp(34px, 3.4vw, 54px);
-  line-height: 0.9;
-  color: var(--pf-cream);
-  transition: color 0.5s ease, text-shadow 0.5s ease;
-}
-
-.pfMeter__slash {
-  font-size: clamp(14px, 1.1vw, 18px);
-  color: var(--pf-sage);
-}
-
-.pfMeter__all {
-  font-size: clamp(12px, 0.95vw, 15px);
-  color: var(--pf-muted);
-}
-
-.pfMeter__label {
-  display: block;
-  font-size: clamp(9px, 0.74vw, 11px);
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--pf-gold);
-}
-
-.pfMeter__bar {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 1px;
-  background: var(--pf-line-strong);
-  overflow: hidden;
-}
-
-.pfMeter__fill {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, var(--pf-deep-green), var(--pf-gold));
-  transform-origin: left center;
-  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* ---- timeline ------------------------------------------------------------ */
-.pfSteps {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--pf-gap);
-  margin: 0;
-  padding: clamp(36px, 5vh, 68px) 0 0;
-}
-
-.pfStep {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(16px, 2.2vh, 28px);
-  min-width: 0;
-}
-
-/* connector between two nodes (desktop rail)
-   Runs from this node's right edge to the next node's left edge, so the right
-   offset is negative: it reaches past the column into the next one. */
-.pfStep__link {
-  position: absolute;
-  top: calc(var(--pf-node) / 2);
-  left: calc(50% + (var(--pf-node) / 2) + 8px);
-  right: calc((var(--pf-node) / 2) - 50% - var(--pf-gap) + 8px);
-  height: 1px;
-  background: rgba(255, 255, 255, 0.14);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1),
-    background 0.6s ease;
-}
-
-.pfStep.is-lit .pfStep__link {
-  transform: scaleX(1);
-  background: linear-gradient(
-    90deg,
-    rgba(214, 174, 124, 0.55),
-    rgba(139, 156, 140, 0.3)
-  );
-}
-
-/* numbered node */
-.pfStep__node {
-  position: relative;
-  align-self: center;
-  display: grid;
-  place-items: center;
-  width: var(--pf-node);
-  height: var(--pf-node);
-  border-radius: 50%;
-  border: 1px solid var(--pf-line-strong);
-  background: radial-gradient(
-    circle at 50% 28%,
-    rgba(16, 21, 18, 0.96),
-    rgba(5, 5, 5, 0.99)
-  );
-  box-shadow: 0 0 0 7px rgba(5, 5, 5, 0.92), inset 0 0 18px rgba(0, 0, 0, 0.6);
-  transition: border-color 0.5s ease, box-shadow 0.5s ease, transform 0.55s
-      cubic-bezier(0.16, 1, 0.3, 1), background 0.5s ease;
-}
-
-.pfStep__num {
-  font-family: var(--heading-font);
-  font-weight: 300;
-  font-size: clamp(15px, 1.1vw, 19px);
-  letter-spacing: 0.04em;
-  color: rgba(238, 233, 223, 0.5);
-  transition: color 0.45s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.pfStep.is-lit .pfStep__node {
-  border-color: rgba(214, 174, 124, 0.42);
-}
-
-.pfStep.is-lit .pfStep__num {
-  color: rgba(238, 233, 223, 0.82);
-}
-
-.pfStep.is-current .pfStep__node {
-  transform: scale(1.07);
-  border-color: rgba(214, 174, 124, 0.85);
-  background: radial-gradient(
-    circle at 50% 28%,
-    rgba(46, 94, 83, 0.95),
-    rgba(9, 26, 22, 1)
-  );
-  box-shadow: 0 0 0 7px rgba(5, 5, 5, 0.92),
-    0 0 34px rgba(214, 174, 124, 0.26), inset 0 0 22px rgba(0, 0, 0, 0.5);
-}
-
-.pfStep.is-current .pfStep__num {
-  color: var(--pf-gold);
-}
-
-/* ---- step card ----------------------------------------------------------- */
-.pfCard {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid var(--pf-line);
-  border-radius: 22px;
-  background: linear-gradient(
-    180deg,
-    rgba(16, 21, 18, 0.92) 0%,
-    rgba(11, 15, 13, 0.97) 100%
-  );
-  box-shadow: 0 26px 60px -44px rgba(0, 0, 0, 0.95);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.6s ease, box-shadow 0.6s ease;
-  will-change: transform;
-}
-
-.pfCard:hover {
-  transform: translateY(-8px);
-  border-color: rgba(214, 174, 124, 0.45);
-  box-shadow: 0 44px 84px -46px rgba(0, 0, 0, 0.98),
-    0 0 0 1px rgba(214, 174, 124, 0.12);
-}
-
-.pfStep.is-current .pfCard {
-  border-color: rgba(214, 174, 124, 0.3);
-}
-
-.pfCard__media {
-  position: relative;
-  aspect-ratio: 16 / 11;
-  overflow: hidden;
-  background: #070807;
-}
-
-.pfCard__media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(46, 94, 83, 0.34) 0%,
-    rgba(5, 5, 5, 0.12) 42%,
-    rgba(5, 5, 5, 0.88) 100%
-  );
-  pointer-events: none;
-}
-
-.pfCard__img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.5) brightness(0.72);
-  transition: filter 0.7s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.pfCard:hover .pfCard__img {
-  filter: saturate(1) brightness(0.95);
-  transform: scale(1.06);
-}
-
-.pfCard__tag {
-  position: absolute;
-  left: 12px;
-  top: 12px;
-  z-index: 2;
-  padding: 5px 11px;
-  border-radius: 999px;
-  border: 1px solid rgba(214, 174, 124, 0.45);
-  background: rgba(5, 5, 5, 0.6);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--pf-gold);
-  white-space: nowrap;
-}
-
-.pfCard__body {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1 1 auto;
-  padding: clamp(16px, 1.5vw, 22px) clamp(16px, 1.5vw, 22px)
-    clamp(22px, 2vw, 28px);
-}
-
-.pfCard__title {
-  margin: 0;
+.pfStep__title {
+  margin: 0.28em 0 0.44em;
   font-family: var(--heading-font);
   font-weight: 400;
-  font-size: clamp(19px, 1.4vw, 25px);
-  line-height: 1.16;
-  color: var(--pf-cream);
+  font-size: clamp(24px, 2.1vw, 38px);
+  line-height: 1.14;
+  color: #fff;
 }
 
-.pfCard__text {
+.pfStep__text {
   margin: 0;
-  font-size: clamp(13.5px, 0.85vw, 14.5px);
-  line-height: 1.62;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.68;
   color: var(--pf-muted);
 }
 
-/* brass progress rule along the bottom of the card */
-.pfCard__rule {
+/* ---- node on the spine --------------------------------------------------- */
+.pfStep__dot {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--pf-deep-green), var(--pf-gold));
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  transform: translate(-50%, -50%);
+  /* solid ring in the section colour masks the spine behind the node */
+  box-shadow: 0 0 0 7px var(--pf-bg);
+  transition: background 0.55s ease, box-shadow 0.55s ease,
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.pfCard:hover .pfCard__rule,
-.pfStep.is-current .pfCard__rule {
-  transform: scaleX(1);
+.pfStep.is-done .pfStep__dot {
+  background: var(--pf-sage);
 }
 
-@keyframes pf-ping {
-  0% {
-    transform: scale(0.5);
-    opacity: 0.9;
-  }
-  70% {
-    transform: scale(2.1);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(2.1);
-    opacity: 0;
-  }
+.pfStep.is-current .pfStep__dot {
+  background: var(--pf-emerald);
+  transform: translate(-50%, -50%) scale(1.35);
+  box-shadow: 0 0 0 7px var(--pf-bg), 0 0 22px 5px rgba(139, 156, 140, 0.45);
 }
 
 /* ==========================================================================
-   Below 1200px the flow turns vertical — node rail on the left, wide card
-   on the right, exactly like a process timeline.
+   Tablet / phone — the same flow, stacked against a rail on the left
    ========================================================================== */
-@media only screen and (max-width: 1199px) {
-  .pfSteps {
+@media only screen and (max-width: 1023px) {
+  .pfFlow {
+    gap: clamp(38px, 6vh, 64px);
+  }
+
+  .pfFlow__spine {
+    left: 15px;
+    top: 6px;
+    bottom: 6px;
+    transform: none;
+  }
+
+  .pfStep {
     grid-template-columns: minmax(0, 1fr);
-    gap: clamp(18px, 2.6vh, 30px);
-  }
-
-  .pfStep {
-    display: grid;
-    grid-template-columns: var(--pf-node) minmax(0, 1fr);
     align-items: start;
-    gap: clamp(16px, 2.4vw, 28px);
+    gap: clamp(18px, 3vh, 26px);
+    padding-left: 50px;
   }
 
-  .pfStep__node {
-    align-self: start;
-    margin: 0;
+  .pfStep:nth-child(even) .pfStep__media,
+  .pfStep:nth-child(even) .pfStep__body {
+    order: 0;
   }
 
-  /* the connector points down to the next node */
-  .pfStep__link {
-    left: calc(var(--pf-node) / 2);
-    right: auto;
-    top: calc(var(--pf-node) + 8px);
-    bottom: calc(-1 * clamp(18px, 2.6vh, 30px) - 8px);
-    width: 1px;
-    height: auto;
-    transform: scaleY(0);
-    transform-origin: top center;
+  .pfStep__dot {
+    left: 15px;
+    top: 10px;
+    transform: translate(-50%, 0);
   }
 
-  .pfStep.is-lit .pfStep__link {
-    transform: scaleY(1);
-    background: linear-gradient(
-      180deg,
-      rgba(214, 174, 124, 0.55),
-      rgba(139, 156, 140, 0.25)
-    );
+  .pfStep.is-current .pfStep__dot {
+    transform: translate(-50%, 0) scale(1.35);
   }
 
-  .pfCard {
-    max-width: 820px;
+  .pfStep__body {
+    max-width: 62ch;
   }
 
-  .pfCard__media {
-    aspect-ratio: 16 / 7;
+  .pfStep__index {
+    font-size: clamp(38px, 8vw, 56px);
   }
 
-  .pfCard__body {
-    padding: clamp(18px, 2vw, 24px) clamp(18px, 2vw, 26px)
-      clamp(22px, 2.4vw, 30px);
-  }
-
-  .pfCard__title {
-    font-size: clamp(20px, 2.4vw, 28px);
-  }
-
-  .pfCard__text {
-    font-size: clamp(14px, 1.5vw, 15.5px);
-    max-width: 74ch;
-  }
-}
-
-/* stacked header on tablets and phones */
-@media only screen and (max-width: 1024px) {
-  .pfHead {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: clamp(20px, 3.4vh, 30px);
-  }
-
-  .pfMeter {
-    align-items: flex-start;
-    width: 100%;
-    max-width: 420px;
-    text-align: left;
-  }
-}
-
-/* phones */
-@media only screen and (max-width: 767px) {
-  .pfSection {
-    --pf-node: 46px;
-    padding: 56px 0 72px;
-  }
-
-  .pfStep {
-    gap: 14px;
-  }
-
-  .pfStep__node {
-    box-shadow: 0 0 0 5px rgba(5, 5, 5, 0.92), inset 0 0 14px rgba(0, 0, 0, 0.6);
-  }
-
-  .pfStep.is-current .pfStep__node {
-    box-shadow: 0 0 0 5px rgba(5, 5, 5, 0.92), 0 0 22px rgba(214, 174, 124, 0.24),
-      inset 0 0 18px rgba(0, 0, 0, 0.5);
-  }
-
-  .pfCard {
+  .pfStep__media {
     border-radius: 18px;
   }
 
-  .pfCard__media {
-    aspect-ratio: 16 / 9;
+  .pfStep__img {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .pfSection {
+    padding-top: 56px;
+    padding-bottom: 68px;
   }
 
-  .pfCard__tag {
-    left: 10px;
-    top: 10px;
-    padding: 4px 9px;
-    font-size: 9px;
-    letter-spacing: 0.2em;
+  .pfStep__title {
+    font-size: 23px;
   }
 
-  .pfCard__title {
-    font-size: 21px;
-  }
-
-  .pfCard__text {
+  .pfStep__text {
     font-size: 14px;
   }
 
-  .pfNote {
-    font-size: 14px;
+  .pfStep__media {
+    border-radius: 16px;
   }
 }
 
 /* ---- accessibility ------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  .pfEyebrow__dot::after {
-    animation: none;
-  }
-
-  .pfCard,
-  .pfCard__img,
-  .pfCard__rule,
-  .pfStep__node,
-  .pfStep__num,
-  .pfStep__link,
-  .pfMeter__fill,
-  .pfMeter__now {
+  .pfStep__img,
+  .pfStep__dot,
+  .pfStep__index,
+  .pfFlow__spineFill {
     transition-duration: 0.001s !important;
   }
 
-  .pfStep__link {
-    transform: none !important;
+  .pfStep__index {
+    opacity: 1;
+  }
+
+  .pfStep__dot {
+    background: var(--pf-sage);
   }
 }

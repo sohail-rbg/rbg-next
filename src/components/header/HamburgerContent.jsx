@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
+import { usePathname } from "next/navigation";
 
 import {
   staggerText,
@@ -130,6 +131,7 @@ const defaultPhoneCity = cities[0];
 const currentYear = new Date().getFullYear();
 
 const HamburgerContent = ({ state, onButtonClick }) => {
+  const pathname = usePathname();
   const [selectedCity, setSelectedCity] = useState(0);
   const [active, setActive] = useState(0);
   const selectedCityData = cities[selectedCity] || defaultPhoneCity;
@@ -142,8 +144,18 @@ const HamburgerContent = ({ state, onButtonClick }) => {
   const linkRefs = useRef([]);
   const infoRef = useRef(null);
   const socialRef = useRef(null);
+  const spotRef = useRef(null);
 
   const isOpen = state?.clicked === true;
+
+  // pointer-follow emerald spotlight in the panel
+  const handleSpotlight = (event) => {
+    const spot = spotRef.current;
+    if (!spot) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    spot.style.setProperty("--m-mx", `${((event.clientX - rect.left) / rect.width) * 100}%`);
+    spot.style.setProperty("--m-my", `${((event.clientY - rect.top) / rect.height) * 100}%`);
+  };
 
   useEffect(() => {
     const menuLayer = menuLayerRef.current;
@@ -223,10 +235,15 @@ const HamburgerContent = ({ state, onButtonClick }) => {
   };
 
   return (
-    <Box ref={menuLayerRef} className="hamburger-menu">
+    <Box
+      ref={menuLayerRef}
+      className="hamburger-menu"
+      onMouseMove={handleSpotlight}
+    >
       <Box ref={reveal1Ref} className="menu-secondary-background-color"></Box>
       <Box ref={reveal2Ref} className="menu-layer">
         <Box ref={cityBackgroundRef} className="menu-city-background"></Box>
+        <span ref={spotRef} className="menu-spot" aria-hidden="true" />
 
         <Box className="MenuWrap">
           <Box className="menu-topbar">
@@ -263,7 +280,10 @@ const HamburgerContent = ({ state, onButtonClick }) => {
                           linkRefs.current[index] = el;
                         }}
                         to={user.path}
-                        className="menu-link"
+                        className={`menu-link ${
+                          pathname === user.path ? "is-active" : ""
+                        }`}
+                        aria-current={pathname === user.path ? "page" : undefined}
                       >
                         <span className="menu-link__text">{user.name}</span>
                         <span className="menu-link__arrow" aria-hidden="true">
@@ -282,10 +302,12 @@ const HamburgerContent = ({ state, onButtonClick }) => {
 
                 <Box className="options">
                   {cities.map((opt, index) => (
-                    <div
-                      key={index}
+                    <button
+                      type="button"
+                      key={opt.name}
                       onClick={() => handleClickLocation(index)}
                       className={`option ${index === active ? "active" : ""}`}
+                      aria-pressed={index === active}
                       style={{
                         backgroundImage: `url(${opt.image})`,
                       }}
@@ -298,7 +320,7 @@ const HamburgerContent = ({ state, onButtonClick }) => {
                           <div className="sub">{opt.state}</div>
                         </div>
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </Box>
 
@@ -372,6 +394,7 @@ const HamburgerContent = ({ state, onButtonClick }) => {
                         href={`${list.path}`}
                         target="_blank"
                         rel="noreferrer"
+                        aria-label={`ReBrand Gurus on ${list.name}`}
                         sx={{ backgroundImage: "url(" + list.image + ")" }}
                         onMouseEnter={() =>
                           handleCity(list.image, cityBackgroundRef.current)
