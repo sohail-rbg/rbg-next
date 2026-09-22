@@ -80,7 +80,7 @@ const Testimonials = () => {
                   <div className="testimonial_box-icon">
                     <i className="fas fa-quote-right"></i>
                   </div>
-                  <div className="testimonial_box-text">
+                  <div className="testimonial_box-text" data-lenis-prevent>
                     <p>{testimonial.quote}</p>
                     <NextImage
                       src={QuoteImg}

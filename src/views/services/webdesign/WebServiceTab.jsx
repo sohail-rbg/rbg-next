@@ -51,7 +51,7 @@ const WebServiceTab = (props) => {
           scrollTrigger: {
             trigger: wrap,
             pin: true,
-            scrub: true,
+            scrub: 1,
             start: "top 96px",
             end: () => "+=" + cards.length * 460,
             invalidateOnRefresh: true,
@@ -92,9 +92,11 @@ const WebServiceTab = (props) => {
             className="wdxStack__card"
             key={webTabItem.id}
             ref={(el) => (cardRefs.current[index] = el)}
+            data-wd-spot
             style={{ "--stack-accent": webTabItem.bgColor || "#2E5E53" }}
           >
             <span className="wdxStack__glow" aria-hidden="true" />
+            <span className="wdxStack__spot" aria-hidden="true" />
 
             <Grid container spacing={{ xs: 2, md: 4 }} alignItems="center">
               <Grid item xs={12} md={6}>

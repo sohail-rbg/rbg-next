@@ -15,6 +15,7 @@ import { ScrollTop } from "../../components/ScrollTop";
 
 import BeforeAfterDesign from "./webdesign/BeforeAfterDesign";
 import WebDesignHero from "./webdesign/WebDesignHero";
+import SmoothMotion from "./webdesign/SmoothMotion";
 
 import ba_img_01 from '../../images/services/webdesign/portfolio/yatch.png'
 import ba_img_02 from '../../images/services/webdesign/portfolio/consulting.png'
@@ -174,6 +175,8 @@ const WebDesignContent = () => {
   
   return (
     <>
+      <SmoothMotion />
+
       <WebDesignHero service={service} />
 
       <div className="wdxRibbon" aria-hidden="true">

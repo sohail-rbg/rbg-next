@@ -35,7 +35,7 @@ const BeforeAfterDesign = ({ beforeAfter }) => {
                 trigger: card,
                 start: "top 24%",
                 end: "bottom 34%",
-                scrub: true,
+                scrub: 1,
                 invalidateOnRefresh: true,
               },
             }
@@ -72,7 +72,8 @@ const BeforeAfterDesign = ({ beforeAfter }) => {
       <span className="wdxWork__aurora" aria-hidden="true" />
       <div className="wdxWork__list">
         {beforeAfter.map((ba_item, index) => (
-          <article key={ba_item.title} className="wdxWork__card">
+          <article key={ba_item.title} className="wdxWork__card" data-wd-spot>
+            <span className="wdxWork__spot" aria-hidden="true" />
             <motion.div
               className="wdxWork__inner"
               initial={{ y: 60, opacity: 0 }}

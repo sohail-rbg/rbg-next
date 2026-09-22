@@ -154,7 +154,12 @@ const SkillMeter = ({ item, index }) => (
           className="wdxSkills__iconImg"
         />
       </span>
-      <span className="wdxSkills__count">{item.numbers}</span>
+      <span
+        className="wdxSkills__count"
+        data-wd-count={parseInt(item.numbers, 10)}
+      >
+        {item.numbers}
+      </span>
     </div>
     <h3 className="wdxSkills__title">{item.title}</h3>
     <span className="wdxSkills__meter" aria-hidden="true">

@@ -38,7 +38,7 @@ const WebDesignHero = ({ service }) => {
             Service
           </span>
           <h1 className="wdxHero__title">{service?.mainHeading}</h1>
-          <div className="wdxHero__brief">
+          <div className="wdxHero__brief" data-lenis-prevent>
             <p>{service?.description}</p>
           </div>
           <div className="wdxHero__actions">
