@@ -938,9 +938,11 @@ html .btn12:focus:not(:focus-visible) {
   .hamburger-menu.hamburger-menu .menu-links ul li {
     padding: 2px 0;
   }
+  /* the strips now stretch to fill the column, so short screens only trim
+     their minimum size instead of pinning them to a fixed height */
   .hamburger-menu.hamburger-menu .options,
   .hamburger-menu.hamburger-menu .social_Wrp {
-    height: clamp(118px, 17vh, 168px) !important;
+    min-height: clamp(104px, 15vh, 150px);
   }
   .hamburger-menu.hamburger-menu .h_info_item {
     padding: 10px 13px;
@@ -950,9 +952,6 @@ html .btn12:focus:not(:focus-visible) {
   }
   .hamburger-menu.hamburger-menu .menu-label {
     margin-bottom: 12px;
-  }
-  .hamburger-menu.hamburger-menu .options {
-    margin-bottom: 16px !important;
   }
 }
 
@@ -1098,6 +1097,79 @@ html .btn12:focus:not(:focus-visible) {
   }
   .hamburger-menu.hamburger-menu .menu-foot__cta {
     font-size: 9.5px;
+  }
+}
+
+/* ---- desktop: the panel fills its height --------------------------------- */
+/* The three columns used to keep their natural height, which left a large
+   empty band between the nav / studios strip and the bottom row. Each column
+   now spreads its content over the full height instead. */
+@media only screen and (min-width: 1025px) {
+  .hamburger-menu.hamburger-menu .menuNavColumn,
+  .hamburger-menu.hamburger-menu .menuContactColumn {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* the 1199px tier drops these to content height; on desktop they own their
+     column so the strip and the cards can spread out */
+  .hamburger-menu.hamburger-menu .HeaderContactInfo {
+    flex: 1 1 auto;
+    min-height: 0;
+    justify-content: space-between;
+  }
+
+  /* nav links share the column height, divided by the hairline rules */
+  .hamburger-menu.hamburger-menu .menu-links {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .hamburger-menu.hamburger-menu .menu-links ul {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    justify-content: space-between;
+  }
+
+  /* the studios strip grows into the middle of the panel */
+  .hamburger-menu.hamburger-menu .options {
+    flex: 1 1 auto;
+    height: auto !important;
+    min-height: clamp(120px, 20vh, 205px);
+    max-height: clamp(220px, 46vh, 560px);
+    margin: 0 !important;
+  }
+
+  /* the contact cards take what is left of the column */
+  .hamburger-menu.hamburger-menu .h_info_wrp {
+    flex: 1 1 auto;
+    max-height: clamp(130px, 36vh, 400px);
+    margin: clamp(14px, 2.2vh, 26px) 0 0;
+  }
+  .hamburger-menu.hamburger-menu .h_info_item {
+    align-items: center;
+  }
+}
+
+/* three-column layout — the socials fill the third column as a 2x2 block */
+@media only screen and (min-width: 1200px) {
+  .hamburger-menu.hamburger-menu .socialBox {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .hamburger-menu.hamburger-menu .social_Wrp {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    flex: 1 1 auto;
+    height: auto !important;
+    min-height: clamp(120px, 20vh, 205px);
+    margin-top: clamp(14px, 2.2vh, 26px);
+  }
+
+  /* the brand face carries the wide screens */
+  .hamburger-menu.hamburger-menu .menu-links ul li a.menu-link {
+    font-size: clamp(30px, 3.6vw, 58px);
   }
 }
 
