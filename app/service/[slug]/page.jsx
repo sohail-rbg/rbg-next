@@ -110,6 +110,8 @@ export default async function Page({ params }) {
       <PageClient
         component={ServiceDetailsLayout}
         id={service.id}
+        variant={slug === "web-design" ? "wd" : undefined}
+        showFeatured={slug !== "web-design"}
         content={<Content />}
       />
     </>

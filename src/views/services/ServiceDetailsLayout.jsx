@@ -24,6 +24,7 @@ const ServiceDetailsLayout = ({
   content,
   showFeatured = true,
   contentFullBleed = false,
+  variant,
 }) => {
   const service = ServicesPageData.services[id] || ServicesPageData.services[0];
 
@@ -57,7 +58,10 @@ const ServiceDetailsLayout = ({
   );
 
   return (
-      <Box component="section" className="servicePageWrp">
+      <Box
+        component="section"
+        className={`servicePageWrp${variant ? ` servicePageWrp--${variant}` : ""}`}
+      >
         {showFeatured && (
         <Box className="pageFeaturedImageSec ">
           <EmblaCarousel slides={SLIDES} options={OPTIONS} sliderImage={service.sliderImage} />
@@ -76,6 +80,9 @@ const ServiceDetailsLayout = ({
           </Box>
         </Box>
         )}
+        {variant ? (
+          <Box className="wdxBody">{content}</Box>
+        ) : (
         <Box className="servicewrp">
           <Box className="page_sidebox">
             <Box className="box-first-left">
@@ -98,6 +105,7 @@ const ServiceDetailsLayout = ({
             {content}
           </Box>
         </Box>
+        )}
       </Box>
   );
 };

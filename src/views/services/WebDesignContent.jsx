@@ -11,9 +11,10 @@ import ServiceCTA from "./ServiceCTA";
 import SkillsWebDesign from "./webdesign/SkillsWebDesign";
 import ProcessWebDesign from "./webdesign/ProcessWebDesign";
 import ClientLogos from "./ClientLogos";
-
+import { ScrollTop } from "../../components/ScrollTop";
 
 import BeforeAfterDesign from "./webdesign/BeforeAfterDesign";
+import WebDesignHero from "./webdesign/WebDesignHero";
 
 import ba_img_01 from '../../images/services/webdesign/portfolio/yatch.png'
 import ba_img_02 from '../../images/services/webdesign/portfolio/consulting.png'
@@ -30,6 +31,7 @@ import hostingImg from "../../images/services/webdesign/services/hosting.jpg";
 
 import { gql } from "graphql-request";
 import Hygraph from "../../GraphqlClient";
+import { ServicesPageData } from "../../Data";
 
 
 const beforeAfter = [
@@ -135,8 +137,9 @@ const webServiceTabData = [
 ]
 
 const WebDesignContent = () => {
-    const [clients, setClients] = useState([]);
-    
+  const [clients, setClients] = useState([]);
+  const service = ServicesPageData.services[0];
+
   useEffect(() => {
     const fetchPosts = async () => {
       const query = gql`
@@ -171,8 +174,22 @@ const WebDesignContent = () => {
   
   return (
     <>
-      <Box component={"section"} sx={{ pt: 6 }} className="webdesignContentWrp">
-        <Box className="aboutWebDesignSec">
+      <WebDesignHero service={service} />
+
+      <div className="wdxRibbon" aria-hidden="true">
+        <div className="wdxRibbon__track">
+          {[...Array(6)].map((_, index) => (
+            <span className="wdxRibbon__word" key={index}>
+              {service.title}
+              <i aria-hidden="true" />
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <Box component="section" className="webdesignContentWrp wdPage">
+        <Box className="aboutWebDesignSec wdxIntro">
+          <span className="wdxIntro__orb" aria-hidden="true" />
           <AnimatedParagraph>
             Elevate your online brand with ReBrand Gurus expert website
             redesign services. Our team of award-winning designers specializes
@@ -188,17 +205,21 @@ const WebDesignContent = () => {
             breathe new life into your digital presence and make a lasting
             impact on your target audience.
           </AnimatedParagraph>
-          <WebServiceTab webServiceTabData={webServiceTabData} />
-          <SkillsWebDesign />
-          <ProcessWebDesign />
-          
-          <BeforeAfterDesign beforeAfter={beforeAfter} />
-          <ClientLogos clientLogo={clients} />
-          <Testimonials />
-          <ServiceCTA />
-          <ServiceFAQS accordionData={accordionData} />
         </Box>
+
+        <WebServiceTab webServiceTabData={webServiceTabData} />
+        <SkillsWebDesign />
+        <ProcessWebDesign />
+        <BeforeAfterDesign beforeAfter={beforeAfter} />
+        <ClientLogos clientLogo={clients} />
+        <Testimonials />
+        <ServiceCTA />
+        <ServiceFAQS accordionData={accordionData} />
       </Box>
+
+      <div className="wdxFloat">
+        <ScrollTop />
+      </div>
     </>
   );
 };

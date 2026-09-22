@@ -1,0 +1,1511 @@
+/* ==========================================================================
+   Service detail — Website Redesign Services (variant "wd")
+   Full rebuild: hero stage, title ribbon, intro, service deal, skills meters,
+   process medallion, pinned work stack + themed pass over the shared
+   testimonial / CTA / FAQ / client blocks.
+   Emerald–sage theme, gradient led, no painted borders, no gold.
+   Imported after responsive.css so the new rules own their elements.
+   ========================================================================== */
+
+.servicePageWrp--wd {
+  --sv-emerald: #2e5e53;
+  --sv-sea: #558f8b;
+  --sv-mint: #6fa39a;
+  --sv-sage: #8b9c8c;
+  --sv-forest: #2c4935;
+  --sv-olive: #868775;
+  --sv-ink: #0b0e0d;
+  --sv-text: #eaf1ee;
+  --sv-grad: linear-gradient(120deg, #2e5e53 0%, #558f8b 52%, #8b9c8c 100%);
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(180deg, #0d100f 0%, #131816 38%, #0b0d0c 100%);
+}
+
+.wdxBody {
+  position: relative;
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   HERO
+   -------------------------------------------------------------------------- */
+
+.wdxHero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0d100f 0%, #141917 55%, #101312 100%);
+}
+
+.wdxHero__aurora,
+.wdxHero__grid,
+.wdxHero__vignette {
+  position: absolute;
+  pointer-events: none;
+}
+
+.wdxHero__aurora {
+  inset: -26% -16%;
+  z-index: 0;
+  background:
+    radial-gradient(36% 42% at 18% 16%, rgba(46, 94, 83, 0.74) 0%, rgba(46, 94, 83, 0) 68%),
+    radial-gradient(34% 40% at 86% 14%, rgba(85, 143, 139, 0.56) 0%, rgba(85, 143, 139, 0) 70%),
+    radial-gradient(42% 46% at 74% 86%, rgba(111, 163, 154, 0.4) 0%, rgba(111, 163, 154, 0) 72%),
+    radial-gradient(40% 44% at 6% 82%, rgba(139, 156, 140, 0.32) 0%, rgba(139, 156, 140, 0) 70%);
+  filter: blur(40px) saturate(1.05);
+  animation: wdxDrift 34s ease-in-out infinite alternate;
+}
+
+.wdxHero__grid {
+  inset: 0;
+  z-index: 0;
+  opacity: 0.5;
+  background-image:
+    repeating-linear-gradient(to right, rgba(139, 156, 140, 0.07) 0 1px, transparent 1px 92px),
+    repeating-linear-gradient(to bottom, rgba(139, 156, 140, 0.07) 0 1px, transparent 1px 92px);
+}
+
+.wdxHero__vignette {
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(118% 90% at 44% 40%, rgba(11, 14, 13, 0) 32%, rgba(11, 14, 13, 0.9) 100%),
+    linear-gradient(180deg, rgba(11, 14, 13, 0.74) 0%, rgba(11, 14, 13, 0) 26%);
+}
+
+.wdxHero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  align-items: center;
+  gap: clamp(30px, 4vw, 76px);
+  min-height: 100vh;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: clamp(122px, 16vh, 200px) clamp(20px, 4vw, 56px) clamp(64px, 9vh, 112px);
+}
+
+.wdxHero__copy {
+  max-width: 660px;
+}
+
+.wdxHero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--sv-sage);
+}
+
+.wdxHero__eyebrow i {
+  display: block;
+  width: 30px;
+  height: 2px;
+  border-radius: 2px;
+  background-image: var(--sv-grad);
+}
+
+.wdxHero__title {
+  margin: 0 0 22px;
+  font-family: "Better Fonts";
+  font-size: clamp(42px, 5.6vw, 92px);
+  line-height: 1.02;
+  background-image: linear-gradient(118deg, #f6faf8 0%, #cfe0da 46%, #6fa39a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.wdxHero__brief {
+  position: relative;
+  max-width: 62ch;
+  max-height: clamp(168px, 25vh, 250px);
+  overflow-y: auto;
+  padding-right: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(111, 163, 154, 0.7) transparent;
+}
+
+.wdxHero__brief::-webkit-scrollbar {
+  width: 5px;
+}
+
+.wdxHero__brief::-webkit-scrollbar-thumb {
+  border-radius: 99px;
+  background-image: linear-gradient(180deg, #558f8b, #2e5e53);
+}
+
+.wdxHero__brief p {
+  margin: 0;
+  font-size: clamp(15px, 1.05vw, 17.5px);
+  line-height: 1.72;
+  color: rgba(234, 241, 238, 0.74);
+}
+
+.wdxHero__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: clamp(24px, 3.4vh, 40px);
+}
+
+.wdxHero__actions .button,
+.wdxPage .deckCta .button {
+  border: 0;
+}
+
+.wdxHero__actions .button {
+  background-image: var(--sv-grad);
+  box-shadow: 0 28px 56px -28px rgba(85, 143, 139, 0.95);
+  transition: box-shadow 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wdxHero__actions .button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 34px 64px -24px rgba(111, 163, 154, 1);
+}
+
+/* Hero image stage --------------------------------------------------------- */
+
+.wdxHero__stage {
+  position: relative;
+}
+
+.wdxHero__frames {
+  position: relative;
+  aspect-ratio: 4 / 3.15;
+  border-radius: clamp(22px, 2.4vw, 34px);
+  overflow: hidden;
+  background: #101412;
+  box-shadow: 0 60px 120px -70px rgba(0, 0, 0, 0.95);
+}
+
+.wdxHero__frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.2s ease, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wdxHero__frame.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.wdxHero__img {
+  object-fit: cover;
+}
+
+.wdxHero__frameTint {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    155deg,
+    rgba(46, 94, 83, 0.34) 0%,
+    rgba(11, 14, 13, 0.28) 55%,
+    rgba(11, 14, 13, 0.6) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+.wdxHero__scan {
+  position: absolute;
+  inset: -30% -10%;
+  z-index: 3;
+  pointer-events: none;
+  background-image: linear-gradient(
+    102deg,
+    rgba(255, 255, 255, 0) 36%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0) 64%
+  );
+  animation: wdxScan 7.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.wdxHero__chips {
+  display: flex;
+  gap: clamp(10px, 1vw, 16px);
+  margin-top: clamp(14px, 1.6vh, 22px);
+}
+
+.wdxHero__chip {
+  position: relative;
+  flex: 1 1 0;
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #101412;
+  opacity: 0.48;
+  filter: grayscale(0.7) brightness(0.8);
+  transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wdxHero__chip::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px;
+  transform: scaleX(0);
+  transform-origin: center;
+  background-image: var(--sv-grad);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wdxHero__chip.is-active {
+  opacity: 1;
+  filter: none;
+  transform: translateY(-3px);
+}
+
+.wdxHero__chip.is-active::after {
+  transform: scaleX(1);
+}
+
+.wdxHero__chip:hover {
+  opacity: 0.86;
+}
+
+.wdxHero__chipImg {
+  object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------
+   TITLE RIBBON
+   -------------------------------------------------------------------------- */
+
+.wdxRibbon {
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  padding: clamp(18px, 2.4vh, 30px) 0;
+  background: linear-gradient(180deg, #0b0d0c 0%, #121715 50%, #0b0d0c 100%);
+}
+
+.wdxRibbon::before,
+.wdxRibbon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-image: linear-gradient(90deg, rgba(139, 156, 140, 0) 0%, rgba(139, 156, 140, 0.35) 50%, rgba(139, 156, 140, 0) 100%);
+}
+
+.wdxRibbon::before {
+  top: 0;
+}
+
+.wdxRibbon::after {
+  bottom: 0;
+}
+
+.wdxRibbon__track {
+  display: flex;
+  width: max-content;
+  animation: wdxRibbon 34s linear infinite;
+}
+
+.wdxRibbon__word {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(20px, 2.4vw, 40px);
+  padding-right: clamp(20px, 2.4vw, 40px);
+  font-family: var(--heading-font);
+  font-size: clamp(26px, 4vw, 60px);
+  line-height: 1;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(139, 156, 140, 0.34);
+}
+
+.wdxRibbon__word i {
+  display: block;
+  width: clamp(6px, 0.7vw, 10px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-image: var(--sv-grad);
+}
+
+/* --------------------------------------------------------------------------
+   INTRO
+   -------------------------------------------------------------------------- */
+
+.wdxIntro {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(72px, 9vh, 124px) clamp(20px, 4vw, 56px) clamp(46px, 6vh, 82px);
+}
+
+.wdxIntro__orb {
+  position: absolute;
+  left: -12%;
+  top: 8%;
+  z-index: -1;
+  width: 58%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(46, 94, 83, 0.55) 0%, rgba(46, 94, 83, 0) 68%);
+  filter: blur(52px);
+  animation: wdxDrift 30s ease-in-out infinite alternate;
+}
+
+.wdxIntro p {
+  position: relative;
+  margin: 0;
+  color: rgba(234, 241, 238, 0.68);
+  font-size: clamp(15px, 1.05vw, 17.5px);
+  line-height: 1.78;
+}
+
+.wdxIntro p:first-of-type {
+  padding-top: 22px;
+  margin-bottom: 26px;
+  font-size: clamp(19px, 1.9vw, 28px);
+  line-height: 1.5;
+  color: #e9f1ee;
+}
+
+.wdxIntro p:first-of-type::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 72px;
+  height: 3px;
+  border-radius: 3px;
+  background-image: var(--sv-grad);
+}
+
+/* --------------------------------------------------------------------------
+   SERVICE DEAL (WebServiceTab)
+   -------------------------------------------------------------------------- */
+
+.wdxStackWrp {
+  position: relative;
+  padding: clamp(20px, 4vh, 60px) 0 clamp(40px, 6vh, 90px);
+}
+
+.wdxStack {
+  position: relative;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 56px);
+}
+
+.wdxStack__card {
+  position: relative;
+  width: 100%;
+  border-radius: clamp(22px, 2.4vw, 34px);
+  overflow: hidden;
+  padding: clamp(24px, 3vw, 54px);
+  background-image: linear-gradient(155deg, #171c1a 0%, #0d100f 58%, #121614 100%);
+  box-shadow: 0 54px 110px -64px rgba(0, 0, 0, 0.95);
+}
+
+.wdxStack__glow {
+  position: absolute;
+  inset: -30% -20%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  background-image:
+    radial-gradient(44% 58% at 6% 4%, var(--stack-accent, #2e5e53) 0%, rgba(0, 0, 0, 0) 62%),
+    radial-gradient(40% 52% at 98% 100%, var(--sv-mint) 0%, rgba(0, 0, 0, 0) 64%);
+  filter: blur(30px) saturate(0.9);
+  mix-blend-mode: screen;
+}
+
+.wdxStack__card > .MuiGrid-root {
+  position: relative;
+  z-index: 1;
+}
+
+.wdxStack__media {
+  position: relative;
+  aspect-ratio: 16 / 11;
+  border-radius: clamp(16px, 1.8vw, 24px);
+  overflow: hidden;
+  background: #101412;
+  box-shadow: 0 40px 80px -56px rgba(0, 0, 0, 0.95);
+}
+
+.wdxStack__img {
+  object-fit: cover;
+}
+
+.wdxStack__tint {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    150deg,
+    rgba(11, 14, 13, 0) 34%,
+    rgba(11, 14, 13, 0.44) 100%
+  );
+}
+
+.wdxStack__panel {
+  position: relative;
+}
+
+.wdxStack__idx {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-family: var(--heading-font);
+  font-size: clamp(26px, 2.4vw, 40px);
+  line-height: 1;
+  background-image: var(--sv-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.wdxStack__title {
+  margin: 0 0 18px;
+  font-family: var(--heading-font);
+  font-size: clamp(30px, 3.4vw, 58px);
+  line-height: 1.06;
+  background-image: linear-gradient(118deg, #f4f8f6 0%, #c6d8d0 48%, #6fa39a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.wdxStack__desc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wdxStack__desc li {
+  position: relative;
+  padding: 0 0 14px 24px;
+  font-size: clamp(14.5px, 1vw, 17px);
+  line-height: 1.66;
+  color: rgba(234, 241, 238, 0.68);
+}
+
+.wdxStack__desc li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 10px;
+  height: 10px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background-image: var(--sv-grad);
+}
+
+.wdxStack__desc strong {
+  color: #e9f1ee;
+  font-weight: 500;
+}
+
+.wdxStack__rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 3px;
+  opacity: 0.5;
+  transform: scaleX(0.1);
+  transform-origin: left center;
+  background-image: linear-gradient(90deg, var(--sv-sea) 0%, var(--sv-sage) 46%, rgba(0, 0, 0, 0) 100%);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
+}
+
+.wdxStack__card.is-front .wdxStack__rule {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.wdxStack__card.is-dealt {
+  filter: saturate(0.82) brightness(0.86);
+}
+
+@media (min-width: 1024px) {
+  .wdxStack {
+    height: min(76vh, 660px);
+  }
+
+  .wdxStack__card {
+    position: absolute;
+    left: clamp(20px, 4vw, 56px);
+    right: clamp(20px, 4vw, 56px);
+    top: 0;
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: clamp(22px, 2.4vw, 34px);
+  }
+
+  .wdxStack__card > .MuiGrid-root {
+    width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   SKILLS (SkillsWebDesign)
+   -------------------------------------------------------------------------- */
+
+.wdxSkills {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(70px, 9vh, 124px) clamp(20px, 4vw, 56px) clamp(58px, 8vh, 104px);
+  background: linear-gradient(180deg, #0d100f 0%, #121715 52%, #0d100f 100%);
+}
+
+.wdxSkills__aurora {
+  position: absolute;
+  inset: -22% -14%;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(30% 34% at 14% 18%, rgba(46, 94, 83, 0.42) 0%, rgba(46, 94, 83, 0) 70%),
+    radial-gradient(28% 32% at 88% 78%, rgba(111, 163, 154, 0.32) 0%, rgba(111, 163, 154, 0) 72%);
+  filter: blur(46px);
+  animation: wdxDrift 38s ease-in-out infinite alternate;
+}
+
+.wdxSkills__grain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-repeat: repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wdxSkills .sectionHeading_wrp {
+  padding-top: 0;
+}
+
+.wdxSkills__nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: clamp(30px, 4.4vh, 58px);
+}
+
+.wdxSkills__nav .MuiTabs-flexContainer {
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+  border: 0;
+  border-radius: 999px;
+  background-image: linear-gradient(150deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(14px);
+}
+
+.wdxSkills__nav .MuiTabs-indicator {
+  height: calc(100% - 12px);
+  top: 6px;
+  transform: none;
+  border-radius: 999px;
+  background-image: var(--sv-grad);
+  box-shadow: 0 16px 34px -18px rgba(111, 163, 154, 0.95);
+}
+
+.wdxSkills__nav .MuiTabs-flexContainer > .MuiTab-root {
+  position: relative;
+  z-index: 2;
+  min-width: 132px;
+  padding: 12px 40px;
+  font-family: var(--primary-font);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(234, 241, 238, 0.6);
+  transition: color 0.4s ease;
+}
+
+.wdxSkills__nav .MuiTabs-flexContainer > .MuiTab-root.Mui-selected {
+  color: #0b0e0d;
+}
+
+.wdxSkills__panel {
+  padding: 0;
+}
+
+.wdxSkills__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 22px);
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.wdxSkills__item {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(18px, 2vw, 26px);
+  border-radius: 22px;
+  background-image: linear-gradient(155deg, rgba(23, 28, 26, 0.92) 0%, rgba(11, 14, 13, 0.72) 100%);
+  box-shadow: 0 34px 70px -56px rgba(0, 0, 0, 0.95);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease;
+}
+
+.wdxSkills__item::after {
+  content: "";
+  position: absolute;
+  right: -30%;
+  top: -40%;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background-image: radial-gradient(circle, rgba(85, 143, 139, 0.5) 0%, rgba(85, 143, 139, 0) 68%);
+  filter: blur(40px);
+  transition: opacity 0.6s ease;
+}
+
+.wdxSkills__item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 44px 80px -50px rgba(85, 143, 139, 0.8);
+}
+
+.wdxSkills__item:hover::after {
+  opacity: 0.85;
+}
+
+.wdxSkills__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.wdxSkills__icon {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  background-image: linear-gradient(150deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 100%);
+}
+
+.wdxSkills__iconImg {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.wdxSkills__count {
+  font-family: var(--heading-font);
+  font-size: clamp(28px, 2.8vw, 42px);
+  line-height: 1;
+  background-image: linear-gradient(120deg, #eaf1ee 0%, #6fa39a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.wdxSkills__title {
+  margin: 16px 0 14px;
+  font-family: var(--primary-font);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: #e9f1ee;
+}
+
+.wdxSkills__meter {
+  display: block;
+  height: 6px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(139, 156, 140, 0.16);
+}
+
+.wdxSkills__meterFill {
+  display: block;
+  width: var(--meter, 50%);
+  height: 100%;
+  border-radius: inherit;
+  transform-origin: left center;
+  background-image: linear-gradient(90deg, #2e5e53 0%, #558f8b 52%, #8b9c8c 100%);
+}
+
+/* --------------------------------------------------------------------------
+   PROCESS (ProcessWebDesign)
+   -------------------------------------------------------------------------- */
+
+.wdxProcess {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(70px, 9vh, 124px) clamp(20px, 4vw, 56px);
+}
+
+.wdxProcess__aurora {
+  position: absolute;
+  inset: -20% -12%;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(32% 36% at 78% 14%, rgba(46, 94, 83, 0.44) 0%, rgba(46, 94, 83, 0) 70%),
+    radial-gradient(30% 34% at 12% 86%, rgba(139, 156, 140, 0.28) 0%, rgba(139, 156, 140, 0) 72%);
+  filter: blur(44px);
+  animation: wdxDrift 36s ease-in-out infinite alternate;
+}
+
+.wdxProcess__medallion {
+  position: relative;
+  width: min(540px, 84vw);
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+
+.wdxProcess__halo {
+  position: absolute;
+  inset: -6%;
+  border-radius: 50%;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 50% 50%, rgba(85, 143, 139, 0.36) 0%, rgba(85, 143, 139, 0) 62%);
+  filter: blur(28px);
+  animation: wdxPulse 9s ease-in-out infinite alternate;
+}
+
+.wdxProcess__ring {
+  position: absolute;
+  inset: 0;
+}
+
+.wdxProcess__ring::before {
+  content: "";
+  position: absolute;
+  inset: 3%;
+  border-radius: 50%;
+  background-image: conic-gradient(
+    from 210deg,
+    rgba(111, 163, 154, 0.8) 0%,
+    rgba(46, 94, 83, 0.04) 34%,
+    rgba(139, 156, 140, 0.62) 60%,
+    rgba(46, 94, 83, 0.04) 86%,
+    rgba(111, 163, 154, 0.8) 100%
+  );
+  animation: wdxSpin 26s linear infinite;
+}
+
+.wdxProcess__rotor {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  animation: wdxSpin 60s linear infinite;
+}
+
+.wdxProcess__rotor svg {
+  width: 100%;
+  height: 100%;
+  fill: rgba(234, 241, 238, 0.72);
+  font-size: 26px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.wdxProcess__disc {
+  position: absolute;
+  inset: 17%;
+  z-index: 2;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #101412;
+  box-shadow: 0 50px 100px -58px rgba(0, 0, 0, 0.95);
+}
+
+.wdxProcess__img {
+  object-fit: cover;
+}
+
+.wdxProcess__discTint {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    150deg,
+    rgba(46, 94, 83, 0.42) 0%,
+    rgba(11, 14, 13, 0.52) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+.wdxProcess__copy {
+  max-width: 620px;
+}
+
+.wdxProcess__copy .sectionHeading_wrp {
+  padding: 0;
+}
+
+/* The legacy medallion drew a thick green ring; the conic ring replaces it. */
+.servicePageWrp--wd .process-circle-crev .circle-button::after {
+  content: none;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   WORK (BeforeAfterDesign)
+   -------------------------------------------------------------------------- */
+
+.wdxWork {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(56px, 8vh, 110px) clamp(20px, 4vw, 56px) clamp(40px, 6vh, 80px);
+}
+
+.wdxWork__aurora {
+  position: absolute;
+  inset: -18% -12%;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(30% 34% at 50% 8%, rgba(85, 143, 139, 0.34) 0%, rgba(85, 143, 139, 0) 70%);
+  filter: blur(44px);
+}
+
+.wdxWork__list {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.wdxWork__card {
+  position: relative;
+  width: 100%;
+  margin-bottom: clamp(24px, 5vh, 74px);
+  border-radius: clamp(20px, 2.2vw, 30px);
+  overflow: hidden;
+  background-image: linear-gradient(160deg, #171c1a 0%, #0b0e0d 100%);
+  box-shadow: 0 56px 112px -66px rgba(0, 0, 0, 0.95);
+}
+
+.wdxWork__inner {
+  position: relative;
+  border-radius: inherit;
+}
+
+.wdxWork__media {
+  position: relative;
+  aspect-ratio: 16 / 9.6;
+}
+
+.wdxWork__img {
+  object-fit: cover;
+}
+
+.wdxWork__tint {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    160deg,
+    rgba(46, 94, 83, 0.44) 0%,
+    rgba(11, 14, 13, 0.34) 46%,
+    rgba(11, 14, 13, 0.62) 100%
+  );
+  mix-blend-mode: multiply;
+  transition: opacity 0.7s ease;
+}
+
+.wdxWork__card:hover .wdxWork__tint {
+  opacity: 0.55;
+}
+
+.wdxWork__meta {
+  position: absolute;
+  left: clamp(14px, 2.2vw, 32px);
+  bottom: clamp(14px, 2.2vw, 32px);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 24px 12px 18px;
+  border-radius: 999px;
+  background-image: linear-gradient(150deg, rgba(11, 14, 13, 0.88) 0%, rgba(11, 14, 13, 0.6) 100%);
+  backdrop-filter: blur(16px);
+}
+
+.wdxWork__idx {
+  font-family: var(--heading-font);
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  background-image: var(--sv-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.wdxWork__title {
+  margin: 0;
+  font-family: var(--heading-font);
+  font-size: clamp(18px, 1.6vw, 26px);
+  line-height: 1;
+  color: #eaf1ee;
+}
+
+.wdxWork__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  height: 3px;
+  transform: scaleX(0.12);
+  transform-origin: left center;
+  background-image: linear-gradient(90deg, var(--sv-sea) 0%, var(--sv-sage) 48%, rgba(0, 0, 0, 0) 100%);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wdxWork__card.is-lifted .wdxWork__line {
+  transform: scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   THEMED PASS OVER SHARED BLOCKS
+   -------------------------------------------------------------------------- */
+
+/* The scroll-to-top dial becomes a floating glass control. */
+.servicePageWrp--wd .wdxFloat {
+  position: fixed;
+  right: clamp(14px, 1.8vw, 26px);
+  bottom: clamp(18px, 3vh, 34px);
+  z-index: 70;
+}
+
+.servicePageWrp--wd .scroll-to-top {
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background-image: linear-gradient(150deg, rgba(23, 28, 26, 0.9) 0%, rgba(11, 14, 13, 0.72) 100%);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 26px 54px -30px rgba(0, 0, 0, 0.95);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+}
+
+.servicePageWrp--wd .scroll-to-top:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 32px 60px -26px rgba(85, 143, 139, 0.95);
+}
+
+.servicePageWrp--wd .scroll-to-top img {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  filter: none;
+  opacity: 0.9;
+}
+
+.servicePageWrp--wd .scroll-to-top .box-number span {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #e9f1ee;
+}
+
+/* Client logos — borderless gradient rings. */
+.servicePageWrp--wd .clientLogoWrp {
+  background: transparent;
+}
+
+.servicePageWrp--wd .cl_box_inner {
+  border: 0;
+  background-image: linear-gradient(
+    150deg,
+    rgba(23, 28, 26, 0.92) 0%,
+    rgba(11, 14, 13, 0.6) 100%
+  );
+  box-shadow: 0 34px 70px -52px rgba(0, 0, 0, 0.95);
+  transition: box-shadow 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.servicePageWrp--wd .cl_box_inner:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 44px 84px -46px rgba(85, 143, 139, 0.9);
+}
+
+.servicePageWrp--wd .cl_box_inner:after {
+  display: none;
+}
+
+.servicePageWrp--wd .cl_box_inner img {
+  filter: grayscale(1) brightness(1.35);
+  opacity: 0.6;
+  transition: opacity 0.45s ease, filter 0.45s ease;
+}
+
+.servicePageWrp--wd .cl_box_inner:hover img {
+  filter: none;
+  opacity: 1;
+}
+
+/* Testimonials — glass panel, gradient rail instead of the flat bar. */
+.servicePageWrp--wd .testimonial-slider {
+  background: transparent;
+  background-image: linear-gradient(
+    155deg,
+    rgba(46, 94, 83, 0.42) 0%,
+    rgba(11, 14, 13, 0.82) 58%,
+    rgba(17, 21, 19, 0.9) 100%
+  );
+  border-radius: clamp(20px, 2.2vw, 32px);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 50px 100px -70px rgba(0, 0, 0, 0.95);
+}
+
+.servicePageWrp--wd .testimonial_dot_box {
+  position: relative;
+  border-bottom: 0;
+}
+
+.servicePageWrp--wd .testimonial_dot_box::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background-image: var(--sv-grad);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.servicePageWrp--wd .testimonial-slider .slick-dots ul li.slick-active .testimonial_dot_box::after {
+  transform: scaleX(1);
+}
+
+.servicePageWrp--wd .testimonial_box-text img {
+  opacity: 0.16;
+}
+
+/* Closing CTA — gradient band, no outline, no gold. */
+.servicePageWrp--wd .service_CTA_sec {
+  border: 0;
+  border-radius: clamp(20px, 2.2vw, 32px);
+  background-image: linear-gradient(
+    150deg,
+    rgba(46, 94, 83, 0.5) 0%,
+    rgba(11, 14, 13, 0.9) 58%,
+    rgba(20, 25, 23, 0.92) 100%
+  );
+  box-shadow: 0 50px 100px -70px rgba(0, 0, 0, 0.95);
+}
+
+.servicePageWrp--wd .cta_effect_1 {
+  background: rgba(85, 143, 139, 0.4);
+}
+
+.servicePageWrp--wd .cta_effect_2 {
+  background: rgba(46, 94, 83, 0.45);
+}
+
+.servicePageWrp--wd .cta_effect_3 {
+  background: linear-gradient(179.29deg, rgba(111, 163, 154, 0.16) 0.58%, rgba(20, 25, 23, 0) 40.98%);
+}
+
+.servicePageWrp--wd .service_CTA_sec .MuiButton-roundBtn:after {
+  background: var(--sv-emerald);
+}
+
+/* FAQs — borderless glass rows. */
+.servicePageWrp--wd .serviceFaqSection {
+  background: transparent;
+}
+
+.servicePageWrp--wd .serviceFaqList {
+  max-width: 980px;
+  margin: 0 auto;
+  border-radius: 0;
+}
+
+.servicePageWrp--wd .serviceFaqAccordion.MuiAccordion-root {
+  margin: 0 0 12px !important;
+  border-bottom: 0;
+  border-radius: 18px;
+  background-image: linear-gradient(
+    150deg,
+    rgba(23, 28, 26, 0.88) 0%,
+    rgba(11, 14, 13, 0.66) 100%
+  );
+  box-shadow: 0 30px 64px -58px rgba(0, 0, 0, 0.95);
+  transition: background-image 0.4s ease, box-shadow 0.4s ease;
+}
+
+.servicePageWrp--wd .serviceFaqAccordion.MuiAccordion-root.Mui-expanded {
+  background-image: linear-gradient(
+    150deg,
+    rgba(46, 94, 83, 0.42) 0%,
+    rgba(11, 14, 13, 0.82) 100%
+  );
+  box-shadow: 0 40px 80px -56px rgba(85, 143, 139, 0.9);
+}
+
+.servicePageWrp--wd .serviceFaqQuestion {
+  font-family: var(--heading-font);
+  font-size: 24px !important;
+  letter-spacing: 0.005em;
+}
+
+.servicePageWrp--wd .serviceFaqSummary .MuiAccordionSummary-expandIconWrapper {
+  color: var(--sv-mint);
+}
+
+/* --------------------------------------------------------------------------
+   KEYFRAMES
+   -------------------------------------------------------------------------- */
+
+@keyframes wdxDrift {
+  0% {
+    transform: translate3d(-2%, -1.5%, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(2.5%, 2%, 0) scale(1.08);
+  }
+}
+
+@keyframes wdxRibbon {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes wdxScan {
+  0% {
+    transform: translate3d(-70%, 0, 0);
+    opacity: 0;
+  }
+
+  22% {
+    opacity: 0.9;
+  }
+
+  58% {
+    opacity: 0.18;
+  }
+
+  100% {
+    transform: translate3d(70%, 0, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes wdxSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wdxPulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+
+@media only screen and (min-width: 1440px) {
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+}
+
+@media only screen and (min-width: 1024px) and (max-height: 780px) {
+  .wdxStack {
+    height: min(72vh, 560px);
+  }
+
+  .wdxStack__title {
+    font-size: clamp(26px, 2.6vw, 44px);
+  }
+
+  .wdxStack__media {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1199px) {
+  .wdxHero__title {
+    font-size: clamp(40px, 4.6vw, 68px);
+  }
+
+  .wdxStack__title {
+    font-size: clamp(28px, 2.8vw, 44px);
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .wdxHero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 44px;
+    min-height: auto;
+    padding-top: clamp(122px, 18vh, 190px);
+    padding-bottom: 72px;
+  }
+
+  .wdxHero__copy {
+    max-width: 100%;
+  }
+
+  .wdxHero__brief {
+    max-height: none;
+  }
+
+  .wdxHero__frames {
+    aspect-ratio: 16 / 11;
+  }
+
+  .wdxStack {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vh, 34px);
+  }
+
+  .wdxStack__card {
+    filter: none !important;
+  }
+
+  .wdxStack__media {
+    aspect-ratio: 16 / 11;
+  }
+
+  .wdxWork__media {
+    aspect-ratio: 16 / 11;
+  }
+
+  .wdxSkills__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .wdxProcess__medallion {
+    width: min(460px, 86vw);
+  }
+
+  .wdxProcess__copy {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .wdxHero {
+    padding-bottom: 8px;
+  }
+
+  .wdxHero__inner {
+    padding: clamp(118px, 17vh, 168px) 20px 56px;
+  }
+
+  .wdxHero__title {
+    font-size: clamp(34px, 9.6vw, 46px);
+  }
+
+  .wdxHero__brief {
+    padding-right: 0;
+  }
+
+  .wdxHero__chips {
+    gap: 10px;
+  }
+
+  .wdxHero__chip {
+    border-radius: 12px;
+  }
+
+  .wdxRibbon__word {
+    font-size: clamp(22px, 8vw, 34px);
+  }
+
+  .wdxIntro {
+    padding: 60px 20px 34px;
+  }
+
+  .wdxIntro p:first-of-type {
+    font-size: clamp(18px, 5.2vw, 22px);
+  }
+
+  .wdxStackWrp {
+    padding: 26px 0 40px;
+  }
+
+  .wdxStack {
+    padding: 0 20px;
+  }
+
+  .wdxStack__card {
+    padding: 20px 18px;
+    border-radius: 22px;
+  }
+
+  .wdxStack__title {
+    font-size: clamp(26px, 8.4vw, 38px);
+  }
+
+  .wdxStack__idx {
+    font-size: 24px;
+  }
+
+  .wdxSkills {
+    padding: 58px 20px 46px;
+  }
+
+  .wdxSkills__nav .MuiTabs-flexContainer > .MuiTab-root {
+    min-width: 108px;
+    padding: 11px 26px;
+    font-size: 11px;
+  }
+
+  .wdxSkills__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .wdxSkills__item {
+    padding: 16px 14px;
+    border-radius: 18px;
+  }
+
+  .wdxSkills__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .wdxSkills__iconImg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .wdxSkills__count {
+    font-size: clamp(22px, 7vw, 30px);
+  }
+
+  .wdxSkills__title {
+    font-size: 14px;
+  }
+
+  .wdxProcess {
+    padding: 56px 20px;
+  }
+
+  .wdxProcess__rotor svg {
+    font-size: 22px;
+  }
+
+  .wdxWork {
+    padding: 44px 20px 20px;
+  }
+
+  .wdxWork__card {
+    border-radius: 20px;
+  }
+
+  .wdxWork__meta {
+    left: 12px;
+    bottom: 12px;
+    padding: 10px 18px 10px 14px;
+    gap: 10px;
+  }
+
+  .servicePageWrp--wd .testimonial-slider {
+    padding: 28px 20px;
+  }
+
+  .servicePageWrp--wd .serviceFaqQuestion {
+    font-size: 17px !important;
+  }
+
+  .servicePageWrp--wd .scroll-to-top {
+    width: 56px;
+    height: 56px;
+  }
+
+  .servicePageWrp--wd .scroll-to-top img {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+}
+
+@media only screen and (max-width: 480px) {
+  .wdxSkills__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wdxSkills__nav .MuiTabs-flexContainer > .MuiTab-root {
+    min-width: 92px;
+    padding: 10px 18px;
+  }
+
+  .wdxWork__meta {
+    right: 12px;
+    justify-content: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   REDUCED MOTION
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .wdxHero__aurora,
+  .wdxHero__scan,
+  .wdxIntro__orb,
+  .wdxSkills__aurora,
+  .wdxProcess__aurora,
+  .wdxProcess__halo,
+  .wdxProcess__ring::before,
+  .wdxProcess__rotor,
+  .wdxRibbon__track {
+    animation: none !important;
+  }
+
+  .wdxHero__frame {
+    transition: opacity 0.4s ease;
+    transform: none;
+  }
+}
