@@ -5,15 +5,23 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import { Box, Grid } from "@mui/material";
+import SectionHeading from "../../../components/SectionHeading";
 import NextImage from "../../../components/NextImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const EASE = [0.22, 1, 0.36, 1];
 
+/**
+ * The services deal.
+ *
+ * The stacking itself is CSS `position: sticky` — no ScrollTrigger pins, so the
+ * page never locks up and the compositor keeps it smooth. GSAP only scrubs the
+ * incoming card (x / y / opacity) and reports which card is on top.
+ */
 const WebServiceTab = (props) => {
   const { webServiceTabData } = props;
-  const stackRef = useRef(null);
+  const wrapRef = useRef(null);
   const cardRefs = useRef([]);
 
   useEffect(() => {
@@ -22,62 +30,49 @@ const WebServiceTab = (props) => {
     const media = gsap.matchMedia();
 
     media.add("(min-width: 1024px)", () => {
-      const wrap = stackRef.current;
+      const wrap = wrapRef.current;
       const cards = cardRefs.current.filter(Boolean);
       if (!wrap || cards.length < 2) return undefined;
 
-      const flags = new Array(cards.length).fill(false);
+      const deal = cards.slice(1);
+      gsap.set(cards, { willChange: "transform, opacity" });
 
-      const syncTop = () => {
-        let top = 0;
-        flags.forEach((on, index) => {
-          if (on) top = Math.max(top, index);
-        });
+      const onUpdate = (progress) => {
+        const top = Math.min(cards.length - 1, Math.round(progress * (cards.length - 1)));
         cards.forEach((card, index) => {
           card.classList.toggle("is-front", index === top);
           card.classList.toggle("is-dealt", index < top);
         });
       };
 
-      const deal = gsap.fromTo(
-        cards.slice(1),
-        { x: () => window.innerWidth / 2 + 140, rotate: 2.5, opacity: 0.85 },
-        {
-          x: 0,
-          rotate: 0,
-          opacity: 1,
-          ease: "none",
-          stagger: 0.85,
-          scrollTrigger: {
-            trigger: wrap,
-            pin: true,
-            scrub: 1,
-            start: "top 96px",
-            end: () => "+=" + cards.length * 460,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              const step = 1 / (cards.length - 1);
-              const reached = Math.min(
-                cards.length - 1,
-                Math.max(0, Math.round(self.progress / step))
-              );
-              flags.fill(false);
-              flags[0] = true;
-              for (let i = 1; i <= reached; i += 1) flags[i] = true;
-              syncTop();
-            },
-          },
-        }
-      );
+      const tl = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: wrap,
+          start: "top top",
+          end: "bottom 85%",
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => onUpdate(self.progress),
+        },
+      });
 
-      cards[0].classList.add("is-front");
+      deal.forEach((card, index) => {
+        tl.fromTo(
+          card,
+          { xPercent: 14, yPercent: 5, opacity: 0 },
+          { xPercent: 0, yPercent: 0, opacity: 1, duration: 1 },
+          index
+        );
+      });
+
+      onUpdate(0);
 
       return () => {
-        deal.scrollTrigger?.kill();
-        deal.kill();
-        cards.forEach((card) =>
-          card.classList.remove("is-front", "is-dealt")
-        );
+        tl.scrollTrigger?.kill();
+        tl.kill();
+        gsap.set(cards, { clearProps: "willChange,transform,opacity" });
+        cards.forEach((card) => card.classList.remove("is-front", "is-dealt"));
       };
     });
 
@@ -86,7 +81,22 @@ const WebServiceTab = (props) => {
 
   return (
     <Box className="wdxStackWrp">
-      <Box className="wdxStack" ref={stackRef}>
+      <div className="wdxStack__head">
+        <SectionHeading
+          subtitle="Services"
+          title="What We Build"
+          titleFontSize="clamp(30px, 3.4vw, 58px)"
+          margin="12px 0 14px"
+          align="center"
+          description="Five disciplines that carry a project from the first sketch to launch day."
+        />
+      </div>
+
+      <Box
+        className="wdxStack"
+        ref={wrapRef}
+        style={{ "--deck": webServiceTabData.length }}
+      >
         {webServiceTabData.map((webTabItem, index) => (
           <Box
             className="wdxStack__card"
@@ -102,10 +112,10 @@ const WebServiceTab = (props) => {
               <Grid item xs={12} md={6}>
                 <motion.div
                   className="wdxStack__media"
-                  initial={{ y: 70, opacity: 0 }}
+                  initial={{ y: 50, opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.9, ease: EASE }}
+                  transition={{ duration: 0.8, ease: EASE }}
                 >
                   <NextImage
                     src={webTabItem.featuredImg}
@@ -122,28 +132,16 @@ const WebServiceTab = (props) => {
                 <div className="wdxStack__panel">
                   <span className="wdxStack__idx" aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}
+                    <em>/{String(webServiceTabData.length).padStart(2, "0")}</em>
                   </span>
-                  <motion.h3
-                    className="wdxStack__title"
-                    initial={{ y: 60, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.85, ease: EASE }}
-                  >
-                    {webTabItem.title}
-                  </motion.h3>
-                  <motion.div
+                  <h3 className="wdxStack__title">{webTabItem.title}</h3>
+                  <div
                     className="wdxStack__desc"
-                    initial={{ y: 50, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.9, delay: 0.08, ease: EASE }}
                     dangerouslySetInnerHTML={{ __html: webTabItem.Description }}
                   />
                 </div>
               </Grid>
             </Grid>
-
           </Box>
         ))}
       </Box>

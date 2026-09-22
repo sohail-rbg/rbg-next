@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import WebServiceTab from "./webdesign/WebServiceTab";
 
 import { AnimatedParagraph } from "../../ThemeModule";
+import SectionHeading from "../../components/SectionHeading";
 
 // import './webdesign/style.css'
 import ServiceCTA from "./ServiceCTA";
@@ -192,7 +193,6 @@ const WebDesignContent = () => {
 
       <Box component="section" className="webdesignContentWrp wdPage">
         <Box className="aboutWebDesignSec wdxIntro">
-          <span className="wdxIntro__orb" aria-hidden="true" />
           <AnimatedParagraph>
             Elevate your online brand with ReBrand Gurus expert website
             redesign services. Our team of award-winning designers specializes
@@ -215,7 +215,20 @@ const WebDesignContent = () => {
         <ProcessWebDesign />
         <BeforeAfterDesign beforeAfter={beforeAfter} />
         <ClientLogos clientLogo={clients} />
-        <Testimonials />
+
+        <section className="wdxReviews">
+          <div className="wdxReviews__head">
+            <SectionHeading
+              subtitle="Testimonials"
+              title="What Our Clients Say"
+              titleFontSize="clamp(30px, 3.4vw, 58px)"
+              margin="12px 0 14px"
+              align="center"
+            />
+          </div>
+          <Testimonials />
+        </section>
+
         <ServiceCTA />
         <ServiceFAQS accordionData={accordionData} />
       </Box>

@@ -40,33 +40,13 @@ const PARALLAX = [
     trigger: ".wdxHero",
     start: "top top",
     from: { yPercent: 0, scale: 1 },
-    to: { yPercent: 10, scale: 0.97 },
+    to: { yPercent: 9, scale: 0.975 },
   },
   {
-    selector: ".wdxIntro__orb",
-    from: { yPercent: -12 },
-    to: { yPercent: 16 },
-  },
-  {
-    selector: ".wdxSkills__aurora",
-    from: { yPercent: -8 },
-    to: { yPercent: 12 },
-  },
-  {
-    selector: ".wdxProcess__ring",
-    from: { rotate: -9, scale: 0.95 },
-    to: { rotate: 5, scale: 1 },
-  },
-  {
-    selector: ".wdxWork__aurora",
-    from: { yPercent: -10 },
-    to: { yPercent: 14 },
-  },
-  {
-    selector: ".cta_effect_2",
-    trigger: ".service_CTA_sec",
-    from: { yPercent: -14 },
-    to: { yPercent: 12 },
+    selector: ".wdxProcess__rotor",
+    trigger: ".wdxProcess",
+    from: { yPercent: -7 },
+    to: { yPercent: 7 },
   },
 ];
 
@@ -107,7 +87,7 @@ const SmoothMotion = () => {
 
     /* ---- inertial smooth scrolling --------------------------------------- */
     const lenis = new Lenis({
-      lerp: 0.085,
+      lerp: 0.12,
       wheelMultiplier: 1,
       smoothWheel: true,
       syncTouch: false,
@@ -116,14 +96,9 @@ const SmoothMotion = () => {
 
     const onScroll = ({ velocity }) => {
       ScrollTrigger.update();
-      if (ribbonTween) {
-        const speed = Math.min(3.4, 1 + Math.abs(velocity) * 0.0075);
-        ribbonTween.timeScale((velocity < 0 ? -1 : 1) * speed);
-      }
-      root.style.setProperty(
-        "--wd-vel",
-        Math.min(1, Math.abs(velocity) / 55).toFixed(3)
-      );
+      if (!ribbonTween) return;
+      const speed = Math.min(3, 1 + Math.abs(velocity) * 0.007);
+      ribbonTween.timeScale((velocity < 0 ? -1 : 1) * speed);
     };
     lenis.on("scroll", onScroll);
 
@@ -283,6 +258,13 @@ const SmoothMotion = () => {
       cleanups.push(() => card.removeEventListener("pointermove", move));
     });
 
+    // one refresh once fonts/images have settled, so sticky offsets stay honest
+    const refresh = () => ScrollTrigger.refresh();
+    if (document.fonts?.ready) document.fonts.ready.then(refresh).catch(() => {});
+    window.addEventListener("load", refresh);
+    cleanups.push(() => window.removeEventListener("load", refresh));
+
+    ScrollTrigger.config({ ignoreMobileResize: true });
     ScrollTrigger.refresh();
 
     return () => {
@@ -298,7 +280,6 @@ const SmoothMotion = () => {
       gsap.ticker.lagSmoothing(500, 33); // restore the GSAP default
       lenis.destroy();
       root.classList.remove("wdSmooth");
-      root.style.removeProperty("--wd-vel");
       root.querySelectorAll("[data-wd-split]").forEach((el) => {
         delete el.dataset.wdSplit;
       });

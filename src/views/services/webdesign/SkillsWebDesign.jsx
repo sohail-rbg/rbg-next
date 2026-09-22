@@ -185,7 +185,6 @@ const SkillsWebDesign = () => {
   return (
     <Box component="section" className="skillSection wdxSkills">
       <span className="wdxSkills__aurora" aria-hidden="true" />
-      <span className="wdxSkills__grain" aria-hidden="true" />
 
       <SectionHeading
         title="Skills & Tools"
