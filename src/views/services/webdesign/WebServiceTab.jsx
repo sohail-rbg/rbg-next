@@ -23,6 +23,7 @@ const WebServiceTab = (props) => {
   const { webServiceTabData } = props;
   const wrapRef = useRef(null);
   const cardRefs = useRef([]);
+  const tickRefs = useRef([]);
 
   useEffect(() => {
     if (!webServiceTabData?.length) return undefined;
@@ -37,11 +38,17 @@ const WebServiceTab = (props) => {
       const deal = cards.slice(1);
       gsap.set(cards, { willChange: "transform, opacity" });
 
+      const ticks = tickRefs.current.filter(Boolean);
+
       const onUpdate = (progress) => {
         const top = Math.min(cards.length - 1, Math.round(progress * (cards.length - 1)));
         cards.forEach((card, index) => {
           card.classList.toggle("is-front", index === top);
           card.classList.toggle("is-dealt", index < top);
+        });
+        ticks.forEach((tick, index) => {
+          tick.classList.toggle("is-on", index === top);
+          tick.classList.toggle("is-done", index < top);
         });
       };
 
@@ -58,9 +65,10 @@ const WebServiceTab = (props) => {
       });
 
       deal.forEach((card, index) => {
+        const from = (index + 1) % 2 ? 14 : -14;
         tl.fromTo(
           card,
-          { xPercent: 14, yPercent: 5, opacity: 0 },
+          { xPercent: from, yPercent: 5, opacity: 0 },
           { xPercent: 0, yPercent: 0, opacity: 1, duration: 1 },
           index
         );
@@ -73,6 +81,9 @@ const WebServiceTab = (props) => {
         tl.kill();
         gsap.set(cards, { clearProps: "willChange,transform,opacity" });
         cards.forEach((card) => card.classList.remove("is-front", "is-dealt"));
+        tickRefs.current.filter(Boolean).forEach((tick) =>
+          tick.classList.remove("is-on", "is-done")
+        );
       };
     });
 
@@ -88,7 +99,7 @@ const WebServiceTab = (props) => {
           titleFontSize="clamp(30px, 3.4vw, 58px)"
           margin="12px 0 14px"
           align="center"
-          description="Five disciplines that carry a project from the first sketch to launch day."
+          description="Five disciplines that carry a project from the first sketch to launch day. Follow the numbers."
         />
       </div>
 
@@ -97,19 +108,34 @@ const WebServiceTab = (props) => {
         ref={wrapRef}
         style={{ "--deck": webServiceTabData.length }}
       >
+        <div className="wdxStack__index" aria-hidden="true">
+          {webServiceTabData.map((item, index) => (
+            <span
+              className="wdxStack__tick"
+              key={`tick-${item.id}`}
+              ref={(el) => (tickRefs.current[index] = el)}
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
+          ))}
+        </div>
+
         {webServiceTabData.map((webTabItem, index) => (
           <Box
-            className="wdxStack__card"
+            className={`wdxStack__card${index % 2 ? " is-flip" : ""}`}
             key={webTabItem.id}
             ref={(el) => (cardRefs.current[index] = el)}
             data-wd-spot
-            style={{ "--stack-accent": webTabItem.bgColor || "#2E5E53" }}
+            style={{ "--stack-accent": webTabItem.bgColor || "var(--primary)" }}
           >
             <span className="wdxStack__glow" aria-hidden="true" />
             <span className="wdxStack__spot" aria-hidden="true" />
+            <span className="wdxStack__bigNum" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
 
             <Grid container spacing={{ xs: 2, md: 4 }} alignItems="center">
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} className="wdxStack__mediaCell">
                 <motion.div
                   className="wdxStack__media"
                   initial={{ y: 50, opacity: 0 }}
@@ -128,7 +154,7 @@ const WebServiceTab = (props) => {
                 </motion.div>
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} className="wdxStack__copyCell">
                 <div className="wdxStack__panel">
                   <span className="wdxStack__idx" aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}

@@ -20,8 +20,7 @@ const ServicePage = () => {
   const cardsRef = useRef([]);
   const deckRef = useRef(null);
   const hudRef = useRef(null);
-  const hudFillRef = useRef(null);
-  const hudDotsRef = useRef([]);
+  const hudItemsRef = useRef([]);
 
   useEffect(() => {
     const media = gsap.matchMedia();
@@ -31,13 +30,12 @@ const ServicePage = () => {
       if (!cards.length) return undefined;
 
       const hud = hudRef.current;
-      const dots = hudDotsRef.current.filter(Boolean);
+      const items = hudItemsRef.current.filter(Boolean);
       const activeFlags = new Array(cards.length).fill(false);
-      const stickDistance = 0;
       const triggers = [];
       const tweens = [];
 
-      // Keeps the "top of the deck" card and the side rail in sync with the pin.
+      // top-of-deck card + index rail follow the pin position
       const syncDeckState = () => {
         let current = -1;
         activeFlags.forEach((isOn, i) => {
@@ -49,9 +47,9 @@ const ServicePage = () => {
           card.classList.toggle("is-back", current > -1 && i < current);
         });
 
-        dots.forEach((dot, i) => {
-          dot.classList.toggle("is-on", i === current);
-          dot.classList.toggle("is-done", current > -1 && i < current);
+        items.forEach((item, i) => {
+          item.classList.toggle("is-on", i === current);
+          item.classList.toggle("is-done", current > -1 && i < current);
         });
       };
 
@@ -75,7 +73,7 @@ const ServicePage = () => {
           ScrollTrigger.create({
             trigger: card,
             start: "center center",
-            end: () => lastCardST.start + stickDistance,
+            end: () => lastCardST.start,
             pin: true,
             pinSpacing: false,
             ease: "none",
@@ -89,23 +87,14 @@ const ServicePage = () => {
         );
       });
 
-      // Drives the fixed deck rail: fade in with the section, fill with progress.
       if (deckRef.current) {
         triggers.push(
           ScrollTrigger.create({
             trigger: deckRef.current,
-            start: "top 72%",
-            end: "bottom 32%",
+            start: "top 74%",
+            end: "bottom 30%",
             onToggle: (self) => {
               if (hud) hud.classList.toggle("is-live", self.isActive);
-            },
-            onUpdate: (self) => {
-              if (hudFillRef.current) {
-                hudFillRef.current.style.transform = `scaleY(${Math.max(
-                  0.02,
-                  self.progress
-                ).toFixed(3)})`;
-              }
             },
           })
         );
@@ -115,9 +104,8 @@ const ServicePage = () => {
         triggers.forEach((trigger) => trigger.kill());
         tweens.forEach((tween) => tween.kill());
         cards.forEach((card) => card.classList.remove("is-top", "is-back"));
-        dots.forEach((dot) => dot.classList.remove("is-on", "is-done"));
+        items.forEach((item) => item.classList.remove("is-on", "is-done"));
         if (hud) hud.classList.remove("is-live");
-        if (hudFillRef.current) hudFillRef.current.style.transform = "";
       };
     });
 
@@ -126,52 +114,27 @@ const ServicePage = () => {
 
   return (
     <>
-      <WelcomeService />
+      <WelcomeService services={deckServices} />
 
-      <section className="cardStacking deckSection" id="service-deck" ref={deckRef}>
-        <span className="deckSection__aurora" aria-hidden="true" />
-        <span className="deckSection__grain" aria-hidden="true" />
-
-        <div className="deckSection__head">
+      <section className="cardStacking" id="service-deck" ref={deckRef}>
+        <div className="deckHead">
           <SectionHeading
-            subtitle="Our Services"
-            title="The Service Deck"
-            titleFontSize="clamp(38px, 4.6vw, 74px)"
-            margin="12px 0 16px"
+            subtitle="The Deck"
+            title="Service by Service"
+            titleFontSize="clamp(32px, 3.6vw, 62px)"
+            margin="12px 0 14px"
             align="center"
-            description="Six disciplines, one team. Scroll to deal through everything we build."
+            description="Six disciplines, one team. Scroll to deal through everything we build — or jump in from the index above."
           />
         </div>
 
         <div className="deckWrap">
-          <div className="deckHud" ref={hudRef} aria-hidden="true">
-            <div className="deckHud__track">
-              <span className="deckHud__fill" ref={hudFillRef} />
-            </div>
-            <ul className="deckHud__list">
-              {deckServices.map((service, index) => (
-                <li
-                  key={service.id}
-                  className="deckHud__item"
-                  ref={(el) => (hudDotsRef.current[index] = el)}
-                >
-                  <span className="deckHud__dot" />
-                  <span className="deckHud__num">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="deckHud__label">{service.title}</span>
-                </li>
-              ))}
-            </ul>
-            <span className="deckHud__total">{`${totalLabel} Services`}</span>
-          </div>
-
           <div className="cardStacking__cards">
             {deckServices.map((service, index) => (
               <div
-                key={service.id}
                 className="stackCard"
-                data-deck-index={index + 1}
+                key={service.id}
+                id={`sv-deck-${index + 1}`}
                 ref={(el) => (cardsRef.current[index] = el)}
               >
                 <ServiceCard
@@ -183,11 +146,30 @@ const ServicePage = () => {
             ))}
           </div>
         </div>
+
+        <div className="deckHud" ref={hudRef} aria-hidden="true">
+          <span className="deckHud__label">Index</span>
+          <ul className="deckHud__list">
+            {deckServices.map((service, index) => (
+              <li
+                className="deckHud__item"
+                key={service.id}
+                ref={(el) => (hudItemsRef.current[index] = el)}
+              >
+                <span className="deckHud__num">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="deckHud__name">{service.title}</span>
+                <span className="deckHud__dot" />
+              </li>
+            ))}
+          </ul>
+          <span className="deckHud__total">{`${totalLabel} Services`}</span>
+        </div>
       </section>
 
-      <section className="deckCta">
-        <span className="deckCta__glow" aria-hidden="true" />
-        <div className="deckCta__inner">
+      <section className="svCta">
+        <div className="svCta__inner">
           <SectionHeading
             subtitle="Request A Quote"
             title="Grow Your Brand Online With ReBrand Gurus"
@@ -206,8 +188,8 @@ const ServicePage = () => {
         </div>
       </section>
 
-      <section className="deckWords">
-        <div className="deckWords__inner">
+      <section className="svWords">
+        <div className="svWords__head">
           <SectionHeading
             subtitle="Testimonials"
             title="What Our Clients Say"
@@ -215,6 +197,8 @@ const ServicePage = () => {
             margin="12px 0 18px"
             align="center"
           />
+        </div>
+        <div className="svWords__inner">
           <Testimonials />
         </div>
       </section>
