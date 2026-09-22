@@ -1,9 +1,8 @@
 "use client";
 
-import { Box, Container, Grid } from "@mui/material";
-import React from "react";
-import SectionHeading from "../../../components/SectionHeading";
 import { motion } from "framer-motion";
+import SectionHeading from "../../../components/SectionHeading";
+import NextImage from "../../../components/NextImage";
 import img1 from "../../../images/services/service/1.png";
 import img2 from "../../../images/services/service/2.png";
 import img3 from "../../../images/services/service/3.png";
@@ -20,94 +19,85 @@ import img13 from "../../../images/services/service/13.png";
 import img14 from "../../../images/services/service/14.png";
 import img15 from "../../../images/services/service/15.png";
 import img16 from "../../../images/services/service/16.png";
-import NextImage from "../../../components/NextImage";
 
-const WelcomeService = () => {
-  const work_item_initial = {
-    opacity: 0,
-    y: "-100px",
-  };
-  const work_item_view = {
-    opacity: 1,
-    y: "0",
-  };
-  const work_item_transition = {
-    type: "spring",
-    duration: 2,
-    repeatType: "reverse",
-  };
+const capabilities = [
+  "Specialized Design Enhancement Protocol",
+  "Over 200 Websites in the SME Sector",
+  "Exquisite Visual Optimization",
+];
 
-  const imagesUp = [img1, img2, img3, img4, img5, img6, img7, img8];
-  const imagesDown = [img9, img10, img11, img12, img13, img14, img15, img16];
+const reelTop = [img1, img2, img3, img4, img5, img6, img7, img8];
+const reelBottom = [img9, img10, img11, img12, img13, img14, img15, img16];
 
-  const renderImages = (images, direction) => (
-    <Box
-      component={"marquee"}
-      loop="100"
-      direction={direction}
-      className={`ser_maqqueeBox ${direction === 'down' ? 'stm_left_box' : 'stm_right_box'}`}
-    >
-      {images.map((img, index) => (
-        <Box className="ser_maq_item" key={index}>
+const ReelColumn = ({ images, tone }) => (
+  <div className={`svReel__col svReel__col--${tone}`}>
+    <div className="svReel__strip">
+      {[...images, ...images].map((src, index) => (
+        <div className="svReel__tile" key={`${tone}-${index}`}>
           <NextImage
-            alt={`service-image-${index + 1}`}
-            src={img}
-            className="img-fluid"
+            alt=""
+            src={src}
+            fill
+            sizes="(max-width: 767px) 42vw, 20vw"
+            className="svReel__img"
           />
-        </Box>
+        </div>
       ))}
-    </Box>
-  );
+    </div>
+  </div>
+);
 
-  return (
-    <>
-      <Box component={"section"} className="serviceWelcomeSec">
-        <Container>
-          <Grid container spacing={4} direction="row" alignItems="center">
-            <Grid xs={12} md={6} item>
-              <SectionHeading
-                title="High Quality Projects"
-                subtitle="ReBrand Gurus"
-                titleFontSize="80px"
-              />
-              <div className="sv-inner__service-list-wrap">
-                <motion.div
-                  initial={work_item_initial}
-                  whileInView={work_item_view}
-                  transition={work_item_transition}
-                  className="sv-inner__service-list list-1"
-                >
-                  <span>Specialized Design Enhancement Protocol</span>
-                </motion.div>
-                <motion.div
-                  initial={work_item_initial}
-                  whileInView={work_item_view}
-                  transition={work_item_transition}
-                  className="sv-inner__service-list list-2"
-                >
-                  <span>Over 200 Websites in the SME Sector</span>
-                </motion.div>
-                <motion.div
-                  initial={work_item_initial}
-                  whileInView={work_item_view}
-                  transition={work_item_transition}
-                  className="sv-inner__service-list list-3"
-                >
-                  <span>Exquisite Visual Optimization</span>
-                </motion.div>
-              </div>
-            </Grid>
-            <Grid xs={12} md={6} item>
-              <div className="service_top_marquee_box">
-                {renderImages(imagesDown, "down")}
-                {renderImages(imagesUp, "up")}
-              </div>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-    </>
-  );
-};
+const WelcomeService = () => (
+  <section className="serviceWelcomeSec svHero">
+    <span className="svHero__aurora" aria-hidden="true" />
+    <span className="svHero__grid" aria-hidden="true" />
+    <span className="svHero__vignette" aria-hidden="true" />
+
+    <div className="svHero__inner">
+      <div className="svHero__copy">
+        <SectionHeading
+          subtitle="ReBrand Gurus"
+          title="High Quality Projects"
+          titleFontSize="clamp(42px, 5.2vw, 84px)"
+          margin="14px 0 16px"
+          description="Brand systems, websites and campaigns — designed, built and shipped in-house by a team that treats your growth like our own."
+        />
+
+        <div className="sv-inner__service-list-wrap">
+          {capabilities.map((text, index) => (
+            <motion.div
+              key={text}
+              className={`svCap svCap--${index + 1}`}
+              initial={{ opacity: 0, y: 34 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{
+                duration: 0.75,
+                delay: index * 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <span className="svCap__idx" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="svCap__text">{text}</span>
+              <span className="svCap__sweep" aria-hidden="true" />
+            </motion.div>
+          ))}
+        </div>
+
+        <a className="svHero__cue" href="#service-deck">
+          <span className="svHero__cueLine" aria-hidden="true" />
+          <span>Scroll the deck</span>
+        </a>
+      </div>
+
+      <div className="svHero__reel service_top_marquee_box" aria-hidden="true">
+        <ReelColumn images={reelTop} tone="up" />
+        <ReelColumn images={reelBottom} tone="down" />
+      </div>
+    </div>
+  </section>
+);
 
 export default WelcomeService;
