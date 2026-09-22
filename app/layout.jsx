@@ -54,6 +54,10 @@ import "../src/views/searchEvolution.css";
 import "../src/responsive.css";
 import Providers from "../src/app-client/Providers";
 import {
+  preloaderBootScript,
+  preloaderNoScriptStyle,
+} from "../src/components/preloader/preloaderBoot";
+import {
   defaultDescription,
   defaultKeywords,
   defaultOgImage,
@@ -118,6 +122,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Runs before first paint: locks the page behind the brand intro. */}
+        <script dangerouslySetInnerHTML={{ __html: preloaderBootScript }} />
+        <noscript>
+          <style dangerouslySetInnerHTML={{ __html: preloaderNoScriptStyle }} />
+        </noscript>
+      </head>
       <body suppressHydrationWarning>
         <script
           type="application/ld+json"

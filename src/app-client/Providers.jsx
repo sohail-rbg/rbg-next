@@ -8,6 +8,7 @@ import { darkTheme } from "../ThemeModule";
 import Header from "../components/header/Header";
 import CursorLayer from "./CursorLayer";
 import NavigationLoader from "./NavigationLoader";
+import Preloader from "../components/preloader/Preloader";
 
 const Footer = dynamic(() => import("../components/footer/Footer"), {
   ssr: false,
@@ -17,6 +18,7 @@ export default function Providers({ children }) {
   return (
     <ParallaxProvider>
       <ThemeProvider theme={darkTheme}>
+        <Preloader />
         <CursorLayer />
         <NavigationLoader />
         <div className="body-bg"></div>
