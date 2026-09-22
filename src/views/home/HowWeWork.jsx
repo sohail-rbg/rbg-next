@@ -132,6 +132,7 @@ const HowWeWork = () => {
       ref={sectionRef}
     >
       <span className="pfSection__wash" aria-hidden="true" />
+      <span className="pfSection__aurora" aria-hidden="true" />
 
       <Container>
         <SectionHeading title={title} subtitle={subTitle} align="center" />

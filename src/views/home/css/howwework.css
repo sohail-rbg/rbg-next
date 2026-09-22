@@ -14,6 +14,10 @@
   --pf-ink-soft: #0d0d0d;
   --pf-muted: rgba(255, 255, 255, 0.64);
 
+  /* gradient set — mint -> sage -> emerald, the same ramp as the brand marks */
+  --pf-grad-title: linear-gradient(96deg, #ffffff 0%, #e8efe5 40%, var(--pf-mint) 100%);
+  --pf-grad-num: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.3));
+
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -36,6 +40,58 @@
   filter: blur(20px);
   pointer-events: none;
   z-index: 0;
+}
+
+/* drifting aurora — four overlapping radial gradients that keep the back of
+   the section alive while the stage cycles */
+.pfSection__aurora {
+  position: absolute;
+  inset: -16% -8%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      38% 32% at 16% 22%,
+      rgba(139, 156, 140, 0.22),
+      rgba(139, 156, 140, 0) 70%
+    ),
+    radial-gradient(
+      34% 30% at 84% 14%,
+      rgba(46, 94, 83, 0.42),
+      rgba(46, 94, 83, 0) 72%
+    ),
+    radial-gradient(
+      48% 40% at 64% 94%,
+      rgba(10, 42, 35, 0.62),
+      rgba(10, 42, 35, 0) 76%
+    ),
+    radial-gradient(
+      30% 26% at 28% 80%,
+      rgba(185, 200, 186, 0.14),
+      rgba(185, 200, 186, 0) 70%
+    );
+  filter: blur(26px) saturate(1.05);
+  animation: pfDrift 30s ease-in-out infinite alternate;
+}
+
+/* film grain, same texture as the menu panel */
+.pfSection__aurora::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+@keyframes pfDrift {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(3%, 2%, 0) scale(1.1);
+  }
 }
 
 .pfSection .MuiContainer-root {
@@ -68,6 +124,7 @@
   flex: 1 1 0;
   min-width: 0;
   overflow: hidden;
+  isolation: isolate;
   border-radius: 22px;
   background: var(--pf-ink-soft);
   box-shadow: 0 26px 60px -46px rgba(0, 0, 0, 0.95);
@@ -75,10 +132,63 @@
     box-shadow 0.7s ease;
 }
 
+/* each step carries its own slice of the palette */
+.pfPanel:nth-child(1) {
+  --pf-a1: rgba(185, 200, 186, 0.95);
+  --pf-a2: rgba(46, 94, 83, 0.95);
+  --pf-a3: rgba(10, 42, 35, 0.98);
+}
+.pfPanel:nth-child(2) {
+  --pf-a1: rgba(207, 224, 211, 0.95);
+  --pf-a2: rgba(74, 122, 108, 0.95);
+  --pf-a3: rgba(16, 56, 47, 0.98);
+}
+.pfPanel:nth-child(3) {
+  --pf-a1: rgba(159, 184, 168, 0.95);
+  --pf-a2: rgba(46, 94, 83, 0.95);
+  --pf-a3: rgba(10, 42, 35, 0.98);
+}
+.pfPanel:nth-child(4) {
+  --pf-a1: rgba(230, 239, 228, 0.95);
+  --pf-a2: rgba(78, 122, 107, 0.95);
+  --pf-a3: rgba(12, 48, 40, 0.98);
+}
+.pfPanel:nth-child(5) {
+  --pf-a1: rgba(139, 156, 140, 0.95);
+  --pf-a2: rgba(34, 78, 68, 0.95);
+  --pf-a3: rgba(8, 34, 28, 0.98);
+}
+
 .pfPanel.is-active {
   flex-grow: 5.4;
   box-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.98),
-    0 0 70px -26px rgba(46, 94, 83, 0.75);
+    0 0 72px -24px var(--pf-a2, rgba(46, 94, 83, 0.75));
+}
+
+/* inner bloom — a soft gradient light at the top of the open panel */
+.pfPanel::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -18%;
+  z-index: 1;
+  width: 134%;
+  height: 80%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    var(--pf-a1, rgba(185, 200, 186, 0.9)),
+    rgba(46, 94, 83, 0) 72%
+  );
+  filter: blur(30px);
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.9s ease;
+}
+
+.pfPanel.is-active::after {
+  opacity: 0.34;
 }
 
 .pfPanel__media {
@@ -87,10 +197,32 @@
   z-index: 0;
 }
 
+/* duotone — the emerald ramp mixed into the photograph itself */
+.pfPanel__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    150deg,
+    rgba(46, 94, 83, 0.85) 0%,
+    rgba(185, 200, 186, 0.4) 46%,
+    rgba(10, 42, 35, 0.9) 100%
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.pfPanel.is-active .pfPanel__media::before {
+  opacity: 0.62;
+}
+
 .pfPanel__media::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
   background: linear-gradient(
     190deg,
     rgba(46, 94, 83, 0.42) 0%,
@@ -140,13 +272,39 @@
 }
 
 .pfPanel__num {
+  position: relative;
   font-family: var(--heading-font);
   font-weight: 300;
   font-size: clamp(22px, 1.9vw, 34px);
   line-height: 1;
   font-variant-numeric: tabular-nums;
   color: rgba(255, 255, 255, 0.55);
+  background-image: var(--pf-grad-num);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   transition: color 0.6s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* soft gradient orb behind the number of the open step */
+.pfPanel.is-active .pfPanel__num::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  width: 2.8em;
+  height: 2.8em;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    var(--pf-a2, rgba(46, 94, 83, 0.9)),
+    rgba(10, 42, 35, 0) 70%
+  );
+  filter: blur(14px);
+  opacity: 0.9;
+  pointer-events: none;
 }
 
 .pfPanel__name {
@@ -164,6 +322,12 @@
 
 .pfPanel.is-active .pfPanel__num {
   color: var(--pf-mint);
+  background-image: linear-gradient(
+    160deg,
+    var(--pf-a1) 0%,
+    var(--pf-a2) 58%,
+    var(--pf-a3) 100%
+  );
   transform: translateX(-4px);
 }
 
@@ -219,6 +383,10 @@
   font-size: clamp(24px, 2.3vw, 40px);
   line-height: 1.1;
   color: #fff;
+  background-image: var(--pf-grad-title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .pfPanel__text {
@@ -235,18 +403,32 @@
   right: 0;
   bottom: 0;
   z-index: 4;
-  height: 2px;
+  height: 3px;
   background: linear-gradient(
     90deg,
-    var(--pf-emerald) 0%,
-    var(--pf-sage) 100%
+    var(--pf-a2, var(--pf-emerald)) 0%,
+    var(--pf-a1, var(--pf-sage)) 38%,
+    var(--pf-mint) 58%,
+    var(--pf-a2, var(--pf-emerald)) 100%
   );
+  background-size: 260% 100%;
+  box-shadow: 0 0 18px rgba(139, 156, 140, 0.45);
   transform: scaleX(0);
   transform-origin: left center;
 }
 
 .pfPanel.is-active .pfPanel__progress {
-  animation: pfCycle 5.2s linear forwards;
+  animation: pfCycle 5.2s linear forwards, pfSheen 3.6s linear infinite;
+}
+
+/* the gradient keeps travelling along the bar as it fills */
+@keyframes pfSheen {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
 }
 
 .pfBoard.is-paused .pfPanel.is-active .pfPanel__progress {
@@ -344,6 +526,11 @@
 
 /* ---- accessibility ------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
+  .pfSection__aurora,
+  .pfPanel.is-active .pfPanel__progress {
+    animation: none !important;
+  }
+
   .pfPanel,
   .pfPanel__img,
   .pfPanel__num,
