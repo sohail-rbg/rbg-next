@@ -97,7 +97,6 @@ const BeforeAfterDesign = ({ beforeAfter }) => {
                 </span>
                 <h3 className="wdxWork__title">{ba_item.title}</h3>
               </div>
-              <span className="wdxWork__line" aria-hidden="true" />
             </motion.div>
           </article>
         ))}

@@ -144,7 +144,6 @@ const WebServiceTab = (props) => {
               </Grid>
             </Grid>
 
-            <span className="wdxStack__rule" aria-hidden="true" />
           </Box>
         ))}
       </Box>
