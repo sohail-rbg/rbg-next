@@ -1150,21 +1150,27 @@ html .btn12:focus:not(:focus-visible) {
   .hamburger-menu.hamburger-menu .h_info_item {
     align-items: center;
   }
-}
 
-/* three-column layout — the socials fill the third column as a 2x2 block */
-@media only screen and (min-width: 1200px) {
+  /* socials fill their column (or their full-width row on the 2-column tier) */
   .hamburger-menu.hamburger-menu .socialBox {
     flex: 1 1 auto;
     min-height: 0;
   }
   .hamburger-menu.hamburger-menu .social_Wrp {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
     flex: 1 1 auto;
     height: auto !important;
     min-height: clamp(120px, 20vh, 205px);
     margin-top: clamp(14px, 2.2vh, 26px);
+  }
+}
+
+/* three-column layout — the socials fill the third column as a 2x2 block */
+@media only screen and (min-width: 1200px) {
+  /* four narrow strips would be slivers at this column width, so the block
+     becomes 2x2 and still fills the column */
+  .hamburger-menu.hamburger-menu .social_Wrp {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
   }
 
   /* the brand face carries the wide screens */
