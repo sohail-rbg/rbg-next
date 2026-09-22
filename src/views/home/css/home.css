@@ -56,6 +56,15 @@
   display: flex;
 }
 
+/* The site's responsive.css forces `max-width: 100% !important` on every MUI
+   container, which stretched these three cards edge to edge. Give the section a
+   real container so the trio keeps a readable width and stays centred. */
+.brandInfoSection .MuiContainer-root {
+  width: 100%;
+  max-width: 1280px !important;
+  margin-inline: auto !important;
+}
+
 /* ---- card ---------------------------------------------------------------- */
 .biCard {
   position: relative;
