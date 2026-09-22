@@ -1,0 +1,38 @@
+
+
+.blogIntroSec {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    /* min-height: 100vh; */
+    width: 100%;
+    text-align: center;
+    background: #202321;
+    position: relative;
+    padding: 200px 0 150px;
+    position: relative;
+    overflow: hidden;
+}
+
+.blogIntro_content h1 {
+    font-size: 70px;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+
+
+.blogFeedSec {
+    background: #202321;
+}
+.blogIntroSec:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #20202080;
+    left: 0;
+    top: 0;
+    mix-blend-mode: multiply;
+}

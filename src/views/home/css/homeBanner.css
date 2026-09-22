@@ -1,0 +1,105 @@
+.homeBannerSection {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 580px;
+    z-index: 34;
+    overflow: hidden;
+}
+.homeBannerSection::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(to right, #5c0000, #450505, #260000);
+  opacity: 0.7;
+  background: #2E5E53;
+  mix-blend-mode: multiply;
+}
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* z-index: -1; */
+  }
+  
+  .background-video video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+
+
+
+
+
+
+.containerBox {
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+}
+
+.placeholder {
+  width: 250px;
+  height: 312px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.overlay {
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  mix-blend-mode: color;
+  z-index: 1;
+}
+
+.overlay img {
+  max-width: 100%;
+  transform: translateZ(0);
+}
+
+
+.bannerTextWrp {
+  position: absolute;
+  width: 100%;
+  z-index: 14;
+  padding: 2% 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.bannerTextWrp img {
+  max-width: 100%;
+  width: auto;
+  margin: 0 auto;
+  display: inline-block;
+  pointer-events: none;
+}
+
+
+.bannerTextWrp h3 {
+  font-size: 40px;
+  font-weight: 300;
+  /* opacity: 0.4; */
+   pointer-events: none;
+  color: #8B9C8C;
+}

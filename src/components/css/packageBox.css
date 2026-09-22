@@ -1,0 +1,127 @@
+.package__item{
+    display: flex;
+    gap: 40px;
+    background: #030303;
+    padding: 30px 30px;
+    margin-bottom: 20px;
+    border-radius: 9px;
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+}
+.package__item:hover{
+    background: var(--primary);
+}
+.package__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: -20px;
+}
+.package__amount {
+    position: absolute;
+    right: 30px;
+    top: -10px;
+}
+.package__icon span {
+    display: block;
+    width: 40px;
+    height: 40px;
+    color: #000;
+    border-radius: 5px;
+    background-color: var(--white);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.package__type {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    text-transform: uppercase;
+    border: 1px solid #afafaf;
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 30px;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+.package__title {
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: var(--black-2);
+    padding-bottom: 5px;
+    margin: 0;
+    width: calc(100% - 150px);
+}
+.package__item .best-value {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 10px;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: var(--primary);
+    position: absolute;
+    top: -30px;
+}
+.package__item p{
+    margin: 0;
+    font-size: 15px;
+}
+.package__amount p {
+    display: flex;
+    align-items: baseline;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1.3;
+    color: var(--black-2);
+    margin-top: 30px;
+}
+.package__amount p span {
+    font-size: 16px;
+}
+
+
+.package__item.color {
+    background: linear-gradient(45deg, var(--secondary) 0%, var(--primary) 50%)
+}
+
+.package__item.light {
+    background: #fff;
+    color: #000;
+}
+
+.package__item.light .package__icon span {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+
+.bookingBtn {
+    display: inline-block;
+    z-index: 999;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    box-shadow: 3px 20px 80px -14px #f8764b66;
+    padding: 10px;
+    border-radius: 10px;
+    position: absolute;
+    right: -67px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 130px;
+    font-size: 16px;
+    color: #fff;
+    height: 50px;
+    line-height: 31px;
+    background: #00000096;
+    border: 1px solid #fff6;
+    backdrop-filter: blur(41px);
+}

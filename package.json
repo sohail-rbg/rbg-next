@@ -1,0 +1,78 @@
+{
+  "name": "rebrandgurus",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.16",
+    "@mui/material": "^5.14.15",
+    "@popmotion/easing": "^1.0.2",
+    "@popmotion/popcorn": "^0.4.4",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.7",
+    "embla-carousel-react": "^8.0.0-rc15",
+    "framer-motion": "^10.18.0",
+    "graphql": "^16.9.0",
+    "graphql-request": "^7.1.0",
+    "gsap": "^3.12.4",
+    "gsap-trial": "^3.12.2",
+    "next": "^15.1.6",
+    "nodemailer": "^9.0.3",
+    "partycles": "^1.2.6",
+    "pdfjs-dist": "^5.2.133",
+    "react": "^18.3.1",
+    "react-animated-cursor": "^2.11.2",
+    "react-countdown": "^2.3.6",
+    "react-dom": "^18.3.1",
+    "react-fast-marquee": "^1.6.2",
+    "react-scroll-parallax": "^3.4.5",
+    "react-sketch-canvas": "^6.2.0",
+    "react-slick": "^0.29.0",
+    "react-sticky-box": "^2.0.5",
+    "react-tsparticles": "^2.12.2",
+    "react-ui-scrollspy": "^2.3.0",
+    "slick-carousel": "^1.8.1",
+    "swiper": "^11.2.6",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "next/core-web-vitals"
+    ],
+    "rules": {
+      "react/display-name": "off",
+      "react/no-unescaped-entities": "off",
+      "@next/next/no-img-element": "off"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.5.20",
+    "gh-pages": "^6.1.1"
+  }
+}

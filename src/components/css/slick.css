@@ -1,0 +1,31 @@
+.slick-track{
+    display: flex;
+}
+.slick-slide{
+    height: auto;
+}
+
+.crouselGroupNav{
+    display: flex;
+    border: 1px solid #dddddd;
+    overflow: hidden;
+    border-radius: 30px;
+}
+.crouselGroupNav .arrowBtn{
+    width: 70px;
+    height: 60px;
+    line-height: 67px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 0 ;
+    margin: 0;
+    color: #dddddd;
+}
+.crouselGroupNav .arrowBtn.prev_arrow{
+    border-right: 1px solid #dddddd;
+}
+.crouselGroupNav .arrowBtn.next_arrow{
+    /* border-right: 1px solid #dddddd; */
+}

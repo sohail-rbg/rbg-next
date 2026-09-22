@@ -1,0 +1,28 @@
+
+.ba_cards_wrp {
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 100%;
+    margin-bottom: 80px;
+  }
+  
+  .ba_card_item {
+    width: 90%;
+    margin-bottom: 50px;
+    background-color: #000;
+    /* position: relative; */
+    font-size: 36px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #fff;
+    padding: 20px !important;
+  }
+  
+  .ba_card_item:nth-child(1){
+    top:40px
+  }
+  .ba_card_item:nth-child(2){ top:50px}
+  .ba_card_item:nth-child(3){ top:60px}
+  .ba_card_item:nth-child(4){ top:70px}
+  .ba_card_item:nth-child(5){ top:80px}
+  

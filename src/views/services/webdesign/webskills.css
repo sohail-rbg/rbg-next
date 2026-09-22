@@ -1,0 +1,136 @@
+.tabNavBox .MuiTabs-flexContainer {
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.415);
+    border-radius: 100px;
+    padding: 8px;
+}
+
+.tabNavBox {
+    text-align: center;
+}
+
+.tabNavBox  .MuiTabs-indicator {
+    height: calc(100% - 10px);
+    background: var(--secondary);
+    box-shadow: 0px 2px 2px rgba(14, 30, 5, 0.5);
+    border-radius: 100px;
+    height: 51px;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.tabNavBox .MuiTabs-flexContainer > button {
+    position: relative;
+    z-index: 3;
+    padding: 12px 50px;
+}
+.skillSection{
+    position: relative;
+    padding: 70px 0 50px;
+}
+.wd-skill-shape-1 {
+    position: absolute;
+    top: -97px;
+    left: -18px;
+    display: inline-block;
+    max-width: 511px;
+    max-height: 511px;
+    border-radius: 50%;
+    background-color: rgb(31 186 19 / 30%);
+    filter: blur(150px);
+    z-index:0;
+    width: 80%;
+    height: 80%;
+}
+
+.wd-skill-shape {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.wd-skill-shape-2 {
+    position: absolute;
+    bottom: 0;
+    right: 194px;
+    display: inline-block;
+    width: 462px;
+    height: 462px;
+    border-radius: 50%;
+    background-color: rgb(132 153 78 / 79%);
+    filter: blur(190px);
+    z-index: 1;
+}
+
+.wd-skill-shape-3 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: inline-block;
+    max-width: 511px;
+    max-height: 511px;
+    border-radius: 50%;
+    background-color: rgb(31 186 19 / 30%);
+    filter: blur(150px);
+    z-index:0;
+    width: 80%;
+    height: 80%;
+    z-index: 1;
+}
+
+
+.skill_wrp_box {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 840px;
+}
+
+.skill_wrp_box .wd-skill-item {
+    width: calc(100% / 4);
+    position: relative;
+    padding: 10px;
+    margin-bottom: 50px;
+}
+
+.wd-skill-thumb {
+    position: relative;
+    z-index: 3;
+    background: rgba(250, 250, 250, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 100px 0px 100px 100px;
+    padding: 40px;
+    min-height: 190px;
+    backdrop-filter: blur(41px);
+}
+
+.skill_wrp_box .wd-skill-item:nth-child(even) .wd-skill-thumb {
+    border-radius: 0px 100px 100px 100px;
+}
+
+.wd-skill-thumb .wd-skill-icon {
+    width: 60px;
+    margin: 0 auto;
+}
+
+.wd-skill-thumb .wd-skill-count {
+    margin: 5px 0 0;
+    text-align: center;
+    font-size: 52px;
+    font-family: 'Better Fonts';
+}
+
+.wd-skill-title {
+    text-align: center;
+    margin: 14px 0 0;
+}
+.tabNavBox .MuiTabs-flexContainer > button.Mui-selected {
+    color: #fff;
+}

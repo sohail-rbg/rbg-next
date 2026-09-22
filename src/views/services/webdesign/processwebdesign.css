@@ -1,0 +1,80 @@
+@keyframes rotateCircle {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+.rotate-circle {
+    -webkit-animation-name: rotateCircle;
+    animation-name: rotateCircle;
+    -webkit-animation-duration: 20s;
+    animation-duration: 20s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+}
+.process-circle-crev{
+  position: relative;
+}
+.process-circle-crev .rotate-circle {
+    -webkit-animation-duration: 60s;
+    animation-duration: 60s;
+}
+.circle-button .rotate-circle svg {
+    width: 210px;
+    fill: #fff;
+}
+.process-circle-crev .circle-button .rotate-circle svg {
+    width: 100%;
+    font-size: 24px;
+}
+
+
+
+  
+  .process-circle-crev.circle-button {
+    position: relative;
+  }
+  
+  .process-circle-crev .circle-button:after {
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: 56px;
+    right: 60px;
+    bottom: 60px;
+    border: 70px solid #43a04769;
+    border-radius: 50%;
+  }
+  
+
+  
+.process-circle-crev .half-circle-img {
+    height: 100%;
+    width: 50%;
+    border-bottom-right-radius: 450px;
+    border-top-right-radius: 450px;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  
+  .process-circle-crev .half-circle-img img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center center;
+    object-position: center center;
+  }
+  

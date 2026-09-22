@@ -1,0 +1,319 @@
+#img1 {
+  margin: 0 auto;
+  border-radius: 200px;
+  display: block;
+  object-fit: cover;
+}
+
+.workMainContent h1 span {
+  font-family: "Better Fonts";
+  font-size: 120%;
+  color: var(--primary);
+}
+
+.work_grid_item:nth-child(odd) > div {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.work_grid_item {
+  margin-bottom: 0;
+}
+
+.work__item__image a {
+  display: inline-block;
+}
+
+.work__item__image a img {
+  border-radius: 14px;
+}
+
+.work_grid_container {
+  padding-bottom: 80px;
+}
+
+.work__info__title {
+  font-size: 46px;
+  font-weight: 500;
+  margin: 0 0 14px;
+  line-height: normal;
+}
+
+.work__info__title a {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.work__info__tag {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 19px;
+}
+
+.work__info__tag > div {
+  margin-right: 7px;
+}
+
+.work__info__tag > div span {
+  padding-left: 2px;
+}
+
+.work__info__tag > div:last-child span {
+  display: none;
+}
+
+.work_grid_item:nth-child(even) .work__info__wrapper {
+  text-align: right;
+}
+
+.work_grid_item:nth-child(even) .work__info__wrapper .work__info__tag {
+  justify-content: flex-end;
+}
+
+.workWelcomeWrp {
+  height: 100vh;
+  min-height: 500px;
+  position: relative;
+}
+
+.workMainContent h1 {
+  font-size: 110px;
+  font-weight: normal;
+}
+.bg_video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  object-fit: cover;
+  opacity: 0.3;
+}
+
+.portfolio__item_wrp {
+  position: relative;
+}
+
+.portfoli_list_item {
+  width: 100%;
+  text-decoration: none;
+  padding-left: 0;
+  position: relative;
+}
+
+.portfolio__item_inner {
+  display: grid;
+  padding: 20px 0px;
+  position: relative;
+  text-decoration: none;
+  padding-left: 60px;
+  grid-template-columns: 0.7fr 180px 1fr 0.5fr;
+}
+
+.portfolio__no {
+  position: absolute;
+  left: 0;
+  margin: 0;
+  color: #ffffff70;
+  font-size: 20px;
+  font-weight: normal;
+  top: 25px;
+  text-align: center;
+  font-family: var(--primary-font);
+  padding: 0 !important;
+}
+
+.portfoli_list_item + .portfoli_list_item {
+  border-top: 1px solid #99999938;
+}
+
+.portfolio__title {
+  margin: 0;
+  font-size: 27px;
+  font-weight: normal;
+  color: #fff;
+  font-family: var(--heading-font);
+  padding-left: 0 !important;
+}
+
+.portfolio__tags {
+  display: flex;
+  font-size: 15px;
+  margin: 0;
+  color: #ffffffb5;
+  font-weight: normal;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.portfolio__tags > div {
+  padding-left: 4px;
+}
+
+.portfolio__tags > div:last-child span {
+  display: none;
+}
+.portfolio__item_inner > * {
+  padding: 0 20px;
+}
+
+.portfolio__cat {
+  text-align: left;
+  color: #fff;
+}
+
+.portfolio__reviewText {
+  color: #fffc;
+}
+.portfolio__cat span {
+  display: inline-block;
+  padding: 4px 16px;
+  background: rgba(244, 227, 66, 1);
+  border-radius: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.portfolio__cat.wordpress span {
+  background: #207196;
+  color: #fff;
+}
+
+.portfolio__cat.shopify span {
+  background: #398b32;
+  color: #fff;
+}
+.portfolio__cat.woocommerce span {
+  background: #7c51ad;
+  color: #fff;
+}
+.portfolio__hover {
+  width: 300px;
+  height: 400px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: 75%;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s,
+    -webkit-transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.3s,
+    -webkit-transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.3s, transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.3s, transform 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+    -webkit-transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  margin: -200px 0 0 -150px;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* .portfoli_list_item .portfolio__item_inner:hover .portfolio__hover {
+    opacity: 1;
+} */
+
+.portfoli_list_item_header .portfolio__item_inner {
+  background: #464344;
+  padding: 20px 30px !important;
+  border-radius: 40px;
+}
+
+.portfoli_list_item_header .portfolio__item_inner .portfolio__no {
+  left: 14px;
+  top: 16px;
+}
+
+.portfoli_list_item_header .portfolio__item_inner .portfolio__title {
+  font-size: 16px;
+  padding-left: 32px !important;
+}
+
+.portfoli_list_item_header .portfolio__item_inner .portfolio__cat {
+  padding-left: 34px !important;
+}
+
+.portfoli_list_item_header .portfolio__item_inner .portfolio__reviewText {
+  padding-left: 50px !important;
+}
+
+.portfoli_list_item_header .portfolio__item_inner .portfolio__tags {
+  padding-right: 0;
+  margin-right: -10px;
+}
+
+.portfoli_list_item_header + .portfoli_list_item {
+  border: 0 !important;
+}
+
+/*  Responsive */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi) {
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+}
+@media only screen and (min-width: 1025px) and (max-width: 1199px) {
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+}
+@media only screen and (max-width: 767px) {
+  .portfolio__item_inner {
+    grid-template-columns: 1fr;
+    padding-left: 40px;
+  }
+  .portfolio__item_inner > * {
+    padding: 10px 0;
+  }
+  .portfolio__tags {
+    justify-content: flex-start;
+  }
+  .portfoli_list_item_header .portfolio__item_inner .portfolio__cat,
+  .portfoli_list_item_header .portfolio__item_inner .portfolio__title,
+  .portfoli_list_item_header .portfolio__item_inner .portfolio__reviewText,
+  .portfoli_list_item_header .portfolio__item_inner .portfolio__tags {
+    padding-left: 10px !important;
+    margin-right: 0 !important;
+  }
+  .work__achieve_box_grid {
+    grid-template-columns: auto;
+  }
+
+  .work__achieve_box_item {
+    margin: 0 !important;
+  }
+
+  .work_grid_item:nth-child(odd) > div {
+    flex-direction: row;
+  }
+
+  .work__info__title {
+    font-size: 32px;
+    margin: 0;
+    text-align: left;
+  }
+
+  .work_grid_item:nth-child(even) .work__info__wrapper .work__info__tag {
+    justify-content: flex-start;
+  }
+
+  .work_grid_item:nth-child(even) .work__info__wrapper {
+    text-align: left;
+  }
+
+  .work_grid_item {
+    margin-bottom: 50px;
+  }
+  .workMainContent h1 {
+    font-size: 62px;
+    font-weight: normal;
+}
+.workWelcomeWrp {
+    height: auto;
+}
+}
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+}
+@media only screen and (max-width: 480px) {
+}

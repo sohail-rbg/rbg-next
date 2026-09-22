@@ -1,0 +1,54 @@
+.spacer {
+    height: 50px;
+    opacity: 0.2;
+    
+ }
+ 
+ .service_stack_card_wrp {
+   position: relative;
+   width: 100%;
+   height: 80vh;
+   overflow-x: hidden;
+   border-radius: 0 13px 13px 0;
+   z-index: 5;
+ }
+.service_stack_card {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 95%;
+   height: 100%;
+   margin-left: 0%;
+   border-radius: 13px;
+   padding: 40px 50px;
+ }
+ .service_stack_title {
+    font-size: 45px;
+    margin: 0 0 30px;
+}
+.service_stack_description p{
+    font-size: 16px;
+    opacity: 0.9;
+}
+.service_stack_card:nth-child(1){ margin-left: 0%; z-index: 2; padding-right: 15%;}
+.service_stack_card:nth-child(2){ margin-left: 3%; z-index: 3;  padding-right: 15%;}
+.service_stack_card:nth-child(3){ margin-left: 6%;  z-index: 4;  padding-right:15%;}
+.service_stack_card:nth-child(4){ margin-left: 9%;  z-index: 5; padding-right: 15%;}
+.service_stack_card:nth-child(5){ margin-left: 12%;  z-index: 6; padding-right: 15%;}
+.service_stack_description li {
+  padding-bottom: 10px;
+}
+.service_stack_card > div, .service_stack_card > div > div {
+  height: 100%;
+  overflow: hidden;
+}
+
+.service_stack_card  .service_stack_img {
+  height: 100%;
+}
+
+.service_stack_card .service_stack_img img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}

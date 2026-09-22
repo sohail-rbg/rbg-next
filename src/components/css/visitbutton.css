@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Space+Grotesk&display=swap');
+
+.visit-button {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    left: auto;
+    top: auto;
+    z-index: 32;
+  }
+  
+  
+.circle {
+	position: relative;
+	width: 200px;
+	height: 200px;
+	border-radius: 100vmax;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    transition: 0.4s all linear;
+}
+
+.logo {
+	position: absolute;
+	width: 140px;
+	height: 140px;
+	/* background: url("https://assets.codepen.io/7344750/internal/avatars/users/default.png?fit=crop&format=auto&height=512&version=1657025755&width=512"); */
+	background-size: cover;
+	border-radius: 100vmax;
+	background-position: center;
+    overflow: hidden;
+}
+.logo img{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.text {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	/* font-family: consolas; */
+    font-family: "Inconsolata", serif;
+
+	color: #fff;
+	font-size: 17px;
+	animation: textRotation 8s linear infinite;
+    transition: 0.4s all linear;
+}
+
+@keyframes textRotation {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.text span {
+	position: absolute;
+	left: 50%;
+	font-size: 1.2em;
+	transform-origin: 0 100px;
+}
+
+
+/* Hover Effect (Optional) */
+.visit-button:hover .circle {
+    transform: scale(1.1); /* Slightly enlarges the circle on hover */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .visit-button:hover .text {
+    color: #f0db4f; /* Changes text color on hover */
+  }

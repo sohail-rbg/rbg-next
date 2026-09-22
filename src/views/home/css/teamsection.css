@@ -1,0 +1,320 @@
+.teamWrp {
+    display: flex !important;
+}
+
+.teamItem {
+    width: calc(100% / 3);
+    padding-right: 50px;
+}
+
+.team__title {
+    margin: 8px 0 4px;
+    font-weight: normal;
+    color: #fff;
+    font-size: 27px;
+}
+.teamSectionHeadingWrp{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+.team__linkedIn a {
+    display: inline-block;
+    margin-top: 11px;
+    color: #fff;
+    border: 2px solid #ffffff66;
+    padding: 2px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 13px;
+}
+.team__role {
+    margin: 0;
+    font-weight: normal;
+    color: #fff;
+    font-family: var(--primary-font);
+    font-size: 17px;
+    opacity: 0.8;
+}
+
+.teamItem:first-child .teamInner {
+    position: relative;
+    top: 0;
+    max-width: 280px;
+}
+
+.teamItem:nth-child(2) .teamInner {
+    position: relative;
+    max-width: 240px;
+    margin-left: -70px;
+    margin-top: 280px;
+    text-align: center;
+}
+
+.teamItem:nth-child(3) .teamInner {
+    position: relative;
+    max-width: 240px;
+    right: 0;
+    top: 0;
+    text-align: right;
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end; */
+}
+
+.teamSectionHeading {
+    position: relative;
+    
+}
+
+.teamItem:nth-child(3) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-right: 0;
+}
+
+.teamBtnGroup {
+    position: absolute;
+    bottom: 50px;
+    right: 80px;
+}
+
+
+
+
+.HeroTeam img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    object-fit: cover;
+    display: inline-block;
+}
+
+.HeroTeam {
+    position: absolute;
+    bottom: 60px;
+    right: 440px;
+    z-index: 999;
+}
+
+.HeroTeam:befores {
+    content: '';
+    position: absolute;
+    text-decoration: none;
+    color: #fff;
+    width: 70px;
+    height: 70px;
+    background-color: #7249AC;
+    margin: 0 auto;
+    border-radius: 100%;
+    -webkit-animation: ripple 1s linear infinite;
+    animation: ripple 2s linear infinite;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+}
+
+@-webkit-keyframes ripple {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(189, 142, 210, 0.3), 0 0 0 10px rgba(189, 142, 210, 0.3), 0 0 0 30px rgba(189, 142, 210, 0.3), 0 0 0 60px rgba(189, 142, 210, 0.3);
+            box-shadow: 0 0 0 0 rgba(189, 142, 210, 0.3), 0 0 0 10px rgba(189, 142, 210, 0.3), 0 0 0 30px rgba(189, 142, 210, 0.3), 0 0 0 60px rgba(189, 142, 210, 0.3);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 10px rgba(189, 142, 210, 0.3), 0 0 0 30px rgba(189, 142, 210, 0.3), 0 0 0 60px rgba(189, 142, 210, 0.3), 0 0 0 90px rgba(189, 142, 210, 0);
+            box-shadow: 0 0 0 10px rgba(189, 142, 210, 0.3), 0 0 0 30px rgba(189, 142, 210, 0.3), 0 0 0 60px rgba(189, 142, 210, 0.3), 0 0 0 90px rgba(189, 142, 210, 0);
+  }
+}
+@keyframes ripple {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(189, 142, 210, 0.3), 0 0 0 10px rgba(189, 142, 210, 0.3), 0 0 0 30px rgba(189, 142, 210, 0.3), 0 0 0 60px rgba(189, 142, 210, 0.3);
+    box-shadow: 0 0 0 0 rgb(255 151 118 / 30%), 0 0 0 10px rgb(255 151 118 / 30%), 0 0 0 20px rgb(255 151 118 / 30%), 0 0 0 30px rgb(255 151 118 / 30%);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 10px rgba(189, 142, 210, 0.3), 0 0 0 30px rgba(189, 142, 210, 0.3), 0 0 0 60px rgba(189, 142, 210, 0.3), 0 0 0 90px rgba(189, 142, 210, 0);
+    box-shadow: 0 0 0 10px rgb(255 151 118 / 30%), 0 0 0 20px rgb(255 151 118 / 30%), 0 0 0 30px rgb(255 151 118 / 30%), 0 0 0 80px rgb(255 151 118 / 0%);
+  }
+}
+
+
+
+
+
+
+
+.customTooltip {
+    bottom: 100%;
+    position: absolute;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+    height: 200px;
+    opacity: 0;
+    pointer-events: none;
+    padding: 28%;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s all linear;
+    transform-origin: 50% 100%;
+    transform: scale(0) rotate(-95deg);
+}
+
+svg.tooltip__shape {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    fill: #FF9776;
+    z-index: -1;
+}
+
+.customTooltip h3 {
+    margin: 0 0 1px;
+    font-weight: normal;
+    font-size: 22px;
+    color: #000;
+}
+
+.customTooltip h3 span {
+    font-size: 151%;
+    background: -webkit-linear-gradient(#000, #cb4d25);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.customTooltip p {
+    margin: 0;
+    line-height: 1.2;
+    color: #000;
+    opacity: 1;
+    font-weight: 300;
+}
+
+.HeroTeam:hover .customTooltip {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+}
+
+
+
+/*  Responsive */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi) {
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+    .team__img img {
+        max-width: 180px;
+        width: auto;
+        text-align: center;
+        
+        display: inline-block;
+    }
+    .team__role{
+        font-size: 15px;
+    }
+    .team__title{
+        font-size: 23px;
+    }
+}
+@media only screen and (min-width: 1025px) and (max-width: 1199px) {
+    .team__img img {
+        max-width: 180px;
+        width: auto;
+        text-align: center;
+        
+        display: inline-block;
+    }
+    .team__role{
+        font-size: 15px;
+    }
+    .team__title{
+        font-size: 23px;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .team__img img {
+        max-width: 180px;
+        width: auto;
+        text-align: center;
+        
+        display: inline-block;
+    }
+    .team__role{
+        font-size: 15px;
+    }
+    .team__title{
+        font-size: 23px;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .teamSectionHeadingWrp{
+        position: relative;
+    }
+    .team__role{
+        font-size: 15px;
+    }
+    .team__title{
+        font-size: 20px;
+    }
+    .team__img img {
+        max-width: 180px;
+        width: auto;
+        text-align: center;
+        speak: digits;
+        display: inline-block;
+    }
+    
+    .teamItem {
+        width: 100%;
+        padding: 0;
+        margin: 00 0  50px;
+        top: 0;
+        display: block !important;
+    }
+    
+    .teamWrp {
+        display: inline-block !important;
+    }
+    
+    .teamItem:nth-child(2) .teamInner {
+        width: auto;
+        max-width: 100%;
+        margin: 0;
+        text-align: left;
+    }
+    
+    .teamItem:nth-child(3) .teamInner {
+        text-align: left;
+        max-width: max-content;
+    }
+    .HeroTeam {
+        position: relative;
+        right: 0;
+        bottom: 0;
+    }
+    .teamItem:nth-child(2) .teamInner {
+        margin-top: -60px;
+        text-align: right;
+    }
+    
+    .teamItem:nth-child(3) {
+        margin-top: -90px;
+    }
+}
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+}
+@media only screen and (max-width: 480px) {
+  
+  
+}

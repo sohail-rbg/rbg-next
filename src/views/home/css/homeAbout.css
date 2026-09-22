@@ -1,0 +1,103 @@
+.about__content-wrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto 200px;
+  grid-template-columns: auto 200px;
+  grid-gap: 75px;
+  position: relative;
+}
+.about__content p {
+  font-size: 21px;
+  line-height: 1.4;
+  /* color: #6b6b6b; */
+}
+.about__img-right {
+  width: 200px;
+  position: absolute;
+  right: 0;
+  transition: 0.4s all linear;
+  top: 0px;
+  z-index: 44;
+  border-radius: 10px;
+  height: 200px;
+  /* overflow: hidden; */
+}
+.about__img-right img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.about__img-right:hover {
+  /* width: calc(40% + 280px); */
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  transition: 0.4s all linear;
+}
+
+.about__content {
+  position: relative;
+  opacity: 1;
+  transition: 0.9s all;
+}
+.about__content.active {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+.aboutOverlayBox {
+  position: absolute;
+  width: 60%;
+  left: 10px;
+  bottom: 10px;
+  padding: 40px;
+  background: #ffffffa8;
+  backdrop-filter: blur(2px);
+  transition: 0.4s all linear;
+  transform: translateY(90px);
+  opacity: 0;
+  color: #000;
+}
+
+.about__img-right:hover .aboutOverlayBox {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.5s;
+}
+
+/*  Responsive */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi) {
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+}
+@media only screen and (min-width: 1025px) and (max-width: 1199px) {
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+}
+@media only screen and (max-width: 767px) {
+  .about__content-wrapper {
+    display: block;
+  }
+
+  .about__img-right {
+    position: relative;
+    height: auto;
+    width: 100%;
+    top: 90px;
+  }
+
+  .aboutOverlayBox {
+    width: 100%;
+    padding: 30px;
+    border-radius: 10px;
+  }
+  .about__content p{
+    font-size: 18px;
+  }
+}
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+}
+@media only screen and (max-width: 480px) {
+}

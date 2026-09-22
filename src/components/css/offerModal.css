@@ -1,0 +1,400 @@
+.modalBgWrp {
+    padding: 0;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    max-width: 670px;
+    position: relative;
+    width: 97%;
+    margin: 0 auto;
+    max-height: 90vh;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+}
+
+.modalClose {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.9);
+    color: #1b0f12;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    z-index: 55555555555;
+}
+
+.modalClose:hover {
+    transform: scale(1.05);
+    background: #fff;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+}
+
+.modalBgWrp::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+.offerModalInner {
+       /* display: flex; */
+    /* align-items: center; */
+    padding: 48px;
+    background: #eae3d3;
+    border-radius: 10px;
+    /* backdrop-filter: blur(13px); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+.offerModalTextWrp {
+    /* padding-right: 30px; */
+}
+.offerModalInner h2{
+  font-size: 68px;
+  color: #ffecb1;
+  margin: 0px;
+  letter-spacing: 0;
+  font-family: "Better Fonts";
+  line-height: 0.7;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  font-family: "Alfa Slab One", serif;
+}
+.offerModalInner h2 small {
+  font-size: 64%;
+  vertical-align: top;
+  display: inline-block;
+  position: relative;
+}
+.offerModalInner h2 span{
+  display: block;
+  color: #000000;
+  font-family: 'Better Fonts';
+  font-size: 110px;
+  line-height: 0.6;
+}
+.button:disabled,
+.button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  pointer-events: none;
+}
+.invisibleForm{
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.offerInput input#email-input {
+    height: 57px;
+}
+
+.valentineLetter {
+    margin-top: 24px;
+    padding: 30px 32px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255, 255, 255,1), rgba(255, 255, 255, 1));
+    border: 1px solid rgba(177, 78, 91, 0.25);
+    box-shadow: 0 18px 40px rgba(39, 14, 22, 0.18);
+    color: #1b0f12;
+    position: relative;
+}
+
+.valentineLetter::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border-radius: 14px;
+    border: 1px dashed rgba(177, 78, 91, 0.35);
+    pointer-events: none;
+}
+
+.valentineLetter p {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.valentineKicker {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    font-size: 11px;
+    color: #6a2e3a;
+}
+
+.valentineHero {
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.valentineHero span {
+    color: #b14e5b;
+    font-weight: 800;
+}
+
+.valentineSub {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #6a2e3a;
+    margin-bottom: 6px;
+}
+
+.valentineList {
+    display: grid;
+    gap: 6px;
+    margin: 0 0 10px 0;
+    padding-left: 18px;
+}
+
+.valentineList p {
+    margin: 0;
+    position: relative;
+    font-size: 14px;
+}
+
+.valentineList p::before {
+    content: "♥";
+    position: absolute;
+    left: -18px;
+    color: #b14e5b;
+    font-size: 10px;
+    top: 2px;
+}
+
+.valentinePunch {
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.valentinePunch span {
+    color: #b14e5b;
+}
+
+.valentineCounsel {
+    font-style: italic;
+    color: #4a2a33;
+}
+
+.valentineCta {
+    font-weight: 700;
+    background: rgba(177, 78, 91, 0.1);
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(177, 78, 91, 0.2);
+}
+
+.valentineHint {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #4a2a33;
+}
+
+.valentineActions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 10px 0 6px;
+}
+
+.whatsappAction {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: #25d366;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+    box-shadow: 0 8px 18px rgba(37, 211, 102, 0.35);
+    gap: 8px;
+}
+
+.whatsappAction:hover {
+    filter: brightness(0.95);
+}
+
+.whatsappIcon {
+    font-size: 18px;
+}
+
+.valentineSignature {
+    margin-top: 12px;
+    font-weight: 700;
+}
+
+.valentineSignature span {
+    display: block;
+    font-weight: 800;
+    color: #b14e5b;
+}
+
+.valentinePs {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 6px;
+}
+
+
+.resultShow {
+    position: absolute;
+    top: -40px;
+    text-align: center;
+    font-size: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    line-height: 0;
+    z-index: 0;
+    color: #fff;
+    opacity: 0.6;
+    animation: pulse1 1.5s ease-in-out infinite;
+}
+
+.resultShow.top {opacity:1}
+
+.modalWrp {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+}
+
+.modalWrp::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.resultShow.bottom {
+    bottom: -40px;
+    opacity: 1;
+    top: auto;
+}
+
+.resultShow.right {
+    top: 50%;
+    opacity: 1;
+    right: -50px;
+    left: auto;
+    text-align: center;
+    width: 100%;
+    writing-mode: vertical-lr;
+    width: 0px;
+    font-size: 76px;
+    transform: translateY(-50%);
+    height: 100%;
+}
+
+.resultShow.left {
+    top: 50%;
+    opacity: 1;
+    left: -50px;
+    right: auto;
+    text-align: center;
+    width: 100%;
+    writing-mode: vertical-lr;
+    width: 0px;
+    font-size: 76px;
+    transform: translateY(-50%);
+    height: 100%;
+}
+
+
+
+
+
+  
+@keyframes pulse1 {
+	0% {
+		opacity: 0;
+	}
+
+	30% {
+		opacity: 0.5;
+		
+	}
+
+	60% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+.snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    pointer-events: none;
+  }
+  
+  .snowflake {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+  }
+  
+  @keyframes fall {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+      transform: translateY(100vh);
+    }
+  }
+  
+  @keyframes diagonal-fall {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0);
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.25;
+      transform: translate(10vw, 100vh);
+    }
+  }

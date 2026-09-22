@@ -1,0 +1,59 @@
+.MuiButton-roundBtn{
+    padding: 20px !important;
+    width: 170px;
+    height: 170px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+.MuiButton-roundBtn:before{
+position: absolute;
+content: '';
+background-image: url(../../images/texure/circle-star.svg);
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+}
+/* .MuiButton-roundBtn:before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  content: "";
+  height: 0;
+  width: 100%;
+  background: var(--bg-gradient);
+  z-index: -1;
+  transition: all .4s ease-in-out;
+  border-radius: 50%;
+} */
+.MuiButton-roundBtn:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background: var(--primary);
+  z-index: -1;
+  transition: all .3s ease-in-out;
+  border-radius: 50%;
+  transform: scale(0.1)  translateY(-5%);
+  opacity: 0;
+}
+.MuiButton-roundBtn:hover:after {
+  opacity: 1;
+  height: 100%;
+  transform: scale(1) translateY(0%);
+}
+.MuiButton-roundBtn:hover:before {
+  opacity: 0;
+}
+/* .css-1ltr6yg-MuiButtonBase-root-MuiButton-root.MuiButton-roundBtn {
+    & .MuiTouchRipple-child {
+      background-color:var(--primaryt);
+    }
+  } */

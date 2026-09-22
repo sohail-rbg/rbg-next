@@ -1,0 +1,34 @@
+.post-details__navigation-wrap{
+    margin: 150px auto 0;
+    max-width: 90%;
+    width: 100%;
+    position: relative;
+}
+.post-details__navigation-content a {
+    color: #ffffff91;
+    text-decoration: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.post-details__navigation-content a h4 {
+    width: 100%;
+    margin: 4px 0 0;
+    font-size: 36px;
+    color: #fff;
+}
+
+.post-details__navigation-content {
+    padding: 0 20px;
+}
+
+.post-details__navigation-content.next a {
+    text-align: right;
+    justify-content: flex-end;
+}
+
+.post-details__navigation-bar {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}

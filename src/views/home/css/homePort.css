@@ -1,0 +1,43 @@
+
+.spacer {
+    height: 60vh;
+    position: relative;
+  }
+  
+  .cards {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+  }
+  .card {
+    position: relative;
+    margin: 50px auto;
+    width: 100%;
+    height: auto;
+  }
+  
+  .container {
+    width: 100%;
+    display: flex;
+    align-items: top;
+    justify-content: center;
+  }
+  
+  img {
+    max-width: 100%;
+    width: 100%;
+    will-change: transform, filter;
+  }
+  
+  .following-content {
+    height: 100vh;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    line-height: 100vh;
+    position: relative;
+  }
+  .black {
+    background-color: black;
+  }

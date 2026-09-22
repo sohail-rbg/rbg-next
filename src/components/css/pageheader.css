@@ -1,0 +1,57 @@
+.page-header{
+    position: relative;
+}
+.page-header  .aspect-img {
+    height: 400px;
+    margin-top: 32px;
+    border-radius: 20px;
+}
+
+.page-header .aspect-img img {
+    object-fit: cover;
+}
+
+.pageHeader_content {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    transform: translateY(-50%);
+}
+
+.page-header .MuiContainer-root {
+    position: relative;
+}
+.pageHeader_content .MuiBreadcrumbs-ol {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.page-header .aspect-img:after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: #00000091;
+    left: 0;
+    top: 0;
+    backdrop-filter: blur(3px);
+}
+
+.pageHeader_content h1 {
+    font-size: 110px;
+    font-family: 'Better Fonts';
+}
+
+.breadcrumbWrp {
+    margin-top: -40px;
+}
+
+.pageHeader_content .MuiBreadcrumbs-ol a {
+    color: var(--secondary);
+    text-decoration: none;
+}

@@ -1,0 +1,21 @@
+.MuiAccordionSummary-content {
+    padding: 10px 19px;
+}
+
+.MuiAccordionDetails-root {
+    padding: 10px 35px 35px !important;
+}
+
+.MuiAccordion-root.Mui-expanded {
+    margin: 0 !important;
+}
+.MuiAccordion-root {
+    background: #111111;
+}
+.MuiAccordion-root + .MuiAccordion-root {
+    border-top: 1px solid #393737;
+}
+
+.MuiAccordion-root:before {
+    display: none;
+}

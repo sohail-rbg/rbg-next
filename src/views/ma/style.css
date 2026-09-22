@@ -1,0 +1,85 @@
+.scene {
+  perspective: 1000px;
+  /* overflow: hidden; */
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  left: -200px;
+  top: 0;
+  z-index: 66;
+  max-width: 1500px;
+}
+
+.cardNew {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card__img {
+  width: 5em;
+  border-radius: 5px;
+  aspect-ratio: 2/3;
+  background-position: center;
+  background-size: cover;
+}
+
+.ma_hero_section {
+  height: 100vh;
+  min-height: 560px;
+  position: relative;
+}
+
+.ma_hero_section:after {
+  position: absolute;
+  content: "";
+  background: linear-gradient(90deg, #2e5e53 0%, #000000 100%);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.our_logo{
+    text-align: center;
+    position: absolute;
+    z-index: 10;
+    color: var(--color-title);
+    text-transform: uppercase;
+    max-width: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+
+
+.ma_hero_headings {
+    text-align: center;
+    position: absolute;
+    z-index: 10;
+    color: var(--color-title);
+    /* text-transform: uppercase; */
+    max-width: 350px;
+    bottom: 0;
+    right: -10px;
+    transform: translate(-50%, -50%);
+  }
+  
+
+.ma_hero_headings h2 {
+    font-family: 'Better Fonts';
+    font-size: 120px;
+
+
+    background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: hue 10s infinite linear;
+}

@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'Recoleta';
+    src: url('Recoleta-Bold.woff2') format('woff2'),
+        url('Recoleta-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Recoleta';
+    src: url('Recoleta-Regular.woff2') format('woff2'),
+        url('Recoleta-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Recoleta';
+    src: url('Recoleta-Light.woff2') format('woff2'),
+        url('Recoleta-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Recoleta';
+    src: url('Recoleta-Thin.woff2') format('woff2'),
+        url('Recoleta-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Better Fonts';
+    src: url('BetterFontsRegular.woff2') format('woff2'),
+        url('BetterFontsRegular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

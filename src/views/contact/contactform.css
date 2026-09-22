@@ -1,0 +1,216 @@
+svg#react-sketch-canvas{
+    cursor: url(../../images/pencil.svg) 0 23,auto !important;
+}
+.formtopBox {
+    border: 1px solid #b4b4b4;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.skectchBox {
+    /* border-left: 1px solid #b4b4b4; */
+    height: 100%;
+    padding: 0px;
+    min-height:75vh;
+    position: relative;
+}
+.verticleLine{
+    position: absolute;
+    width: 1px;
+    background: #b4b4b4;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+.colorPicker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    border: 0;
+    height: 40px;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 40px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.steckOptionIcon {
+    position: absolute !important;
+    left: 10px;
+    bottom: 10px;
+    z-index: 44;
+
+}
+.sketchText {
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    right: 0;
+    z-index: 33;
+    top: 5%;
+    text-align: center;
+    pointer-events: none;
+}
+
+
+.messageBoxWrp {
+    height: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.messageBoxWrp a {
+    color: var(--primary);
+}
+.smileyIcon {
+    width: 45px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.messageInput {
+    background: transparent;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-size: 30px;
+    font-weight: normal;
+    font-family: var(--heading-font);
+    line-height: 1.6;
+}
+.messageInput:focus, .messageInput:active, .messageInput:focus, .messageInput:focus-visible, .messageInput:focus, .messageInput:focus-within{
+    border: none;
+    outline: none;
+}
+.messageBoxContent {
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.formBottomBox {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 21px;
+    
+}
+
+.form_b_input {
+    width: 50%;
+}
+
+.inputBoxWrp {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    border: 1px solid #b4b4b4;
+    border-radius: 50px;
+    position: relative;
+}
+
+.inputBox {
+    background: transparent;
+    outline: none;
+    border: 0;
+    height: 70px;
+    width: 100%;
+    padding: 20px 40px;
+    font-size: 20px;
+    color: #fff;
+    font-family: var(--heading-font);
+}
+.inputBox::placeholder{
+    color:#fff;
+}
+
+/* .form_b_input + .form_b_input {
+    border-left: 1px solid #b4b4b4;
+} */
+
+.formBottomBox .verticleLine{
+    left: 50%;
+}
+.submitButton {
+    background: var(--primary) !important;
+    color: #fff !important;
+    white-space: nowrap !important;
+    height: 70px;
+    padding: 20px 40px !important;
+    border-radius: 50px !important;
+    font-size: 21px !important;
+    font-family: var(--heading-font) !important;
+    text-transform: none !important;
+}
+
+.form_bottonBox {
+    margin-left: 20px;
+}
+
+
+.submitButton:hover, .submitButton:focus {
+    background: var(--secondary);
+}
+
+.formStatus {
+    color: var(--white);
+    font-size: 14px;
+    margin: 12px 0 0;
+    max-width: 240px;
+}
+
+
+
+/*  Responsive */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+       only screen and (min-resolution: 192dpi) {
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+ 
+}
+@media only screen and (min-width: 1025px) and (max-width: 1199px) {
+  
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  
+}
+@media only screen and (max-width: 767px) {
+    .verticleLine {display: none;}
+
+.formBottomBox {
+    flex-wrap: wrap;
+}
+
+.inputBoxWrp {flex-wrap: wrap;margin-bottom: 20px;}
+
+.form_b_input {
+    width: 100%;
+}
+
+.form_b_input.email {
+    border-bottom: 1px solid;
+}
+
+.skectchBox {
+    border-top: 1px solid;
+    min-height: 450px;
+}
+}
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  
+}
+@media only screen and (max-width: 480px) {
+  
+}
+

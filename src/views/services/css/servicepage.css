@@ -1,0 +1,324 @@
+.serviceWelcomeSec {
+  height: 100vh;
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  background: #1c1d1c;
+}
+.serviceWelcomeSec:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url(../../../images/texure/shape-1.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  left: 0;
+  top: 0;
+}
+.service_top_marquee_box {
+  display: flex;
+  height: 100vh;
+  padding: 0 0;
+  position: relative;
+}
+
+.ser_maqqueeBox {
+  width: 50% !important;
+  height: 100%;
+  padding: 0;
+  /* animation: marqueeBottom 8s linear infinite;
+  animation-play-state: running; */
+}
+.service_top_marquee_box:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 101%;
+  background: linear-gradient(
+    180deg,
+    #1c1d1c 1.05%,
+    rgba(217, 217, 217, 0) 24.26%,
+    rgba(217, 217, 217, 0) 68.54%,
+    #1c1d1c 98.06%
+  );
+  left: 0;
+  top: 0;
+}
+
+.ser_maq_item {
+  padding: 10px;
+  overflow: hidden;
+}
+
+.ser_maq_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.stm_right_box {
+  /* animation: marqueeTop 8s linear infinite; */
+}
+@keyframes marqueeTop {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes marqueeBottom {
+  0% {
+    -webkit-transform: translate3d(0, -200%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.sv-inner__service-list span {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px 14px 14px 0px;
+  /* font-weight: 500; */
+  font-size: 17px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: #fff;
+  display: inline-block;
+  padding: 0px 40px;
+  height: 66px;
+  line-height: 66px;
+  position: relative;
+  z-index: 2;
+}
+.sv-inner__service-list.list-1 span {
+  background: #8b9c8c;
+}
+.sv-inner__service-list.list-2 span {
+  background: #868775;
+  border-radius: 0px 0px 14px 0px;
+}
+.sv-inner__service-list.list-3 span {
+  background: #558f8b;
+  border-radius: 0px 0px 14px 14px;
+}
+
+.cardStacking {
+  overflow: hidden;
+  padding: 60px 0;
+}
+
+.stackCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border-radius: 30px; */
+  position: relative;
+  width: 100%;
+  min-height: 580px;
+  overflow: hidden;
+
+  transform-origin: 50% -160%;
+  margin-bottom: 50px;
+}
+
+.stackCard__body {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  height: 100%;
+  position: relative;
+  border: 2px solid var(--secondary);
+  border-radius: 30px;
+  background: #000;
+}
+.stackCard_bgImg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  backdrop-filter: blur(71px);
+}
+
+/* .stackCard_overlay {
+  background: #414132;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  opacity: 0.7;
+  z-index: 0;
+  backdrop-filter: blur(60px);
+  top: 0;
+} */
+
+.stackCard_overlay + * {
+  position: relative;
+  z-index: 3;
+}
+.serviceIcon {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 100%;
+}
+.serviceIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.stackCard__body .MuiGrid-root.MuiGrid-container {
+  height: 100%;
+}
+.serviceCardContent h3 {
+  font-size: 80px;
+  margin: 0 0 10px;
+  font-family: "Better Fonts";
+  color: #d7e7e6;
+}
+
+.stackBodyIcons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.stackBodyIcons .absolute {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.stackBodyIcons .absolute img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.serviceCardContent {
+  /* padding: 40px;
+  background: #0000005c; */
+  backdrop-filter: blur(21px);
+  position: relative;
+  border-radius: 20px;
+}
+.stackCard_overlay {
+  position: absolute;
+  width: 20px;
+  height: 50px;
+  border-radius: 0 20px 20px 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+/*  Responsive */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi) {
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+}
+@media only screen and (min-width: 1025px) and (max-width: 1199px) {
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+}
+@media only screen and (max-width: 767px) {
+  .service_top_marquee_box {
+    height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 30px 0 0;
+    display: none;
+  }
+
+  .serviceWelcomeSec {
+    height: auto;
+    padding-top: 170px;
+  }
+
+  .ser_maq_item {
+    width: 100px;
+    height: 100%;
+  }
+
+  .ser_maqqueeBox {
+    width: auto !important;
+    height: 100px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+  @keyframes marqueeTop {
+    0% {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      -webkit-transform: translate3d(-100%, 0%, 0);
+      transform: translate3d(-100%, 0%, 0);
+    }
+  }
+  @keyframes marqueeBottom {
+    0% {
+      -webkit-transform: translate3d(-100%, -0%, 0);
+      transform: translate3d(-100, 0%, 0);
+    }
+    100% {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  .ser_maqqueeBox {
+    animation: marqueeBottom 28s linear infinite;
+  }
+  .stm_right_box {
+    animation: marqueeTop 28s linear infinite;
+  }
+
+  .service_top_marquee_box:after {
+    display: none;
+  }
+  .sv-inner__service-list span {
+    padding: 0 15px;
+    letter-spacing: 0;
+    font-size: 13px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.stackCard__body {
+  padding: 20px;
+}
+
+.serviceCardContent {
+  padding: 0px;
+}
+
+.serviceCardContent h3 {
+  font-size: 50px;
+}
+
+.stackBodyIcons {
+  display: none;
+}
+}
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+}
+@media only screen and (max-width: 480px) {
+}
