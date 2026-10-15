@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Kinetic type wall (home) — replaces the old .roll_wrp marquee rows.
+   Capability type block (home) — static editorial composition.
    Brand palette only: sage #8B9C8C · green #2E5E53 · blush #faede9 · ink #0e191d
    Namespaced .rbg-roll__* so it can't collide with legacy rules.
    ========================================================================== */
@@ -30,7 +30,7 @@
 /* ---------------------------------------------------------------- rows -- */
 .rbg-roll__row {
   position: relative;
-  padding: 46px 0;
+  padding: 44px clamp(24px, 7vw, 120px);
   overflow: hidden;
 }
 
@@ -54,11 +54,11 @@
   background: linear-gradient(
     102deg,
     transparent 40%,
-    rgba(255, 255, 255, 0.14) 50%,
+    rgba(255, 255, 255, 0.13) 50%,
     transparent 60%
   );
   transform: translateX(-75%);
-  animation: rbg-roll-sweep 8.5s ease-in-out infinite;
+  animation: rbg-roll-sweep 9s ease-in-out infinite;
 }
 
 @keyframes rbg-roll-sweep {
@@ -75,8 +75,7 @@
 .rbg-roll__pill,
 .rbg-roll__meta {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 22px;
   z-index: 4;
   font-family: var(--primary-font);
   font-size: 11px;
@@ -87,7 +86,7 @@
 }
 
 .rbg-roll__pill {
-  left: 30px;
+  left: clamp(24px, 7vw, 120px);
   padding: 9px 18px;
   border-radius: 999px;
 }
@@ -109,61 +108,54 @@
 }
 
 .rbg-roll__meta {
-  right: 30px;
+  right: clamp(24px, 7vw, 120px);
+  top: 26px;
   font-size: 10px;
   letter-spacing: 0.24em;
   opacity: 0.66;
 }
 
-/* marquee ---------------------------------------------------------------- */
-.rbg-roll__viewport {
+/* ----------------------------------------------------------------- line -- */
+.rbg-roll__line {
   position: relative;
   z-index: 2;
-  overflow: hidden;
-  transform: skewX(var(--rbg-roll-skew, 0deg));
-  transition: transform 0.12s linear;
-  mask-image: linear-gradient(
-    90deg,
-    transparent 0,
-    #000 8%,
-    #000 92%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent 0,
-    #000 8%,
-    #000 92%,
-    transparent 100%
-  );
-}
-
-.rbg-roll__track {
   display: flex;
-  width: max-content;
-  animation: rbg-roll-marquee var(--dur, 46s) linear infinite;
-  animation-direction: var(--dir, normal);
-  will-change: transform;
-}
-
-.rbg-roll__row:hover .rbg-roll__track {
-  animation-play-state: paused;
-}
-
-.rbg-roll__group {
-  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  column-gap: clamp(14px, 1.8vw, 30px);
+  row-gap: clamp(8px, 1.2vw, 18px);
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.rbg-roll__sep {
+  display: inline-block;
+  font-size: clamp(11px, 1.2vw, 17px);
+  transition: opacity 0.35s ease;
+}
+
+.rbg-roll__row--light .rbg-roll__sep {
+  color: var(--rbg-roll-green);
+  opacity: 0.62;
+}
+
+.rbg-roll__row--dark .rbg-roll__sep {
+  color: var(--rbg-roll-blush);
+  opacity: 0.8;
 }
 
 /* ---------------------------------------------------------------- words -- */
 .rbg-roll__word {
   display: inline-block;
   font-family: var(--heading-font);
-  font-size: clamp(34px, 4.6vw, 68px);
+  font-size: clamp(32px, 4.4vw, 64px);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 1.08;
   letter-spacing: -0.01em;
   white-space: nowrap;
+  cursor: default;
   transition: color 0.35s ease, opacity 0.35s ease, background-color 0.35s ease,
     -webkit-text-stroke-color 0.35s ease;
 }
@@ -183,31 +175,6 @@
   transform: none;
 }
 
-.rbg-roll__sep {
-  display: inline-block;
-  margin: 0 clamp(18px, 2.4vw, 44px);
-  font-size: clamp(13px, 1.4vw, 20px);
-  animation: rbg-roll-spin 16s linear infinite;
-  animation-delay: var(--spin-delay, 0s);
-  transition: opacity 0.35s ease;
-}
-
-.rbg-roll__row--light .rbg-roll__sep {
-  color: var(--rbg-roll-green);
-  opacity: 0.7;
-}
-
-.rbg-roll__row--dark .rbg-roll__sep {
-  color: var(--rbg-roll-blush);
-  opacity: 0.85;
-}
-
-@keyframes rbg-roll-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* word treatments --------------------------------------------------------- */
 .rbg-roll__word.is-outline {
   color: transparent;
@@ -223,7 +190,7 @@
 
 .rbg-roll__word.is-script {
   font-family: "Better Fonts", var(--heading-font);
-  font-size: clamp(38px, 5.2vw, 78px);
+  font-size: clamp(36px, 5vw, 74px);
   letter-spacing: 0;
 }
 
@@ -247,17 +214,17 @@
   background: var(--rbg-roll-cream);
 }
 
-/* hover: dim the wall, focus one word ------------------------------------ */
-.rbg-roll__viewport:hover .rbg-roll__word,
-.rbg-roll__viewport:hover .rbg-roll__sep {
-  opacity: 0.28;
+/* hover: dim the line, focus one word ------------------------------------ */
+.rbg-roll__line:hover .rbg-roll__word,
+.rbg-roll__line:hover .rbg-roll__sep {
+  opacity: 0.26;
 }
 
-.rbg-roll__viewport .rbg-roll__word:hover {
+.rbg-roll__line .rbg-roll__word:hover {
   opacity: 1;
 }
 
-.rbg-roll__viewport .rbg-roll__word:hover .rbg-roll__ltr {
+.rbg-roll__line .rbg-roll__word:hover .rbg-roll__ltr {
   transform: translateY(-0.12em);
   transition-duration: 0.42s;
   transition-delay: calc(var(--i, 0) * 28ms);
@@ -280,20 +247,22 @@
   -webkit-text-stroke-color: var(--rbg-roll-blush);
 }
 
+.rbg-roll__word.is-sticker:hover {
+  color: var(--rbg-roll-ink);
+}
+
 /* ------------------------------------------------------- rotating badge -- */
 .rbg-roll__seam {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: relative;
   z-index: 6;
-  display: grid;
-  place-items: center;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+  height: 0;
 }
 
 .rbg-roll__badge {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
   display: grid;
   place-items: center;
   width: clamp(104px, 11.5vw, 156px);
@@ -302,6 +271,7 @@
   background: var(--rbg-roll-ink);
   border: 1px solid rgba(250, 237, 233, 0.3);
   box-shadow: 0 26px 64px rgba(14, 25, 29, 0.45);
+  pointer-events: none;
 }
 
 .rbg-roll__badge-svg {
@@ -350,27 +320,27 @@
 
 @media only screen and (min-width: 1200px) and (max-width: 1439px) {
   .rbg-roll__row {
-    padding: 38px 0;
+    padding: 38px 60px;
   }
   .rbg-roll__pill {
-    left: 22px;
+    left: 60px;
   }
   .rbg-roll__meta {
-    right: 22px;
+    right: 60px;
   }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1199px) {
   .rbg-roll__row {
-    padding: 32px 0;
+    padding: 34px 36px;
   }
   .rbg-roll__pill {
-    left: 18px;
+    left: 36px;
     font-size: 10px;
     letter-spacing: 0.2em;
   }
   .rbg-roll__meta {
-    right: 18px;
+    right: 36px;
   }
   .rbg-roll__badge {
     width: clamp(88px, 13vw, 120px);
@@ -379,7 +349,7 @@
 
 @media only screen and (max-width: 767px) {
   .rbg-roll__row {
-    padding: 22px 0;
+    padding: 26px 20px 22px;
   }
   .rbg-roll__word {
     font-size: clamp(22px, 6.6vw, 32px);
@@ -387,12 +357,16 @@
   .rbg-roll__word.is-script {
     font-size: clamp(25px, 7.4vw, 36px);
   }
+  .rbg-roll__line {
+    padding-top: 16px;
+    column-gap: 12px;
+    row-gap: 6px;
+  }
   .rbg-roll__sep {
-    margin: 0 16px;
     font-size: 11px;
   }
   .rbg-roll__pill {
-    left: 12px;
+    left: 20px;
     padding: 6px 13px;
     font-size: 9px;
     letter-spacing: 0.18em;
@@ -400,12 +374,10 @@
   .rbg-roll__meta {
     display: none;
   }
-  .rbg-roll__seam {
-    left: auto;
-    right: 14px;
-    transform: translateY(-50%);
-  }
   .rbg-roll__badge {
+    left: auto;
+    right: 20px;
+    transform: translateY(-50%);
     width: 76px;
   }
   .rbg-roll__badge-mark {
@@ -418,15 +390,10 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .rbg-roll__track,
   .rbg-roll__row--dark::before,
-  .rbg-roll__sep,
   .rbg-roll__badge-svg,
   .rbg-roll__badge-mark {
     animation: none;
-  }
-  .rbg-roll__viewport {
-    transform: none;
   }
   .rbg-roll__ltr {
     opacity: 1;

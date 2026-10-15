@@ -3,13 +3,13 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 
 /**
- * Kinetic type wall — the capability band that sits under the hero.
+ * Capability type block — the band that sits under the hero.
  *
- * Two opposing rows of keywords are set as a moving type specimen: filled,
- * outlined, script, accent and "sticker" words, each revealed letter by letter
- * as the band scrolls into view. Hovering a word dims the rest of the wall and
- * lifts that word's letters in sequence; the whole wall skews with pointer
- * velocity, and a rotating brand badge straddles the seam between the rows.
+ * Static, editorial composition (no scrolling marquee): the disciplines and
+ * crafts are laid out as a wrapped type specimen with filled / outlined /
+ * script / accent / sticker treatments. Letters rise into place one by one as
+ * the band enters the viewport, hovering a word dims the rest of the line, and
+ * a rotating brand badge straddles the seam between the two lines.
  *
  * Brand palette only — sage #8B9C8C, green #2E5E53, blush #faede9, ink #0e191d.
  */
@@ -37,7 +37,7 @@ const crafts = [
 
 const badgeText = "REBRAND GURUS • DIGITAL CRAFT • ";
 
-/** Letter treatments rotate through the row so the specimen never repeats. */
+/** Letter treatments rotate through the line so the specimen never repeats. */
 const variantFor = (index, tone) => {
   if (index % 7 === 3) return "sticker";
   if (index % 5 === 2) return "script";
@@ -91,45 +91,28 @@ const RotatingBadge = ({ text }) => {
   );
 };
 
-const RollRow = ({ words, tone, direction, duration, label, meta }) => (
+const TypeLine = ({ words, tone, label, meta }) => (
   <div className={`rbg-roll__row rbg-roll__row--${tone}`}>
     <span className="rbg-roll__pill">{label}</span>
     <span className="rbg-roll__meta">{meta}</span>
 
-    <div className="rbg-roll__viewport" aria-hidden="true">
-      <div
-        className="rbg-roll__track"
-        style={{
-          "--dur": duration,
-          "--dir": direction === "right" ? "reverse" : "normal",
-        }}
-      >
-        {[0, 1].map((copy) => (
-          <div className="rbg-roll__group" key={copy}>
-            {words.map((word, index) => (
-              <React.Fragment key={`${copy}-${word}-${index}`}>
-                <Word word={word} variant={variantFor(index, tone)} />
-                <span
-                  className="rbg-roll__sep"
-                  style={{ "--spin-delay": `${(index % 5) * -3.2}s` }}
-                >
-                  ✳
-                </span>
-              </React.Fragment>
-            ))}
-          </div>
-        ))}
-      </div>
+    <div className="rbg-roll__line" aria-hidden="true">
+      {words.map((word, index) => (
+        <React.Fragment key={`${word}-${index}`}>
+          <Word word={word} variant={variantFor(index, tone)} />
+          {index < words.length - 1 && (
+            <span className="rbg-roll__sep">✳</span>
+          )}
+        </React.Fragment>
+      ))}
     </div>
   </div>
 );
 
 const USPSection = () => {
   const sectionRef = useRef(null);
-  const rafRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
 
-  /* reveal the words once the band enters the viewport ------------------ */
   useEffect(() => {
     const node = sectionRef.current;
     if (!node) return undefined;
@@ -153,69 +136,6 @@ const USPSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  /* pointer-velocity skew: the wall leans into fast horizontal movement -- */
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return undefined;
-
-    const reduceMotion =
-      typeof window.matchMedia === "function" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return undefined;
-
-    let target = 0;
-    let current = 0;
-    let lastX = null;
-    let lastT = 0;
-
-    const loop = () => {
-      current += (target - current) * 0.14;
-      target *= 0.9;
-
-      if (Math.abs(current) < 0.05 && Math.abs(target) < 0.05) {
-        node.style.setProperty("--rbg-roll-skew", "0deg");
-        rafRef.current = null;
-        return;
-      }
-
-      node.style.setProperty("--rbg-roll-skew", `${current.toFixed(2)}deg`);
-      rafRef.current = requestAnimationFrame(loop);
-    };
-
-    const start = () => {
-      if (!rafRef.current) rafRef.current = requestAnimationFrame(loop);
-    };
-
-    const handleMove = (event) => {
-      const now = performance.now();
-
-      if (lastX !== null) {
-        const delta = Math.max(now - lastT, 8);
-        const velocity = (event.clientX - lastX) / delta; // px per ms
-        target = Math.max(-6, Math.min(6, velocity * 9));
-      }
-
-      lastX = event.clientX;
-      lastT = now;
-      start();
-    };
-
-    const handleLeave = () => {
-      lastX = null;
-      target = 0;
-      start();
-    };
-
-    node.addEventListener("pointermove", handleMove);
-    node.addEventListener("pointerleave", handleLeave);
-
-    return () => {
-      node.removeEventListener("pointermove", handleMove);
-      node.removeEventListener("pointerleave", handleLeave);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
   return (
     <section
       ref={sectionRef}
@@ -228,26 +148,23 @@ const USPSection = () => {
       <p className="rbg-roll__sr">Disciplines: {disciplines.join(", ")}.</p>
       <p className="rbg-roll__sr">Crafts: {crafts.join(", ")}.</p>
 
-      <RollRow
+      <TypeLine
         words={disciplines}
         tone="light"
-        direction="left"
-        duration="52s"
         label="What we do"
         meta={`${String(disciplines.length).padStart(2, "0")} disciplines`}
-      />
-      <RollRow
-        words={crafts}
-        tone="dark"
-        direction="right"
-        duration="44s"
-        label="How we think"
-        meta={`${String(crafts.length).padStart(2, "0")} crafts`}
       />
 
       <div className="rbg-roll__seam">
         <RotatingBadge text={badgeText} />
       </div>
+
+      <TypeLine
+        words={crafts}
+        tone="dark"
+        label="How we think"
+        meta={`${String(crafts.length).padStart(2, "0")} crafts`}
+      />
     </section>
   );
 };
