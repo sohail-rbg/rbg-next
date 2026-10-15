@@ -26,7 +26,6 @@
   img {
     max-width: 100%;
     width: 100%;
-    will-change: transform, filter;
   }
   
   .following-content {

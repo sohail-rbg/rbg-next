@@ -1,7 +1,6 @@
 "use client";
 
-import sync, { cancelSync } from "framesync";
-import { useEffect } from "react";
+
 import { createExpoIn, reversed } from "@popmotion/easing";
 
 
@@ -21,14 +20,6 @@ import img10 from '../../../images/banner/10.png'
 // Version of Greensock's Quad ease out
 export const powerOut4 = reversed(createExpoIn(4));
 
-// Hook to use an animation loop
-export const useAnimationLoop = callback => {
-  useEffect(() => {
-    sync.update(callback, true);
-    return () => cancelSync.update(callback);
-  }, [callback]);
-};
-
 // Center images using transforms
 export const center = (_, generated) =>
   `translate(-50%, -50%) ${generated}`;
@@ -42,13 +33,7 @@ export const generateSize = () => ({
   width: generateNumber(250, 50)
 });
 
-// Instead of using images just use color placeholders.
-const placeholderColors = new Set();
-
-for (let i = 0; i < 30; i++) {
-  placeholderColors.add(`hsla(${Math.round(Math.random() * 360)},100%,70%,1)`);
-}
-
 // export const colors = Array.from(placeholderColors);
-export const colors = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img1, img2, img3, img4, img5, img6, img7, img8, img9, img1, img2, img3, img4, img5, img6, img7, img8, img9, img10]
+// 9 tiles (was 28): same visual effect, a third of the DOM and animation work.
+export const colors = [img1, img2, img3, img4, img5, img6, img7, img8, img9]
 // console.log(colors)

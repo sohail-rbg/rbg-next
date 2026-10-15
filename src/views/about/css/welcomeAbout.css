@@ -158,7 +158,7 @@
     left: 0;
     top: 0;
     background-size: contain;
-    background-attachment: fixed;
+    background-attachment: scroll;
 } */
 .about_bg_video {
   position: absolute;

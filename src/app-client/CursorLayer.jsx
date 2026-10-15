@@ -45,7 +45,7 @@ export default function CursorLayer() {
       innerScale={1}
       outerScale={2}
       outerAlpha={0}
-      hasBlendMode={true}
+      hasBlendMode={false}
       innerStyle={{
         backgroundColor: "var(--cursor-color)",
         zIndex: 10000,
