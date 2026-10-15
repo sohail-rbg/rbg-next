@@ -2,6 +2,9 @@ const path = require("path");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Allow the sandboxed preview proxy (e.g. https://3000-<id>.e2b.app) to
+  // request /_next/* dev assets without Next.js flagging cross-origin requests.
+  allowedDevOrigins: ["*.e2b.app", "localhost", "127.0.0.1"],
   images: {
     disableStaticImages: true,
     formats: ["image/avif", "image/webp"],
