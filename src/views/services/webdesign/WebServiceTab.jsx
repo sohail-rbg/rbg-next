@@ -94,7 +94,7 @@ const WebServiceTab = (props) => {
                 <Grid item xs={6}>
                   <Box className="service_stack_description" color={webTabItem.color}>
                     <AnimatedCardHeading>{webTabItem.title}</AnimatedCardHeading>
-                    <AnimatedParagraph><div dangerouslySetInnerHTML={{ __html: webTabItem.Description }} /></AnimatedParagraph>
+                    <AnimatedParagraph as="div"><div dangerouslySetInnerHTML={{ __html: webTabItem.Description }} /></AnimatedParagraph>
                   </Box>
                 </Grid>
               </Grid>

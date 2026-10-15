@@ -117,9 +117,10 @@ export const darkTheme = createTheme({
 
 
 
-  export  const AnimatedParagraph = ({ children }) => {
+  export  const AnimatedParagraph = ({ children, as = "p" }) => {
+    const Wrapper = as === "div" ? motion.div : motion.p;
     return (
-      <motion.p  initial={{ y: 100, opacity: 0 }}
+      <Wrapper  initial={{ y: 100, opacity: 0 }}
       whileInView={{ x: -0, y: 0, opacity: 1 }}
       exit={{ y: 100, opacity: 0 }}
       transition={{
@@ -127,6 +128,6 @@ export const darkTheme = createTheme({
         duration: 2,
       }}>
         {children}
-      </motion.p>
+      </Wrapper>
     );
   };
