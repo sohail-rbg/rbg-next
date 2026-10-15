@@ -1,5 +1,7 @@
 # ReBrand Gurus — Complete Issue List
 
+> **Addendum:** see `PAGE-AUDIT.md` for the live page/link crawl — it confirms and sharpens #3, #14, #18, #20 and adds 8 new broken-link findings (4 dead service cards, unknown slugs rendering Web Design, `href="#"` portfolio titles, LinkedIn admin URL, inconsistent social handles).
+
 **Audited:** 2026-10-15 · **Commit:** `fe34a22` (+ `d70a6b1` dev-origin fix) · **Stack:** Next.js 15.5.20 (App Router), React 18, MUI 5
 
 **Method:** static inspection of every file in `app/` and `src/`, `next build` (passes, 17 routes), `next lint`, `npm audit`, `npm outdated`, plus live route probing against a running dev server (status codes, SSR HTML inspection, header inspection, internal-link crawl).
