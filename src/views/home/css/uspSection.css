@@ -12,7 +12,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: clamp(40px, 5.4vw, 84px) 0;
+  padding: clamp(64px, 8vw, 140px) 0;
   background: #000;
   color: var(--rbg-roll-cream);
 }
@@ -72,7 +72,7 @@
 }
 
 .rbg-roll__row--blush {
-  margin-top: clamp(18px, 2.6vw, 40px);
+  margin-top: clamp(46px, 7vw, 108px);
 }
 
 .rbg-roll__line {
@@ -80,8 +80,8 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  column-gap: clamp(10px, 1.5vw, 30px);
-  row-gap: clamp(4px, 0.8vw, 14px);
+  column-gap: clamp(16px, 2.1vw, 38px);
+  row-gap: clamp(12px, 1.7vw, 30px);
   transform: translate3d(var(--drift, 0px), 0, 0) rotate(var(--line-tilt, 0deg));
   transition: transform 0.08s linear;
   will-change: transform;
@@ -304,7 +304,11 @@
     padding: 0 28px;
   }
   .rbg-roll__line {
-    column-gap: 14px;
+    column-gap: 18px;
+    row-gap: 20px;
+  }
+  .rbg-roll__row--blush {
+    margin-top: clamp(40px, 6vw, 72px);
   }
   .rbg-roll__badge {
     width: clamp(82px, 12vw, 112px);
@@ -313,14 +317,14 @@
 
 @media only screen and (max-width: 767px) {
   .rbg-roll {
-    padding: 26px 0 30px;
+    padding: 44px 0 52px;
   }
   .rbg-roll__row {
     padding: 0 14px;
   }
   .rbg-roll__line {
-    column-gap: 9px;
-    row-gap: 3px;
+    column-gap: 12px;
+    row-gap: 12px;
   }
   .rbg-roll__word.is-mega {
     font-size: clamp(30px, 10.5vw, 54px);
@@ -347,7 +351,7 @@
     filter: blur(64px);
   }
   .rbg-roll__row--blush {
-    margin-top: 20px;
+    margin-top: 38px;
   }
   .rbg-roll__badge {
     left: auto;
