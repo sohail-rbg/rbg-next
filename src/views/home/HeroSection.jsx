@@ -1,7 +1,7 @@
 "use client";
 
 // HeroSection.js
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 import BackgroundVideo from "./BackgroundVideo";
 import rbgIcon from "../../images/rbg.png";
@@ -15,9 +15,25 @@ const tagline = "We Build Brands That Matter In Culture...";
 
 const HeroSection = () => {
   const [videoFailed, setVideoFailed] = useState(false);
+  const sectionRef = useRef(null);
+
+  // The cue hands the reader to the section below. scrollIntoView on the next
+  // sibling lands exactly on it however tall the hero turns out to be; the
+  // scrollBy fallback keeps it working if the hero is ever rendered alone.
+  const handleScrollCue = useCallback(() => {
+    if (typeof window === "undefined") return;
+    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    const behavior = reduced ? "auto" : "smooth";
+    const next = sectionRef.current?.nextElementSibling;
+    if (next && typeof next.scrollIntoView === "function") {
+      next.scrollIntoView({ behavior, block: "start" });
+      return;
+    }
+    window.scrollBy({ top: window.innerHeight, behavior });
+  }, []);
 
   return (
-    <section className="homeBannerSection rbg-hero">
+    <section className="homeBannerSection rbg-hero" ref={sectionRef}>
       {/* film: poster fallback under the video, single scrim for legibility */}
       <div className="rbg-hero__media" aria-hidden="true">
         {videoFailed && (
@@ -52,6 +68,9 @@ const HeroSection = () => {
       {/* cursor image trail — unchanged */}
       <BackgroundVideo />
 
+      {/* the film dissolves into the black section below; deepens as it leaves */}
+      <span className="rbg-hero__merge" aria-hidden="true" />
+
       <div className="bannerTextWrp rbg-hero__type">
         <NextImage
           src={rbgIcon}
@@ -70,6 +89,20 @@ const HeroSection = () => {
             </span>
           ))}
         </h3>
+      </div>
+
+      <div className="rbg-hero__cueWrp">
+        <button
+          type="button"
+          className="rbg-hero__cue"
+          onClick={handleScrollCue}
+          aria-label="Scroll to the next section"
+        >
+          <span className="rbg-hero__cue-pill">
+            <span className="rbg-hero__cue-dot" />
+          </span>
+          <span className="rbg-hero__cue-label">scroll</span>
+        </button>
       </div>
     </section>
   );

@@ -114,6 +114,223 @@
   }
 }
 
+/* ------------------------------------------------- merge into next section -- */
+/* The band below the hero is pure #000, so the film is dissolved into exactly
+   that value instead of ending on a hard edge. Three flat layers, all painted
+   once: the base dissolve (always seam-free), a brand-green haze where film
+   meets page, and a taller depth layer that eases in as the hero scrolls away.
+   Every animated property here is opacity/transform, so the scroll-linked part
+   runs on the compositor with no scroll listener and no repaint. */
+.rbg-hero__merge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(130px, 24vh, 260px);
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.44) 38%,
+    rgba(0, 0, 0, 0.86) 74%,
+    #000 100%
+  );
+}
+
+/* brand haze at the junction — gradient, not a filter */
+.rbg-hero__merge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    130% 125% at 50% 106%,
+    rgba(46, 94, 83, 0.5) 0%,
+    rgba(46, 94, 83, 0.16) 44%,
+    rgba(0, 0, 0, 0) 74%
+  );
+  animation: rbg-hero-haze 0.9s ease-out 1.4s both;
+}
+
+@keyframes rbg-hero-haze {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* the dissolve deepens as the hero leaves — this is the merge, animated */
+.rbg-hero__merge::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 210%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.34) 46%,
+    rgba(0, 0, 0, 0.82) 78%,
+    #000 100%
+  );
+}
+
+@keyframes rbg-hero-merge {
+  from {
+    opacity: 0;
+    transform: translateY(46px);
+  }
+  to {
+    opacity: 0.92;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------- scroll handoff -- */
+/* Copy eases away into the next section instead of being cut off, and the cue
+   retires as soon as the reader has taken the hint. */
+
+@keyframes rbg-hero-type-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(34px);
+  }
+}
+
+@keyframes rbg-hero-cue-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .rbg-hero__merge::after {
+    animation: rbg-hero-merge linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 92vh;
+  }
+
+  .rbg-hero .rbg-hero__type {
+    animation: rbg-hero-type-out linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 58vh;
+  }
+
+  .rbg-hero .rbg-hero__cue {
+    animation: rbg-hero-cue-out linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 26vh;
+  }
+}
+
+/* ------------------------------------------------------------ scroll cue -- */
+.rbg-hero__cueWrp {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(16px, 3.4vh, 38px);
+  z-index: 13;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.rbg-hero .rbg-hero__cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgba(244, 247, 244, 0.66);
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.rbg-hero__cue-pill {
+  position: relative;
+  display: block;
+  width: 23px;
+  height: 38px;
+  border: 1px solid rgba(244, 247, 244, 0.3);
+  border-radius: 999px;
+  animation: rbg-hero-cue-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1.15s both;
+}
+
+.rbg-hero__cue-dot {
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: #8b9c8c;
+  animation: rbg-hero-cue-dot 2.1s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.rbg-hero__cue-label {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: lowercase;
+  animation: rbg-hero-cue-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1.25s both;
+}
+
+@keyframes rbg-hero-cue-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rbg-hero-cue-dot {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  22% {
+    opacity: 1;
+  }
+  68% {
+    opacity: 1;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(19px);
+  }
+}
+
+.rbg-hero__cue:hover .rbg-hero__cue-pill,
+.rbg-hero__cue:focus-visible .rbg-hero__cue-pill {
+  border-color: rgba(244, 247, 244, 0.62);
+}
+
+.rbg-hero__cue:focus-visible {
+  outline: 1px solid rgba(244, 247, 244, 0.7);
+  outline-offset: 6px;
+}
+
 /* ==========================================================================
    Responsive
    ========================================================================== */
@@ -125,6 +342,12 @@
   .rbg-hero .rbg-hero__tagline {
     font-size: clamp(16px, 4.6vw, 22px);
   }
+  .rbg-hero__merge {
+    height: clamp(110px, 20vh, 220px);
+  }
+  .rbg-hero__cueWrp {
+    bottom: clamp(14px, 3vh, 26px);
+  }
 }
 
 /* ==========================================================================
@@ -133,7 +356,20 @@
 
 @media (prefers-reduced-motion: reduce) {
   .rbg-hero__wordmark,
-  .rbg-hero__word {
+  .rbg-hero__word,
+  .rbg-hero__merge::before,
+  .rbg-hero__cue-pill,
+  .rbg-hero__cue-label,
+  .rbg-hero__cue-dot {
+    animation: none;
+  }
+
+  /* scroll-driven pieces must be cancelled explicitly: the site-wide
+     reduced-motion block only shortens animation-duration, which a scroll
+     timeline ignores. */
+  .rbg-hero__merge::after,
+  .rbg-hero .rbg-hero__type,
+  .rbg-hero .rbg-hero__cue {
     animation: none;
   }
 }
