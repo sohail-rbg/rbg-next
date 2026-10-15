@@ -1,14 +1,3 @@
-.roll_wrp {
-    padding: 20px 0;
-    position: relative;
-}
-
-.roll_wrp .roll_wrp_item {
-    font-size: 22px;
-    text-align: center;
-    padding: 0 100px;
-}
-
 /* Brand Info */
 .bi_inner img {
     max-width: 140px;
@@ -44,9 +33,6 @@
 }
 
 @media only screen and (min-width: 1200px) and (max-width: 1439px) {
-    .roll_wrp .roll_wrp_item{
-        padding: 0 90px;
-    }
     .bi_inner{
         padding-left: 10px;
     }
@@ -55,9 +41,6 @@
     }
 }
 @media only screen and (min-width: 1025px) and (max-width: 1199px) {
-    .roll_wrp .roll_wrp_item{
-        padding: 0 80px;
-    }
     .bi_inner{
         padding-left: 10px;
     }
@@ -66,17 +49,11 @@
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
-    .roll_wrp .roll_wrp_item{
-        padding: 0 70px;
-    }
     .bi_inner{
         padding-left: 10px;
     }
 }
 @media only screen and (max-width: 767px) {
-    .roll_wrp .roll_wrp_item{
-        padding: 0 60px;
-    }
     .bi_inner{
         padding: 20px 0;
     }
@@ -90,8 +67,4 @@
 @media only screen and (min-width: 481px) and (max-width: 767px) {
 }
 @media only screen and (max-width: 480px) {
-    .roll_wrp .roll_wrp_item{
-        padding: 0 40px;
-        font-size: 18px;
-    }
 }

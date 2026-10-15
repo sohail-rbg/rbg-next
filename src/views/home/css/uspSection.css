@@ -1,0 +1,231 @@
+/* ==========================================================================
+   Kinetic type band (home) — replaces the old .roll_wrp marquee rows.
+   Namespaced .rbg-roll__* so it can't collide with legacy rules.
+   ========================================================================== */
+
+.rbg-roll {
+  --rbg-roll-accent: #ff9776;
+  --rbg-roll-light: #8b9c8c;
+  --rbg-roll-dark: #2e5e53;
+  --rbg-roll-ink: #0e191d;
+  position: relative;
+  overflow: hidden;
+}
+
+.rbg-roll__row {
+  position: relative;
+  padding: 34px 0;
+  overflow: hidden;
+}
+
+.rbg-roll__row--light {
+  background: var(--rbg-roll-light);
+  color: var(--rbg-roll-ink);
+}
+
+.rbg-roll__row--dark {
+  background: var(--rbg-roll-dark);
+  color: #fff;
+}
+
+/* floating labels ---------------------------------------------------------- */
+.rbg-roll__pill,
+.rbg-roll__meta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  font-family: var(--primary-font);
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.rbg-roll__pill {
+  left: 30px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(14, 25, 29, 0.55);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.rbg-roll__meta {
+  right: 30px;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  opacity: 0.62;
+}
+
+/* marquee ---------------------------------------------------------------- */
+.rbg-roll__viewport {
+  overflow: hidden;
+  transform: skewX(var(--rbg-roll-skew, 0deg));
+  transition: transform 0.12s linear;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+
+.rbg-roll__track {
+  display: flex;
+  width: max-content;
+  animation: rbg-roll-marquee var(--dur, 44s) linear infinite;
+  animation-direction: var(--dir, normal);
+  will-change: transform;
+}
+
+.rbg-roll__row:hover .rbg-roll__track {
+  animation-play-state: paused;
+}
+
+.rbg-roll__group {
+  display: flex;
+  align-items: center;
+}
+
+.rbg-roll__word {
+  display: inline-block;
+  font-family: var(--heading-font);
+  font-size: clamp(30px, 4.1vw, 56px);
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: color 0.35s ease, opacity 0.35s ease, transform 0.35s ease,
+    -webkit-text-stroke-color 0.35s ease;
+}
+
+.rbg-roll__sep {
+  margin: 0 clamp(16px, 2.2vw, 40px);
+  font-size: clamp(12px, 1.3vw, 18px);
+  color: var(--rbg-roll-accent);
+  opacity: 0.75;
+  transition: opacity 0.35s ease;
+}
+
+/* word treatments --------------------------------------------------------- */
+.rbg-roll__word.is-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px currentColor;
+  -webkit-text-stroke-color: rgba(14, 25, 29, 0.55);
+}
+
+.rbg-roll__row--dark .rbg-roll__word.is-outline {
+  color: transparent;
+  -webkit-text-stroke-color: rgba(255, 255, 255, 0.6);
+}
+
+.rbg-roll__word.is-script {
+  font-family: "Better Fonts", var(--heading-font);
+  font-size: clamp(34px, 4.7vw, 64px);
+  letter-spacing: 0;
+}
+
+.rbg-roll__word.is-accent {
+  color: var(--rbg-roll-accent);
+}
+
+/* hover: dim the band, focus the word ------------------------------------ */
+.rbg-roll__viewport:hover .rbg-roll__word,
+.rbg-roll__viewport:hover .rbg-roll__sep {
+  opacity: 0.34;
+}
+
+.rbg-roll__viewport .rbg-roll__word:hover {
+  opacity: 1;
+  color: var(--rbg-roll-accent);
+  -webkit-text-stroke-color: var(--rbg-roll-accent);
+  transform: translateY(-4px);
+}
+
+.rbg-roll__viewport .rbg-roll__word.is-accent:hover {
+  color: #fff;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media only screen and (min-width: 1200px) and (max-width: 1439px) {
+  .rbg-roll__row {
+    padding: 28px 0;
+  }
+  .rbg-roll__pill {
+    left: 22px;
+  }
+  .rbg-roll__meta {
+    right: 22px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+  .rbg-roll__row {
+    padding: 24px 0;
+  }
+  .rbg-roll__pill {
+    left: 18px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+  }
+  .rbg-roll__meta {
+    right: 18px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .rbg-roll__row {
+    padding: 18px 0;
+  }
+  .rbg-roll__word {
+    font-size: clamp(20px, 6.4vw, 30px);
+  }
+  .rbg-roll__word.is-script {
+    font-size: clamp(23px, 7.2vw, 34px);
+  }
+  .rbg-roll__sep {
+    margin: 0 16px;
+    font-size: 11px;
+  }
+  .rbg-roll__pill {
+    left: 12px;
+    padding: 6px 12px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+  .rbg-roll__meta {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Motion preferences
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .rbg-roll__track {
+    animation: none;
+  }
+  .rbg-roll__viewport {
+    transform: none;
+  }
+  .rbg-roll__word,
+  .rbg-roll__sep {
+    transition: none;
+  }
+}

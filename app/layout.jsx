@@ -23,6 +23,7 @@ import "../src/components/footer/footer.css";
 import "../src/views/home/css/whychoose.css";
 import "../src/views/home/css/weeklydrop.css";
 import "../src/views/home/css/home.css";
+import "../src/views/home/css/uspSection.css";
 import "../src/views/home/css/homeBanner.css";
 import "../src/views/home/css/homeportfolio.css";
 import "../src/views/home/css/howwework.css";
