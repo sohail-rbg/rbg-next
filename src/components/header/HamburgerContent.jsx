@@ -104,28 +104,28 @@ const social = [
     handle: "@rebrandgurusofficial",
     image: instagram,
     path: "https://www.instagram.com/rebrandgurusofficial/",
-    color: "#d6366c",
+    tint: "rgba(250, 237, 233, 0.62)",
   },
   {
     name: "Facebook",
     handle: "/rebrandgurusmarketing",
     image: facebook,
     path: "https://www.facebook.com/rebrandgurusmarketing",
-    color: "#0863F7",
+    tint: "#8b9c8c",
   },
   {
     name: "YouTube",
     handle: "@rebrandgurus",
     image: youtube,
     path: "https://www.youtube.com/channel/UClS9V3u_D4AsWhVOqZ92xrQ",
-    color: "#F60002",
+    tint: "rgba(14, 25, 29, 0.72)",
   },
   {
     name: "LinkedIn",
     handle: "/rebrandgurus",
     image: linkedIn,
     path: "https://www.linkedin.com/company/74515017/admin/dashboard/",
-    color: "#0077AF",
+    tint: "#2e5e53",
   },
 ];
 
@@ -466,7 +466,7 @@ const HamburgerContent = ({ state, onButtonClick }) => {
                   target="_blank"
                   rel="noreferrer"
                   style={{
-                    "--brand": item.color,
+                    "--brand": item.tint,
                     "--img": `url(${item.image})`,
                   }}
                 >

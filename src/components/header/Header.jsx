@@ -103,7 +103,7 @@ const Header = ({ history, frameRef }) => {
               <Link to={'/'}  id="logo" title="ReBrand Gurus">
                 <NextImage
                   data-cursor-size="80px"
-                  data-cursor-color="#FF9776"
+                  data-cursor-color="#8B9C8C"
                   src={Logo}
                   alt="ReBrand Gurus"
                   width={102}
@@ -129,7 +129,7 @@ const Header = ({ history, frameRef }) => {
               <a
                 href="tel:+1-4353950079"
                 data-cursor-size="80px"
-                data-cursor-color="#FF9776"
+                data-cursor-color="#8B9C8C"
               >
                 +1 (435)-395-0079
               </a>

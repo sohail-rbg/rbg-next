@@ -85,7 +85,7 @@ const ProcessTab = (props) => {
                 scrollThrottle={80}
                 useBoxMethod
               >
-                <Box id="section-1" backgroundColor="orange" height="100vh">
+                <Box id="section-1" backgroundColor="primary.main" height="100vh">
                   <p>Section 1</p>
                 </Box>
                 <Box id="section-2" backgroundColor="brown" height="100vh">

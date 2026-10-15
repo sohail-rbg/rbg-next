@@ -31,7 +31,7 @@ const BootstrapTooltip = styled(({ className, ...props }) => (
 const ContactForm = () => {
   const myRef = useRef();
 
-  const [color, setColor] = useState("#FF9776");
+  const [color, setColor] = useState("#8B9C8C");
   const [isSending, setIsSending] = useState(false);
   const [formStatus, setFormStatus] = useState("");
 
