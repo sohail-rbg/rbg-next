@@ -18,6 +18,7 @@ import "../src/components/css/contactPage.css";
 import "../src/components/css/iconBox.css";
 import "../src/components/header/intro.css";
 import "../src/components/header/header.css";
+import "../src/components/header/hamburger.css";
 import "../src/components/footer/footer.css";
 import "../src/views/home/css/whychoose.css";
 import "../src/views/home/css/weeklydrop.css";
