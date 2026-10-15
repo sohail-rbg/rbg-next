@@ -25,6 +25,7 @@ import "../src/views/home/css/weeklydrop.css";
 import "../src/views/home/css/home.css";
 import "../src/views/home/css/uspSection.css";
 import "../src/views/home/css/homeBanner.css";
+import "../src/views/home/css/heroSection.css";
 import "../src/views/home/css/homeportfolio.css";
 import "../src/views/home/css/howwework.css";
 import "../src/views/home/css/teamsection.css";
