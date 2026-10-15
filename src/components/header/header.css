@@ -7,8 +7,8 @@
   z-index: 9991;
   /* border-right: 1px solid rgba(240, 240, 240, 0.07); */
   mix-blend-mode: exclusion;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
+  -webkit-transition: opacity 0.5s, transform 0.5s;
+  transition: opacity 0.5s, transform 0.5s;
   color: #fff;
 }
 .header__inner {

@@ -1,10 +1,10 @@
 /* ==========================================================================
    Home hero — deliberately light.
    Everything here animates transform/opacity only, on one element at a time:
-   no blur filters, no blend modes, no scroll-driven transforms on the video
-   (each of those repainted the full-screen film every frame and was the main
-   cause of scroll stutter). The cursor image trail (.containerBox, z-index 1)
-   is untouched in homeBanner.css — these layers are pointer-events:none.
+   no blur filters, no blend modes over the film, no scroll-driven transforms
+   on the video (each of those repainted the full-screen film every frame and
+   was the main cause of scroll stutter). The cursor image trail (.containerBox,
+   z-index 1) is untouched in homeBanner.css — these layers are pointer-events:none.
    ========================================================================== */
 
 .rbg-hero {
@@ -14,11 +14,16 @@
   background: #000;
 }
 
-/* legacy green wash flattened the film — keep a light brand tint only */
+/* Brand green over the film. This used to be mix-blend-mode: multiply, which
+   forced the compositor to re-blend the whole hero against every decoded video
+   frame (the single most expensive thing on this page). A flat low-alpha tint
+   in the same hue reads almost identically — it still knocks the highlights
+   toward green and leaves the blacks alone — but composites with plain src-over,
+   so the video keeps its fast path. */
 .rbg-hero.homeBannerSection::after {
-  opacity: 0.42;
-  background: #2e5e53;
-  mix-blend-mode: multiply;
+  opacity: 1;
+  background: rgba(0, 32, 20, 0.36);
+  mix-blend-mode: normal;
 }
 
 .rbg-hero__media {

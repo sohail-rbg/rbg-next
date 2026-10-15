@@ -59,11 +59,14 @@ const WhyChoose = () => {
     backgroundPosition: 'top left'
   };
 
+  // background-attachment: fixed forced this full-viewport panel to repaint its
+  // background on every scroll frame while GSAP was scrubbing the horizontal
+  // track underneath it. It scrolls with the panel now, which looks the same
+  // and costs nothing.
   const IntroSectionStyle2 = {
     backgroundImage: `url(${introBgImg2})`,
     backgroundSize: 'cover',
-    backgroundPosition: 'top left',
-    backgroundAttachment:'fixed'
+    backgroundPosition: 'top left'
   };
 
 

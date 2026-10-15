@@ -10,12 +10,13 @@ import PackageBox from '../../components/PackageBox'
 
 const ProductSection = () => {
 
+    // background-attachment: fixed here repainted this decorative pattern on
+    // every scroll frame for the whole length of the section. Left as scroll.
     const bgImage = {
         backgroundImage: `url(${bgPattern})`,
         backgroundSize: 'auto',
         backgroundPosition: 'left -70px',
-        backgroundRepeat:'no-repeat',
-        backgroundAttachment:'fixed'
+        backgroundRepeat:'no-repeat'
       };
 
   return (

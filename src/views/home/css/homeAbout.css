@@ -38,7 +38,7 @@
 .about__content {
   position: relative;
   opacity: 1;
-  transition: 0.9s all;
+  transition: transform 0.9s ease, opacity 0.9s ease;
 }
 .about__content.active {
   transform: translateX(30px);
@@ -52,8 +52,7 @@
   bottom: 10px;
   padding: 40px;
   background: #ffffffa8;
-  backdrop-filter: blur(2px);
-  transition: 0.4s all linear;
+  transition: transform 0.4s linear, opacity 0.4s linear;
   transform: translateY(90px);
   opacity: 0;
   color: #000;
