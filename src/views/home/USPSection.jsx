@@ -3,16 +3,17 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 
 /**
- * Capability type block — full-bleed dark composition under the hero.
+ * Capability type collage — full-bleed black canvas under the hero.
  *
- * No marquee, no labels: a huge outlined watermark drifts behind two lines of
- * keywords set in alternating filled / outlined / script / sticker / gradient
- * treatments, framed by ambient glows and film grain. Letters rise into place
- * once in view, hover dims the line and lifts a word, and (on fine pointers)
- * letters are magnetic — they lean away from the cursor. A rotating brand
- * badge straddles the seam between the two lines.
+ * Not a tidy specimen: every word is set in one of six treatments (mega,
+ * script, mini caps, sticker, gradient, warp) at wildly different scales, then
+ * tilted, offset and scaled by a deterministic hash so the placement is stable
+ * between server and client but never looks gridded. Letters carry their own
+ * tilt, rise into place once in view, and lean away from the cursor. The two
+ * lines drift in opposite directions as the section crosses the viewport, and
+ * a rotating brand badge sits between them.
  *
- * Brand palette only — sage #8B9C8C, green #2E5E53, blush #faede9, ink #0e191d.
+ * Brand palette only — sage #8B9C8C, green #2E5E53, blush #faede9, ink #000.
  */
 
 const disciplines = [
@@ -38,23 +39,33 @@ const crafts = [
 
 const badgeText = "REBRAND GURUS • DIGITAL CRAFT • ";
 
-/** Letter treatments rotate through the line so the specimen never repeats. */
-const variantFor = (index) => {
-  if (index % 7 === 3) return "sticker";
-  if (index % 5 === 2) return "script";
-  if (index % 4 === 1) return "gradient";
-  if (index % 3 === 1) return "outline";
-  return "filled";
+/* Deterministic integer hash — identical on server and client, so inline
+   styles stay hydration-safe. Returns -1 … 0.99 */
+const hash = (value) => {
+  let h = 0;
+  const text = String(value);
+  for (let i = 0; i < text.length; i += 1) {
+    h = (h * 31 + text.charCodeAt(i)) | 0;
+  }
+  return ((h % 200) + 200) % 200 / 100 - 1;
 };
 
-const Letters = ({ text }) => (
+const treatments = ["mega", "script", "mini", "sticker", "gradient", "warp"];
+
+const variantFor = (index, offset) =>
+  treatments[(index + offset) % treatments.length];
+
+const Letters = ({ text, seed }) => (
   <>
     {Array.from(text).map((char, index) => (
       <span
         // eslint-disable-next-line react/no-array-index-key
         key={`${char}-${index}`}
         className="rbg-roll__ltr"
-        style={{ "--i": index }}
+        style={{
+          "--i": index,
+          "--lr": `${(hash(`${seed}-${index}`) * 5).toFixed(2)}deg`,
+        }}
         data-magnetic="1"
       >
         {char === " " ? "\u00A0" : char}
@@ -63,11 +74,27 @@ const Letters = ({ text }) => (
   </>
 );
 
-const Word = ({ word, variant }) => (
-  <span className={`rbg-roll__word is-${variant}`}>
-    {variant === "script" ? word : <Letters text={word} />}
-  </span>
-);
+const Word = ({ word, variant }) => {
+  const style = {
+    "--tilt": `${(hash(`${word}t`) * 5.5).toFixed(2)}deg`,
+    "--dy": `${(hash(`${word}y`) * 13).toFixed(1)}px`,
+    "--wscale": (1 + hash(`${word}s`) * 0.12).toFixed(3),
+  };
+
+  if (variant === "mini") {
+    return (
+      <span className={`rbg-roll__word is-mini`} style={style}>
+        {word.toUpperCase()}
+      </span>
+    );
+  }
+
+  return (
+    <span className={`rbg-roll__word is-${variant}`} style={style}>
+      {variant === "script" ? word : <Letters text={word} seed={word} />}
+    </span>
+  );
+};
 
 const RotatingBadge = ({ text }) => {
   const rawId = useId();
@@ -93,14 +120,15 @@ const RotatingBadge = ({ text }) => {
   );
 };
 
-const TypeLine = ({ words, tone }) => (
+const TypeLine = ({ words, tone, offset, driftSign }) => (
   <div className={`rbg-roll__row rbg-roll__row--${tone}`}>
-    <div className="rbg-roll__line" aria-hidden="true">
+    <div
+      className="rbg-roll__line"
+      aria-hidden="true"
+      data-drift={driftSign}
+    >
       {words.map((word, index) => (
-        <React.Fragment key={`${word}-${index}`}>
-          <Word word={word} variant={variantFor(index)} />
-          {index < words.length - 1 && <span className="rbg-roll__sep">✳</span>}
-        </React.Fragment>
+        <Word key={`${word}-${index}`} word={word} variant={variantFor(index, offset)} />
       ))}
     </div>
   </div>
@@ -134,6 +162,50 @@ const USPSection = () => {
     return () => observer.disconnect();
   }, []);
 
+  /* the two lines drift apart as the section crosses the viewport -------- */
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return undefined;
+    if (typeof window.matchMedia !== "function") return undefined;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+
+    const lines = Array.from(node.querySelectorAll("[data-drift]"));
+    if (!lines.length) return undefined;
+
+    let frame = null;
+
+    const update = () => {
+      frame = null;
+      const box = node.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      // -1 before the section is on screen … +1 after it has passed
+      const progress = Math.max(
+        -1,
+        Math.min(1, ((vh - box.top) / (vh + box.height)) * 2 - 1)
+      );
+
+      lines.forEach((line) => {
+        const sign = Number(line.dataset.drift) || 1;
+        line.style.setProperty("--drift", `${(progress * 64 * sign).toFixed(1)}px`);
+        line.style.setProperty("--line-tilt", `${(progress * 1.8 * sign).toFixed(2)}deg`);
+      });
+    };
+
+    const request = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", request);
+
+    return () => {
+      window.removeEventListener("scroll", request);
+      window.removeEventListener("resize", request);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
   /* magnetic letters — words lean away from the cursor on fine pointers -- */
   useEffect(() => {
     const node = sectionRef.current;
@@ -142,8 +214,8 @@ const USPSection = () => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
     if (!window.matchMedia("(pointer: fine)").matches) return undefined;
 
-    const RADIUS = 120;
-    const PUSH = 16;
+    const RADIUS = 130;
+    const PUSH = 18;
     let letters = [];
     let frame = null;
     let pending = null;
@@ -176,7 +248,7 @@ const USPSection = () => {
           const force = (1 - dist / RADIUS) * PUSH;
           el.style.transform = `translate3d(${((dx / dist) * force).toFixed(2)}px, ${(
             (dy / dist) * force
-          ).toFixed(2)}px, 0)`;
+          ).toFixed(2)}px, 0) rotate(var(--lr, 0deg))`;
         } else if (el.style.transform) {
           el.style.transform = "";
         }
@@ -223,20 +295,17 @@ const USPSection = () => {
       <p className="rbg-roll__sr">Disciplines: {disciplines.join(", ")}.</p>
       <p className="rbg-roll__sr">Crafts: {crafts.join(", ")}.</p>
 
-      <span className="rbg-roll__ghost" aria-hidden="true">
-        REBRAND
-      </span>
       <span className="rbg-roll__glow rbg-roll__glow--a" aria-hidden="true" />
       <span className="rbg-roll__glow rbg-roll__glow--b" aria-hidden="true" />
       <span className="rbg-roll__grain" aria-hidden="true" />
 
-      <TypeLine words={disciplines} tone="cream" />
+      <TypeLine words={disciplines} tone="cream" offset={0} driftSign={-1} />
 
       <div className="rbg-roll__seam">
         <RotatingBadge text={badgeText} />
       </div>
 
-      <TypeLine words={crafts} tone="blush" />
+      <TypeLine words={crafts} tone="blush" offset={3} driftSign={1} />
     </section>
   );
 };
