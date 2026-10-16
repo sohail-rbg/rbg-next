@@ -1,22 +1,24 @@
 /* ==========================================================================
    Home — the "About" spread.
 
-   Rebuilt as an editorial two-column spread: two plates on the left (the Utah
-   landscape, then the Downtown strip with its caption), the copy column to the
-   right. All copy and both images from the section are used, none of it is
-   hidden behind a hover any more.
+   Rebuilt as a type-led editorial spread rather than an image-left/text-right
+   block. Three moves carry it:
 
-   Motion rules: transform/opacity only. The reveals are scroll-driven CSS
-   animations (animation-timeline: view()) — no scroll listener, no rAF loop,
-   no filters, no blend modes, nothing that repaints while the page scrolls.
-   Browsers without scroll-driven animations simply get the settled layout.
+     1. the heading is set as a three-line masthead at up to 116px, on a
+        staggered indent, so the type is the section's dominant object
+     2. the two plates run off opposite page edges, which breaks the grid
+     3. the paragraph opens as a standfirst, giving the column scale contrast
+
+   Motion rules unchanged: transform/opacity only, scroll-driven CSS
+   animations, no scroll listener, no rAF loop, no blur filters. The one real
+   backdrop filter is the caption over the skyline, and it never translates.
    ========================================================================== */
 
 .rbg-about.sectionWrp {
   position: relative;
   overflow: hidden;
   background: #0c0a0b;
-  padding-block: clamp(92px, 9.5vw, 152px);
+  padding-block: clamp(96px, 10vw, 168px);
 }
 
 /* the black band above bleeds into this section instead of stopping dead */
@@ -29,61 +31,97 @@
   pointer-events: none;
 }
 
-/* Flat gradients only — no blur filter. This is what gives the glass panes
-   something to sit on and gives the section its colour temperature. */
+/* Flat gradients only — no blur filter. This gives the glass pane something to
+   sit on and keeps the section from reading as flat black. */
 .rbg-about__ambience {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
     radial-gradient(
-      62% 54% at 78% 30%,
-      rgba(46, 94, 83, 0.4) 0%,
+      54% 46% at 84% 22%,
+      rgba(46, 94, 83, 0.42) 0%,
       rgba(46, 94, 83, 0.1) 46%,
       rgba(46, 94, 83, 0) 74%
     ),
     radial-gradient(
-      44% 40% at 12% 88%,
-      rgba(139, 156, 140, 0.18) 0%,
-      rgba(139, 156, 140, 0) 70%
+      42% 38% at 6% 76%,
+      rgba(139, 156, 140, 0.2) 0%,
+      rgba(139, 156, 140, 0) 72%
     );
 }
 
-.rbg-about__grid {
-  --rbg-about-pad: clamp(20px, 4.4vw, 64px);
+/* --------------------------------------------------------------- the stage -- */
+
+.rbg-about__stage {
+  --rbg-about-pad: clamp(20px, 4.4vw, 72px);
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  column-gap: clamp(36px, 5vw, 88px);
-  align-items: center;
-  max-width: 1440px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(14px, 1.8vw, 30px);
+  row-gap: clamp(40px, 4.6vw, 78px);
+  max-width: 1720px;
   margin-inline: auto;
   padding-inline: var(--rbg-about-pad);
 }
 
-.rbg-about__media {
-  display: grid;
-  gap: clamp(18px, 2.2vw, 32px);
+/* ------------------------------------------------------------ the masthead -- */
+
+.rbg-about__masthead {
+  grid-column: 1 / -1;
+  position: relative;
+  z-index: 2;
+  margin: 0 0 clamp(6px, 1.4vw, 26px);
+  font-family: var(--heading-font);
+  font-weight: 400;
+  font-size: clamp(34px, 7.2vw, 116px);
+  line-height: 0.98;
+  letter-spacing: -0.026em;
+  color: #f4f7f4;
+}
+
+.rbg-about__line {
+  display: block;
+}
+
+/* the ragged stagger: line one flush, two nudged, three pushed further and
+   set in italic sage */
+.rbg-about__line--two {
+  padding-left: clamp(0px, 3.6vw, 58px);
+}
+
+.rbg-about__line--three {
+  padding-left: clamp(0px, 9vw, 148px);
+  font-style: italic;
+  font-weight: 300;
+  color: #8b9c8c;
 }
 
 /* ----------------------------------------------------------------- plates -- */
 
-.rbg-about__figure {
+.rbg-about__plate {
   position: relative;
   margin: 0;
 }
 
-/* the lead plate bleeds off the left edge of the page */
-.rbg-about__figure--lead {
+/* lead plate: runs off the left edge of the page */
+.rbg-about__plate--lead {
+  grid-column: 1 / 7;
   margin-left: calc(-1 * var(--rbg-about-pad));
+}
+
+/* skyline plate: runs off the right edge, on a wider, cinematic crop */
+.rbg-about__plate--downtown {
+  grid-column: 6 / -1;
+  margin-right: calc(-1 * var(--rbg-about-pad));
 }
 
 /* flat sage-green plate behind the photo — print misregistration, no filter */
 .rbg-about__offset {
   position: absolute;
-  inset: clamp(14px, 1.6vw, 22px) calc(-1 * clamp(14px, 1.6vw, 22px))
-    calc(-1 * clamp(14px, 1.6vw, 22px)) clamp(14px, 1.6vw, 22px);
-  border-radius: 10px;
+  inset: clamp(14px, 1.6vw, 24px) calc(-1 * clamp(14px, 1.6vw, 24px))
+    calc(-1 * clamp(14px, 1.6vw, 24px)) clamp(14px, 1.6vw, 24px);
+  border-radius: 12px;
   background: #2e5e53;
   pointer-events: none;
 }
@@ -91,32 +129,29 @@
 .rbg-about__frame {
   position: relative;
   overflow: hidden;
-  border-radius: 10px;
-  aspect-ratio: 4 / 3;
+  border-radius: 12px;
   background: #121212;
 }
 
+.rbg-about__frame--lead {
+  aspect-ratio: 5 / 4;
+}
+
 .rbg-about__frame--wide {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 21 / 9;
 }
 
 .rbg-about__photo {
   object-fit: cover;
-  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.rbg-about__figure--downtown:hover .rbg-about__photo {
-  transform: scale(1.045);
-}
+/* ------------------------------------------------------------ caption card -- */
 
-/* ---------------------------------------------------- downtown caption -- */
-
-/* floats over the bottom-left of the skyline, the glass blurring the photo */
 .rbg-about__caption {
   position: absolute;
-  left: clamp(16px, 2.2vw, 32px);
-  bottom: clamp(16px, 2.2vw, 32px);
-  width: min(430px, calc(100% - 2 * clamp(16px, 2.2vw, 32px)));
+  left: clamp(14px, 1.8vw, 30px);
+  bottom: clamp(14px, 1.8vw, 30px);
+  width: min(430px, calc(100% - 2 * clamp(14px, 1.8vw, 30px)));
   padding: clamp(18px, 1.9vw, 26px) clamp(20px, 2.1vw, 28px);
   background:
     linear-gradient(
@@ -153,24 +188,6 @@
   color: rgba(244, 247, 244, 0.72);
 }
 
-/* ------------------------------------------------------------------- copy -- */
-
-.rbg-about__copy {
-  padding: clamp(26px, 2.9vw, 46px) clamp(24px, 2.9vw, 50px) clamp(28px, 3.1vw, 50px);
-}
-
-.rbg-about__kicker {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 clamp(14px, 1.8vw, 24px);
-  font-size: 11.5px;
-  font-weight: 400;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: rgba(244, 247, 244, 0.6);
-}
-
 .rbg-about__dot {
   flex: none;
   width: 7px;
@@ -179,42 +196,39 @@
   background: #8b9c8c;
 }
 
-.rbg-about__title {
-  margin: 0;
-  font-family: var(--heading-font);
-  font-weight: 400;
-  font-size: clamp(32px, 4.5vw, 66px);
-  line-height: 1.04;
-  letter-spacing: -0.012em;
-  text-wrap: balance;
-  color: #f4f7f4;
+/* ------------------------------------------------------------------- copy -- */
+
+.rbg-about__copy {
+  grid-column: 7 / -1;
+  align-self: center;
 }
 
-.rbg-about__titleAccent {
-  font-style: normal;
-  font-weight: 300;
-  color: #8b9c8c;
+/* the opening sentence, at heading-adjacent scale */
+.rbg-about__standfirst {
+  margin: 0;
+  max-width: 26ch;
+  font-family: var(--heading-font);
+  font-weight: 400;
+  font-size: clamp(21px, 2vw, 32px);
+  line-height: 1.24;
+  letter-spacing: -0.008em;
+  color: #f4f7f4;
 }
 
 .rbg-about__body {
-  margin: clamp(20px, 2.2vw, 32px) 0 0;
-  max-width: 60ch;
-  font-size: clamp(16px, 1.15vw, 19px);
-  line-height: 1.62;
-  color: rgba(215, 215, 215, 0.76);
-}
-
-.rbg-about__lead {
-  font-weight: 500;
-  color: #f4f7f4;
+  margin: clamp(18px, 1.8vw, 26px) 0 0;
+  max-width: 54ch;
+  font-size: clamp(15px, 1.05vw, 17.5px);
+  line-height: 1.68;
+  color: rgba(215, 215, 215, 0.72);
 }
 
 .rbg-about__cta {
-  margin-top: clamp(28px, 3vw, 44px);
+  margin-top: clamp(26px, 2.8vw, 40px);
 }
 
-/* the Explore Us button becomes a glass pill. Lite, not real glass: it already
-   sits on the glass copy pane, and nesting backdrop-filters is a trap. */
+/* the Explore Us button becomes a glass pill. Lite, not real glass: it sits on
+   the page, and the section already spends its backdrop-filter on the caption. */
 .rbg-about__cta .button {
   border-color: rgba(255, 255, 255, 0.26);
   background:
@@ -235,16 +249,54 @@
   border-color: rgba(255, 255, 255, 0.48);
 }
 
+/* --------------------------------------------------------- marginal note -- */
+
+.rbg-about__label {
+  grid-column: 1 / 6;
+  align-self: center;
+  justify-self: start;
+  margin: 0;
+  padding-left: clamp(0px, 1.6vw, 24px);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.44em;
+  text-transform: uppercase;
+  color: rgba(139, 156, 140, 0.72);
+  white-space: nowrap;
+}
+
 /* ------------------------------------------------------- reveals on scroll -- */
 
 @keyframes rbg-about-rise {
   from {
     opacity: 0;
-    transform: translateY(26px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes rbg-about-masthead-in {
+  from {
+    opacity: 0;
+    transform: translateY(44px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rbg-about-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -259,12 +311,13 @@
   }
 }
 
+/* the green plate slides into register behind the photo */
 @keyframes rbg-about-offset-in {
   from {
     opacity: 0;
     transform: translate(
-      clamp(14px, 1.6vw, 22px),
-      clamp(14px, 1.6vw, 22px)
+      clamp(14px, 1.6vw, 24px),
+      clamp(14px, 1.6vw, 24px)
     );
   }
   to {
@@ -273,46 +326,33 @@
   }
 }
 
-/* Opacity-only for anything that is glass: translating a pane moves its
-   backdrop, which makes the browser re-run the backdrop filter every frame.
-   The text inside the copy pane still rises — a child transform does not
-   disturb the pane's own backdrop. */
-@keyframes rbg-about-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* note: the reveal never lands on .rbg-about__figure — the lead plate carries
-   the parallax hook's inline transform, and a filled animation would outrank it. */
 @supports (animation-timeline: view()) {
+  /* each masthead line arrives on its own — the cascade is the point */
+  .rbg-about__line {
+    animation: rbg-about-masthead-in linear both;
+    animation-timeline: view();
+    animation-range: entry 4% entry 68%;
+  }
+
+  .rbg-about__standfirst,
+  .rbg-about__body,
+  .rbg-about__cta,
+  .rbg-about__label {
+    animation: rbg-about-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 6% entry 74%;
+  }
+
+  /* opacity only on the glass caption — translating it would move its backdrop
+     and force a re-filter of the photo on every frame */
   .rbg-about__caption {
     animation: rbg-about-fade linear both;
     animation-timeline: view();
-    animation-range: entry 6% entry 70%;
+    animation-range: entry 8% entry 72%;
   }
 
-  .rbg-about__copy {
-    animation: rbg-about-fade linear both;
-    animation-timeline: view();
-    animation-range: entry 2% entry 52%;
-  }
-
-  .rbg-about__kicker,
-  .rbg-about__title,
-  .rbg-about__body,
-  .rbg-about__cta {
-    animation: rbg-about-rise linear both;
-    animation-timeline: view();
-    animation-range: entry 6% entry 76%;
-  }
-
-  /* fill: backwards so the inline transform from the parallax hook (and the
-     hover zoom) still win once the reveal has finished */
-  .rbg-about__figure--lead .rbg-about__photo {
+  /* fill: backwards, so the parallax hook's inline transform still wins after */
+  .rbg-about__frame--lead .rbg-about__photo {
     animation: rbg-about-photo-in linear backwards;
     animation-timeline: view();
     animation-range: entry 4% cover 44%;
@@ -330,69 +370,93 @@
    ========================================================================== */
 
 @media only screen and (max-width: 1199px) {
-  .rbg-about__title {
-    font-size: clamp(30px, 4vw, 50px);
+  .rbg-about__masthead {
+    font-size: clamp(32px, 6.4vw, 84px);
+  }
+
+  .rbg-about__standfirst {
+    max-width: 30ch;
+    font-size: clamp(20px, 2.4vw, 27px);
   }
 }
 
-/* one column, and the reading order becomes plate, copy, Downtown plate.
-   `display: contents` lifts the two plates out of the media wrapper so they can
-   be ordered around the copy without duplicating any markup. */
+/* one column: masthead, lead plate, copy, skyline plate */
 @media only screen and (max-width: 1024px) {
-  .rbg-about__grid {
+  .rbg-about__stage {
     grid-template-columns: minmax(0, 1fr);
-    row-gap: clamp(42px, 6vw, 72px);
-    align-items: start;
+    row-gap: clamp(30px, 5vw, 54px);
   }
 
-  .rbg-about__media {
-    display: contents;
+  .rbg-about__masthead,
+  .rbg-about__plate,
+  .rbg-about__copy {
+    grid-column: 1 / -1;
   }
 
-  .rbg-about__figure--lead {
+  .rbg-about__masthead {
     order: 1;
   }
 
-  .rbg-about__copy {
+  .rbg-about__plate--lead {
     order: 2;
-  }
-
-  .rbg-about__figure--downtown {
-    order: 3;
-  }
-
-  .rbg-about__figure--lead {
     margin-left: 0;
   }
 
-  .rbg-about__frame {
-    aspect-ratio: 16 / 10;
+  .rbg-about__copy {
+    order: 3;
+  }
+
+  .rbg-about__plate--downtown {
+    order: 4;
+    margin-right: 0;
+  }
+
+  /* the marginal note has no void to live in once the grid collapses */
+  .rbg-about__label {
+    display: none;
+  }
+
+  .rbg-about__frame--lead {
+    aspect-ratio: 16 / 11;
   }
 
   .rbg-about__frame--wide {
     aspect-ratio: 16 / 9;
   }
 
-  .rbg-about__caption {
-    max-width: 68ch;
-  }
-
+  .rbg-about__standfirst,
   .rbg-about__body {
-    max-width: none;
+    max-width: 62ch;
   }
 }
 
 @media only screen and (max-width: 767px) {
   .rbg-about.sectionWrp {
-    padding-block: 72px;
+    padding-block: 74px;
+  }
+
+  .rbg-about__masthead {
+    font-size: clamp(29px, 8.6vw, 46px);
+    letter-spacing: -0.018em;
+  }
+
+  .rbg-about__line--two {
+    padding-left: 0;
+  }
+
+  .rbg-about__line--three {
+    padding-left: clamp(0px, 5vw, 26px);
   }
 
   .rbg-about__offset {
-    inset: 12px -12px -12px 12px;
+    inset: 11px -11px -11px 11px;
   }
 
   .rbg-about__frame {
-    border-radius: 8px;
+    border-radius: 9px;
+  }
+
+  .rbg-about__frame--lead {
     aspect-ratio: 4 / 3;
   }
 
@@ -401,16 +465,12 @@
   .rbg-about__caption {
     position: static;
     width: 100%;
-    margin-top: 14px;
-    padding: 20px;
+    margin-top: 13px;
+    padding: 19px;
   }
 
   .rbg-about__captionBody {
     font-size: 13.5px;
-  }
-
-  .rbg-about__copy {
-    padding: 24px 20px 26px;
   }
 }
 
@@ -419,19 +479,14 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .rbg-about__frame,
-  .rbg-about__caption,
-  .rbg-about__copy,
-  .rbg-about__kicker,
-  .rbg-about__title,
+  .rbg-about__line,
+  .rbg-about__standfirst,
   .rbg-about__body,
   .rbg-about__cta,
-  .rbg-about__figure--lead .rbg-about__photo,
+  .rbg-about__label,
+  .rbg-about__caption,
+  .rbg-about__frame--lead .rbg-about__photo,
   .rbg-about__offset {
     animation: none;
-  }
-
-  .rbg-about__photo {
-    transition: none;
   }
 }
