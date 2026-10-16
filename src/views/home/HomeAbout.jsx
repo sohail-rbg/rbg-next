@@ -6,16 +6,15 @@ import EastIcon from "@mui/icons-material/East";
 import aboutImageLeft from "../../images/utah2.jpg";
 import aboutImageRight from "../../images/skyline.webp";
 import { HomePageData } from "../../Data";
-import { useParallax } from "react-scroll-parallax";
 import CustomButton from "../../components/CustomButton";
 import NextImage from "../../components/NextImage";
 
 const { aboutus } = HomePageData;
 
 /* Art direction only — not one word of the copy changes.
-   The heading is set as a three-line masthead, the closing two words lifted out
-   in italic sage. Line breaks are computed, not hardcoded, so the block survives
-   an edit to the title. */
+   The heading is set as a three-line masthead whose last two words are lifted
+   into italic sage. The line breaks are computed rather than hardcoded, so the
+   block survives an edit to the title. */
 const titleWords = aboutus.title.trim().split(/\s+/);
 const accentWords = titleWords.slice(-2);
 const leadWords = titleWords.slice(0, -2);
@@ -45,75 +44,73 @@ const firstStop = descriptionText.indexOf(". ");
 const standfirst = firstStop > 0 ? descriptionText.slice(0, firstStop + 1) : descriptionText;
 const bodyText = firstStop > 0 ? descriptionText.slice(firstStop + 1).trim() : "";
 
-const HomeAbout = () => {
-  // transform-only drift, on the plate that runs off the left edge
-  const leadDrift = useParallax({ speed: 8 });
+const HomeAbout = () => (
+  <section className="sectionWrp rbg-about">
+    {/* ---- act one: the claim, type only, on black ---------------------- */}
+    <div className="rbg-about__claim">
+      <span className="rbg-about__rail" aria-hidden="true">
+        Salt Lake City — Utah
+      </span>
 
-  return (
-    <section className="sectionWrp rbg-about">
-      <div className="rbg-about__ambience" aria-hidden="true" />
+      <h2 className="rbg-about__masthead">
+        {/* the explicit spaces matter: the lines are display:block, so without
+            them the heading's text content runs the words together for screen
+            readers and crawlers ("potentialof your business withcreative"). */}
+        <span className="rbg-about__line">{titleLines[0]}</span>{" "}
+        <span className="rbg-about__line">{titleLines[1]}</span>{" "}
+        <em className="rbg-about__line rbg-about__line--accent">{titleLines[2]}</em>
+      </h2>
 
-      <div className="rbg-about__stage">
-        <h2 className="rbg-about__masthead">
-          <span className="rbg-about__line rbg-about__line--one">{titleLines[0]}</span>
-          <span className="rbg-about__line rbg-about__line--two">{titleLines[1]}</span>
-          <span className="rbg-about__line rbg-about__line--three">{titleLines[2]}</span>
-        </h2>
+      <div className="rbg-about__copy">
+        <p className="rbg-about__standfirst">{standfirst}</p>
+        {bodyText ? <p className="rbg-about__body">{bodyText}</p> : null}
 
-        <figure className="rbg-about__plate rbg-about__plate--lead" ref={leadDrift.ref}>
-          <span className="rbg-about__offset" aria-hidden="true" />
-          <div className="rbg-about__frame rbg-about__frame--lead">
-            <NextImage
-              src={aboutImageLeft}
-              fill
-              alt={aboutus.title}
-              className="rbg-about__photo"
-              sizes="(max-width: 1024px) 100vw, 56vw"
-              quality={78}
-            />
-          </div>
-        </figure>
+        <div className="rbg-about__cta">
+          <CustomButton margin="0" link="/about-us" endIcon={<EastIcon />}>
+            {aboutus.button.text}
+          </CustomButton>
+        </div>
+      </div>
+    </div>
 
-        <div className="rbg-about__copy">
-          <p className="rbg-about__standfirst">{standfirst}</p>
-          {bodyText ? <p className="rbg-about__body">{bodyText}</p> : null}
+    {/* ---- act two: the place. A full-bleed plate with the skyline card
+             overlapping up out of it, so the two images layer instead of
+             sitting in neighbouring cells. ------------------------------- */}
+    <div className="rbg-about__place">
+      <figure className="rbg-about__utah">
+        <NextImage
+          src={aboutImageLeft}
+          fill
+          alt={aboutus.title}
+          className="rbg-about__photo"
+          sizes="100vw"
+          quality={78}
+        />
+      </figure>
 
-          <div className="rbg-about__cta">
-            <CustomButton margin="0" link="/about-us" endIcon={<EastIcon />}>
-              {aboutus.button.text}
-            </CustomButton>
-          </div>
+      <figure className="rbg-about__skyline">
+        <div className="rbg-about__skylineFrame">
+          <NextImage
+            src={aboutImageRight}
+            fill
+            alt={aboutus.rightImage.alt}
+            className="rbg-about__photo"
+            sizes="(max-width: 1024px) 100vw, 46vw"
+          />
         </div>
 
-        {/* marginal note in the void the two plates leave behind */}
-        <p className="rbg-about__label" aria-hidden="true">
-          Salt Lake City — Utah
-        </p>
-
-        <figure className="rbg-about__plate rbg-about__plate--downtown">
-          <div className="rbg-about__frame rbg-about__frame--wide">
-            <NextImage
-              src={aboutImageRight}
-              fill
-              alt={aboutus.rightImage.alt}
-              className="rbg-about__photo"
-              sizes="(max-width: 1024px) 100vw, 62vw"
-            />
-          </div>
-
-          {/* real glass: the photo is directly behind this pane, so the blur has
-              something to diffuse, and neither the photo nor the pane moves */}
-          <figcaption className="rbg-about__caption rbg-glass rbg-glass--slab">
-            <span className="rbg-about__captionTitle">
-              <span className="rbg-about__dot" aria-hidden="true" />
-              {aboutus.hoverBox.heading}
-            </span>
-            <span className="rbg-about__captionBody">{aboutus.hoverBox.description}</span>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-  );
-};
+        {/* real glass: the photo sits directly behind this pane, so the blur has
+            something to diffuse, and neither the photo nor the pane moves */}
+        <figcaption className="rbg-about__caption rbg-glass rbg-glass--slab">
+          <span className="rbg-about__captionTitle">
+            <span className="rbg-about__dot" aria-hidden="true" />
+            {aboutus.hoverBox.heading}
+          </span>
+          <span className="rbg-about__captionBody">{aboutus.hoverBox.description}</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+);
 
 export default HomeAbout;

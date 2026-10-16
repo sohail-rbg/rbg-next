@@ -1,13 +1,20 @@
 /* ==========================================================================
    Home — the "About" spread.
 
-   Rebuilt as a type-led editorial spread rather than an image-left/text-right
-   block. Three moves carry it:
+   Two acts, deliberately unlike each other, because a single uniform grid is
+   what made this section read as a template:
 
-     1. the heading is set as a three-line masthead at up to 116px, on a
-        staggered indent, so the type is the section's dominant object
-     2. the two plates run off opposite page edges, which breaks the grid
-     3. the paragraph opens as a standfirst, giving the column scale contrast
+     act one  a typographic claim. Pure black, no imagery, no glow. The heading
+              runs to 112px on a computed three-line break, closing in italic
+              sage, with the copy pushed right so the left third stays empty
+              except for a rotated city rail. The emptiness is the design.
+     act two  the place. The Utah photograph goes full-bleed, and the skyline
+              card is lifted out of its bottom edge so the two photographs
+              layer rather than sit in neighbouring cells.
+
+   Removed in this pass: the ambient green glow, the offset green plate behind
+   the lead image, and the parallax drift — the glow and the plate were texture
+   used elsewhere on the page, and repetition is what made this feel thin.
 
    Motion rules unchanged: transform/opacity only, scroll-driven CSS
    animations, no scroll listener, no rAF loop, no blur filters. The one real
@@ -18,65 +25,47 @@
   position: relative;
   overflow: hidden;
   background: #0c0a0b;
-  padding-block: clamp(96px, 10vw, 168px);
+  padding-block: 0;
 }
 
-/* the black band above bleeds into this section instead of stopping dead */
-.rbg-about::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: clamp(80px, 12vh, 170px);
-  background: linear-gradient(180deg, #000 0%, rgba(12, 10, 11, 0) 100%);
-  pointer-events: none;
-}
+/* ==========================================================================
+   Act one — the claim
+   ========================================================================== */
 
-/* Flat gradients only — no blur filter. This gives the glass pane something to
-   sit on and keeps the section from reading as flat black. */
-.rbg-about__ambience {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      54% 46% at 84% 22%,
-      rgba(46, 94, 83, 0.42) 0%,
-      rgba(46, 94, 83, 0.1) 46%,
-      rgba(46, 94, 83, 0) 74%
-    ),
-    radial-gradient(
-      42% 38% at 6% 76%,
-      rgba(139, 156, 140, 0.2) 0%,
-      rgba(139, 156, 140, 0) 72%
-    );
-}
-
-/* --------------------------------------------------------------- the stage -- */
-
-.rbg-about__stage {
-  --rbg-about-pad: clamp(20px, 4.4vw, 72px);
+.rbg-about__claim {
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(14px, 1.8vw, 30px);
-  row-gap: clamp(40px, 4.6vw, 78px);
   max-width: 1720px;
   margin-inline: auto;
-  padding-inline: var(--rbg-about-pad);
+  padding: clamp(96px, 10vw, 176px) clamp(20px, 4.4vw, 72px) clamp(56px, 6vw, 104px);
 }
 
-/* ------------------------------------------------------------ the masthead -- */
+/* ------------------------------------------------------------------ rail -- */
+
+.rbg-about__rail {
+  position: absolute;
+  left: clamp(20px, 4.4vw, 72px);
+  top: clamp(132px, 12vw, 200px);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.46em;
+  text-transform: uppercase;
+  color: rgba(139, 156, 140, 0.7);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* -------------------------------------------------------------- masthead -- */
 
 .rbg-about__masthead {
-  grid-column: 1 / -1;
-  position: relative;
-  z-index: 2;
-  margin: 0 0 clamp(6px, 1.4vw, 26px);
+  margin: 0;
+  /* sized off vw, not off a column, so it always reads as the dominant object */
   font-family: var(--heading-font);
   font-weight: 400;
-  font-size: clamp(34px, 7.2vw, 116px);
-  line-height: 0.98;
-  letter-spacing: -0.026em;
+  font-size: clamp(36px, 7.4vw, 112px);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
   color: #f4f7f4;
 }
 
@@ -84,75 +73,116 @@
   display: block;
 }
 
-/* the ragged stagger: line one flush, two nudged, three pushed further and
-   set in italic sage */
-.rbg-about__line--two {
-  padding-left: clamp(0px, 3.6vw, 58px);
-}
-
-.rbg-about__line--three {
-  padding-left: clamp(0px, 9vw, 148px);
+.rbg-about__line--accent {
   font-style: italic;
   font-weight: 300;
   color: #8b9c8c;
 }
 
-/* ----------------------------------------------------------------- plates -- */
+/* ------------------------------------------------------------------ copy -- */
 
-.rbg-about__plate {
-  position: relative;
+/* pushed right: the empty left third is what gives the masthead room to be
+   loud without the section feeling crowded */
+.rbg-about__copy {
+  width: min(100%, 58ch);
+  margin-left: auto;
+  margin-top: clamp(30px, 3.6vw, 62px);
+}
+
+.rbg-about__standfirst {
   margin: 0;
+  font-family: var(--heading-font);
+  font-weight: 400;
+  font-size: clamp(21px, 1.95vw, 31px);
+  line-height: 1.26;
+  letter-spacing: -0.008em;
+  color: #f4f7f4;
 }
 
-/* lead plate: runs off the left edge of the page */
-.rbg-about__plate--lead {
-  grid-column: 1 / 7;
-  margin-left: calc(-1 * var(--rbg-about-pad));
+.rbg-about__body {
+  margin: clamp(18px, 1.8vw, 26px) 0 0;
+  font-size: clamp(15px, 1.05vw, 17.5px);
+  line-height: 1.7;
+  color: rgba(215, 215, 215, 0.72);
 }
 
-/* skyline plate: runs off the right edge, on a wider, cinematic crop */
-.rbg-about__plate--downtown {
-  grid-column: 6 / -1;
-  margin-right: calc(-1 * var(--rbg-about-pad));
+.rbg-about__cta {
+  margin-top: clamp(28px, 3vw, 44px);
 }
 
-/* flat sage-green plate behind the photo — print misregistration, no filter */
-.rbg-about__offset {
-  position: absolute;
-  inset: clamp(14px, 1.6vw, 24px) calc(-1 * clamp(14px, 1.6vw, 24px))
-    calc(-1 * clamp(14px, 1.6vw, 24px)) clamp(14px, 1.6vw, 24px);
-  border-radius: 12px;
-  background: #2e5e53;
-  pointer-events: none;
+/* a bigger, confident pill than the site's default button */
+.rbg-about__cta .button {
+  padding: 17px 42px;
+  border-color: rgba(255, 255, 255, 0.28);
+  background:
+    linear-gradient(
+      148deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.035) 38%,
+      rgba(255, 255, 255, 0) 62%
+    ),
+    rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+    0 14px 32px rgba(0, 0, 0, 0.38);
 }
 
-.rbg-about__frame {
+.rbg-about__cta .button:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================================
+   Act two — the place
+   ========================================================================== */
+
+.rbg-about__place {
   position: relative;
+}
+
+/* full-bleed: no radius, no container padding — it runs edge to edge */
+.rbg-about__utah {
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 100%;
+  height: clamp(300px, 46vh, 560px);
   overflow: hidden;
-  border-radius: 12px;
   background: #121212;
-}
-
-.rbg-about__frame--lead {
-  aspect-ratio: 5 / 4;
-}
-
-.rbg-about__frame--wide {
-  aspect-ratio: 21 / 9;
 }
 
 .rbg-about__photo {
   object-fit: cover;
 }
 
+/* lifted up out of the photograph below it, and out past the right gutter */
+.rbg-about__skyline {
+  position: relative;
+  z-index: 2;
+  width: min(48%, 620px);
+  margin-left: auto;
+  margin-right: clamp(20px, 4.4vw, 72px);
+  margin-top: clamp(-150px, -13vh, -70px);
+  margin-bottom: clamp(72px, 8vw, 132px);
+}
+
+.rbg-about__skylineFrame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  aspect-ratio: 4 / 3;
+  background: #121212;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
+}
+
 /* ------------------------------------------------------------ caption card -- */
 
 .rbg-about__caption {
   position: absolute;
-  left: clamp(14px, 1.8vw, 30px);
-  bottom: clamp(14px, 1.8vw, 30px);
-  width: min(430px, calc(100% - 2 * clamp(14px, 1.8vw, 30px)));
-  padding: clamp(18px, 1.9vw, 26px) clamp(20px, 2.1vw, 28px);
+  left: clamp(12px, 1.5vw, 22px);
+  bottom: clamp(12px, 1.5vw, 22px);
+  width: min(400px, calc(100% - 2 * clamp(12px, 1.5vw, 22px)));
+  padding: clamp(16px, 1.6vw, 24px) clamp(18px, 1.8vw, 26px);
   background:
     linear-gradient(
       148deg,
@@ -185,7 +215,7 @@
   margin-top: 10px;
   font-size: clamp(12px, 0.86vw, 13.5px);
   line-height: 1.6;
-  color: rgba(244, 247, 244, 0.72);
+  color: rgba(244, 247, 244, 0.75);
 }
 
 .rbg-about__dot {
@@ -196,83 +226,12 @@
   background: #8b9c8c;
 }
 
-/* ------------------------------------------------------------------- copy -- */
-
-.rbg-about__copy {
-  grid-column: 7 / -1;
-  align-self: center;
-}
-
-/* the opening sentence, at heading-adjacent scale */
-.rbg-about__standfirst {
-  margin: 0;
-  max-width: 26ch;
-  font-family: var(--heading-font);
-  font-weight: 400;
-  font-size: clamp(21px, 2vw, 32px);
-  line-height: 1.24;
-  letter-spacing: -0.008em;
-  color: #f4f7f4;
-}
-
-.rbg-about__body {
-  margin: clamp(18px, 1.8vw, 26px) 0 0;
-  max-width: 54ch;
-  font-size: clamp(15px, 1.05vw, 17.5px);
-  line-height: 1.68;
-  color: rgba(215, 215, 215, 0.72);
-}
-
-.rbg-about__cta {
-  margin-top: clamp(26px, 2.8vw, 40px);
-}
-
-/* the Explore Us button becomes a glass pill. Lite, not real glass: it sits on
-   the page, and the section already spends its backdrop-filter on the caption. */
-.rbg-about__cta .button {
-  border-color: rgba(255, 255, 255, 0.26);
-  background:
-    linear-gradient(
-      148deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      rgba(255, 255, 255, 0.035) 38%,
-      rgba(255, 255, 255, 0) 62%
-    ),
-    rgba(255, 255, 255, 0.08);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.34),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.28),
-    0 12px 28px rgba(0, 0, 0, 0.34);
-}
-
-.rbg-about__cta .button:hover {
-  border-color: rgba(255, 255, 255, 0.48);
-}
-
-/* --------------------------------------------------------- marginal note -- */
-
-.rbg-about__label {
-  grid-column: 1 / 6;
-  align-self: center;
-  justify-self: start;
-  margin: 0;
-  padding-left: clamp(0px, 1.6vw, 24px);
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.44em;
-  text-transform: uppercase;
-  color: rgba(139, 156, 140, 0.72);
-  white-space: nowrap;
-}
-
 /* ------------------------------------------------------- reveals on scroll -- */
 
-@keyframes rbg-about-rise {
+@keyframes rbg-about-masthead-in {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(46px);
   }
   to {
     opacity: 1;
@@ -280,10 +239,10 @@
   }
 }
 
-@keyframes rbg-about-masthead-in {
+@keyframes rbg-about-rise {
   from {
     opacity: 0;
-    transform: translateY(44px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -300,25 +259,10 @@
   }
 }
 
-@keyframes rbg-about-photo-in {
+@keyframes rbg-about-plate-in {
   from {
-    opacity: 0.4;
-    transform: scale(1.06);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* the green plate slides into register behind the photo */
-@keyframes rbg-about-offset-in {
-  from {
-    opacity: 0;
-    transform: translate(
-      clamp(14px, 1.6vw, 24px),
-      clamp(14px, 1.6vw, 24px)
-    );
+    opacity: 0.55;
+    transform: scale(1.05);
   }
   to {
     opacity: 1;
@@ -327,41 +271,33 @@
 }
 
 @supports (animation-timeline: view()) {
-  /* each masthead line arrives on its own — the cascade is the point */
+  /* the masthead arrives line by line — the cascade is the point */
   .rbg-about__line {
     animation: rbg-about-masthead-in linear both;
     animation-timeline: view();
-    animation-range: entry 4% entry 68%;
+    animation-range: entry 4% entry 66%;
   }
 
   .rbg-about__standfirst,
   .rbg-about__body,
-  .rbg-about__cta,
-  .rbg-about__label {
+  .rbg-about__cta {
     animation: rbg-about-rise linear both;
     animation-timeline: view();
     animation-range: entry 6% entry 74%;
   }
 
-  /* opacity only on the glass caption — translating it would move its backdrop
-     and force a re-filter of the photo on every frame */
-  .rbg-about__caption {
+  /* opacity only: the skyline card carries the glass caption, and translating
+     it would move the pane's backdrop and re-filter the photo every frame */
+  .rbg-about__skyline {
     animation: rbg-about-fade linear both;
     animation-timeline: view();
-    animation-range: entry 8% entry 72%;
+    animation-range: entry 12% entry 78%;
   }
 
-  /* fill: backwards, so the parallax hook's inline transform still wins after */
-  .rbg-about__frame--lead .rbg-about__photo {
-    animation: rbg-about-photo-in linear backwards;
+  .rbg-about__utah .rbg-about__photo {
+    animation: rbg-about-plate-in linear backwards;
     animation-timeline: view();
-    animation-range: entry 4% cover 44%;
-  }
-
-  .rbg-about__offset {
-    animation: rbg-about-offset-in linear both;
-    animation-timeline: view();
-    animation-range: entry 4% cover 40%;
+    animation-range: cover 4% cover 62%;
   }
 }
 
@@ -371,102 +307,70 @@
 
 @media only screen and (max-width: 1199px) {
   .rbg-about__masthead {
-    font-size: clamp(32px, 6.4vw, 84px);
+    font-size: clamp(34px, 6.8vw, 88px);
   }
 
-  .rbg-about__standfirst {
-    max-width: 30ch;
-    font-size: clamp(20px, 2.4vw, 27px);
+  .rbg-about__copy {
+    width: min(100%, 52ch);
   }
 }
 
-/* one column: masthead, lead plate, copy, skyline plate */
 @media only screen and (max-width: 1024px) {
-  .rbg-about__stage {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: clamp(30px, 5vw, 54px);
-  }
-
-  .rbg-about__masthead,
-  .rbg-about__plate,
-  .rbg-about__copy {
-    grid-column: 1 / -1;
-  }
-
-  .rbg-about__masthead {
-    order: 1;
-  }
-
-  .rbg-about__plate--lead {
-    order: 2;
-    margin-left: 0;
-  }
-
-  .rbg-about__copy {
-    order: 3;
-  }
-
-  .rbg-about__plate--downtown {
-    order: 4;
-    margin-right: 0;
-  }
-
-  /* the marginal note has no void to live in once the grid collapses */
-  .rbg-about__label {
+  .rbg-about__rail {
     display: none;
   }
 
-  .rbg-about__frame--lead {
-    aspect-ratio: 16 / 11;
+  .rbg-about__masthead {
+    font-size: clamp(32px, 6.4vw, 76px);
   }
 
-  .rbg-about__frame--wide {
-    aspect-ratio: 16 / 9;
+  /* the copy stops hugging the right edge once the measure is this narrow */
+  .rbg-about__copy {
+    width: 100%;
+    margin-left: 0;
   }
 
-  .rbg-about__standfirst,
-  .rbg-about__body {
-    max-width: 62ch;
+  .rbg-about__utah {
+    height: clamp(260px, 40vh, 420px);
+  }
+
+  .rbg-about__skyline {
+    width: min(64%, 560px);
+    margin-top: clamp(-110px, -10vh, -50px);
+    margin-bottom: clamp(56px, 7vw, 92px);
   }
 }
 
 @media only screen and (max-width: 767px) {
-  .rbg-about.sectionWrp {
-    padding-block: 74px;
+  .rbg-about__claim {
+    padding: 76px 20px 46px;
   }
 
   .rbg-about__masthead {
-    font-size: clamp(29px, 8.6vw, 46px);
-    letter-spacing: -0.018em;
+    font-size: clamp(30px, 9vw, 48px);
+    letter-spacing: -0.02em;
   }
 
-  .rbg-about__line--two {
-    padding-left: 0;
+  .rbg-about__utah {
+    height: clamp(220px, 34vh, 320px);
   }
 
-  .rbg-about__line--three {
-    padding-left: clamp(0px, 5vw, 26px);
+  /* no room to layer an overlap at this width — it sits below, full width */
+  .rbg-about__skyline {
+    width: 100%;
+    margin: 0;
+    padding: 0 20px 64px;
   }
 
-  .rbg-about__offset {
-    inset: 11px -11px -11px 11px;
+  .rbg-about__skylineFrame {
+    border-radius: 12px;
   }
 
-  .rbg-about__frame {
-    border-radius: 9px;
-  }
-
-  .rbg-about__frame--lead {
-    aspect-ratio: 4 / 3;
-  }
-
-  /* too little room to float a card over the photo on a phone — it sits under
-     it instead, keeping the same material */
   .rbg-about__caption {
     position: static;
     width: 100%;
-    margin-top: 13px;
-    padding: 19px;
+    margin-top: 12px;
+    padding: 18px;
   }
 
   .rbg-about__captionBody {
@@ -483,10 +387,8 @@
   .rbg-about__standfirst,
   .rbg-about__body,
   .rbg-about__cta,
-  .rbg-about__label,
-  .rbg-about__caption,
-  .rbg-about__frame--lead .rbg-about__photo,
-  .rbg-about__offset {
+  .rbg-about__skyline,
+  .rbg-about__utah .rbg-about__photo {
     animation: none;
   }
 }
