@@ -2,6 +2,9 @@ const path = require("path");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Allow the sandboxed preview host (https://<port>-<sandbox>.e2b.app)
+  // to talk to the dev server.
+  allowedDevOrigins: ["*.e2b.app", "*.arena.ai"],
   images: {
     disableStaticImages: true,
     formats: ["image/avif", "image/webp"],

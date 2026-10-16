@@ -28,6 +28,7 @@ import "../src/views/home/css/howwework.css";
 import "../src/views/home/css/teamsection.css";
 import "../src/views/home/css/homeAbout.css";
 import "../src/views/home/css/homePort.css";
+import "../src/views/home/css/editorial.css";
 import "../src/views/services/webdesign/webserviceTab.css";
 import "../src/views/services/webdesign/webskills.css";
 import "../src/views/services/webdesign/processwebdesign.css";
