@@ -72,6 +72,40 @@
   pointer-events: none;
 }
 
+/* Liquid-glass pane the type sits on. Bounded width on purpose: this is the one
+   surface on the page with a moving backdrop (the film behind it), so the
+   filtered region is kept small. Flip --rbg-glass-blur to 0px (or set
+   data-glass="off" on <html>) to drop the blur and keep the look. */
+.rbg-hero .rbg-hero__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(920px, 100%);
+  padding: clamp(24px, 3.4vw, 52px) clamp(22px, 4vw, 72px) clamp(28px, 3.8vw, 58px);
+  /* the pane keeps the softer --glass sweep; a touch more fill than the default
+     so the wordmark stays readable over bright frames of the film */
+  background:
+    linear-gradient(
+      148deg,
+      rgba(255, 255, 255, 0.13) 0%,
+      rgba(255, 255, 255, 0.03) 38%,
+      rgba(255, 255, 255, 0) 62%
+    ),
+    rgba(12, 16, 15, 0.24);
+  /* opacity-only: a transform here would move the pane and force the browser to
+     re-filter the film behind it on every frame of the entrance */
+  animation: rbg-hero-stage 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rbg-hero-stage {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .rbg-hero__wordmark {
   animation: rbg-hero-wordmark 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -193,14 +227,14 @@
 /* Copy eases away into the next section instead of being cut off, and the cue
    retires as soon as the reader has taken the hint. */
 
+/* opacity only: the pane inside this wrapper is real glass, and translating it
+   would move its backdrop, making the browser re-filter the film every frame */
 @keyframes rbg-hero-type-out {
   from {
     opacity: 1;
-    transform: none;
   }
   to {
     opacity: 0;
-    transform: translateY(34px);
   }
 }
 

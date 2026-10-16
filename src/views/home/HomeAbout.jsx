@@ -25,12 +25,15 @@ const bodyLead = aboutus.description.slice(0, firstComma + 1);
 const bodyRest = aboutus.description.slice(firstComma + 1);
 
 const HomeAbout = () => {
-  // Small, transform-only parallax drift on the two plates.
+  // Small, transform-only parallax drift on the lead plate only. The Downtown
+  // plate deliberately has none: the glass caption sits over it, and a moving
+  // backdrop would make the browser re-filter the pane on every frame.
   const leadDrift = useParallax({ speed: 8 });
-  const downtownDrift = useParallax({ speed: -6 });
 
   return (
     <section className="sectionWrp rbg-about">
+      <div className="rbg-about__ambience" aria-hidden="true" />
+
       <div className="rbg-about__grid">
         <div className="rbg-about__media">
           <figure className="rbg-about__figure rbg-about__figure--lead" ref={leadDrift.ref}>
@@ -47,7 +50,7 @@ const HomeAbout = () => {
             </div>
           </figure>
 
-          <figure className="rbg-about__figure rbg-about__figure--downtown" ref={downtownDrift.ref}>
+          <figure className="rbg-about__figure rbg-about__figure--downtown">
             <div className="rbg-about__frame rbg-about__frame--wide">
               <NextImage
                 src={aboutImageRight}
@@ -57,7 +60,9 @@ const HomeAbout = () => {
                 sizes="(max-width: 1024px) 100vw, 46vw"
               />
             </div>
-            <figcaption className="rbg-about__caption">
+            {/* real glass: the skyline photo is directly behind this pane, so
+                the blur actually has something to diffuse. Static backdrop. */}
+            <figcaption className="rbg-about__caption rbg-glass rbg-glass--slab">
               <span className="rbg-about__captionTitle">
                 <span className="rbg-about__dot" aria-hidden="true" />
                 {aboutus.hoverBox.heading}
@@ -67,7 +72,9 @@ const HomeAbout = () => {
           </figure>
         </div>
 
-        <div className="rbg-about__copy">
+        {/* lite glass: behind this column is a smooth gradient, where a real
+            backdrop-filter would cost a full-column blur and look identical */}
+        <div className="rbg-about__copy rbg-glass rbg-glass--lite">
           <p className="rbg-about__kicker">
             <span className="rbg-about__dot" aria-hidden="true" />
             Salt Lake City, Utah

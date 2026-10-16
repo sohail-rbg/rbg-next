@@ -72,23 +72,25 @@ const HeroSection = () => {
       <span className="rbg-hero__merge" aria-hidden="true" />
 
       <div className="bannerTextWrp rbg-hero__type">
-        <NextImage
-          src={rbgIcon}
-          className="img-fluid rbg-hero__wordmark"
-          alt="ReBrand Gurus"
-          width={640}
-          height={263}
-          sizes="(max-width: 767px) calc(100vw - 48px), 80vw"
-          priority
-        />
-        <h3 className="rbg-hero__tagline">
-          {tagline.split(" ").map((word, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <span className="rbg-hero__word" style={{ "--i": index }} key={`${word}-${index}`}>
-              {word}
-            </span>
-          ))}
-        </h3>
+        <div className="rbg-hero__stage rbg-glass rbg-glass--squircle">
+          <NextImage
+            src={rbgIcon}
+            className="img-fluid rbg-hero__wordmark"
+            alt="ReBrand Gurus"
+            width={640}
+            height={263}
+            sizes="(max-width: 767px) calc(100vw - 48px), 80vw"
+            priority
+          />
+          <h3 className="rbg-hero__tagline">
+            {tagline.split(" ").map((word, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <span className="rbg-hero__word" style={{ "--i": index }} key={`${word}-${index}`}>
+                {word}
+              </span>
+            ))}
+          </h3>
+        </div>
       </div>
 
       <div className="rbg-hero__cueWrp">
@@ -98,7 +100,7 @@ const HeroSection = () => {
           onClick={handleScrollCue}
           aria-label="Scroll to the next section"
         >
-          <span className="rbg-hero__cue-pill">
+          <span className="rbg-hero__cue-pill rbg-glass rbg-glass--lite rbg-glass--pill">
             <span className="rbg-hero__cue-dot" />
           </span>
           <span className="rbg-hero__cue-label">scroll</span>

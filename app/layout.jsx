@@ -12,6 +12,7 @@ import "../src/components/css/addressCrousel.css";
 import "../src/components/css/embla.css";
 import "../src/components/css/roundBtn.css";
 import "../src/components/css/button.css";
+import "../src/components/css/glass.css";
 import "../src/components/css/pageheader.css";
 import "../src/components/css/packageBox.css";
 import "../src/components/css/contactPage.css";
